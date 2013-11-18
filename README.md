@@ -1,27 +1,30 @@
-flask-bamboo
+Bamboo
 ============
 
-Application RESTful avec Flask (+Assets) + Backbone Marionette + Bootstrap
 
 Get Started
 -----------
  
-1. `git clone https://github.com/gloaec/flask-bamboo.git` Clone the project
-2. `cd flask-bamboo` Go to the project directory
-3. `.bamboo/install` Install Bamboo & cies
-4. `bamboo server` Browse to [localhost:8080](http://localhost:8080)
+1. `git clone https://github.com/gloaec/bamboo.git` Clone the project
+2. `cd bamboo` Go to the project directory
+3. `[sudo] python setup.py install` Install Bamboo & cies
+4. `bamboo new <app_name>` Create a new application
+5. `cd <app_bamboo>` Go to the new application root
+6. `bamboo server` Browse to [localhost:8080](http://localhost:8080)
 
 Bamboo Features
------------------
+---------------
 
-Bamboo aims to provide environment, tools and methods for any-scale application
-developpment. It indented code lovers.
+Bamboo aims to provide architecture, environment, command line utilities and
+methods for any-scale application developpment. Intended to indented code lovers, 
+bamboo bootstraps all the good practices of modern RESTful application
+deployment.
 
 
-Bamboo Tree
--------------
+Bamboo Application Tree
+-----------------------
 
-    flask-bamboo
+    bamboo-app
     ├── app
     │   ├── __init__.py
     │   ├── models
