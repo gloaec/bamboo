@@ -9,13 +9,17 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/manager.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/util.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/.db_manager.swp
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/application.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/util.py
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/app.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/db_manager.py
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/app.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/manager.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/commands.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/_compat.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/_compat.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/migrate.py
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/application.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/.__init__.py.swp
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/migrate.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/.__init__.py.swo
@@ -259,6 +263,9 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/app/modules/my_app/models/__init__.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/app/modules/my_app/models/h3.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/app/modules/my_app/models/h3.py
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/app/apis/bases.py
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/app/apis/__init__.py
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/app/apis/__init__.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/app/templates/404.html.haml
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/app/templates/layout/base.html.haml
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/app/models/folder.py
@@ -278,6 +285,7 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/refs/remotes/origin/master
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/refs/remotes/origin/HEAD
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/refs/heads/master
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/68/dc2560a88ebf2829ca73bda7f779d12b4b1def
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/68/ed2f5f68cc7e7175c609573b0add3dcc478ef7
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/60/ff254d03f11d28491fc50848c68284070f98b6
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/60/1d7b5db9df2400e881ac418cbf944ea20adbff
@@ -316,6 +324,7 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/98/b70aa9a9bbb9b6026d94c96b42a4f3c89943f9
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/98/e4f9c44effe479ed38c66ba922e7bcc672916f
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/ce/a64680a5b59a8a3244f0e9bd118ef22be945ba
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/e4/5fd501b6841d38f71d56a03ae9eeb52de0a5bc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/e4/12d90d9308c0f6003dda39e051a002a3250214
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/f9/93f455c79910a2eae4eb1cab29700ba863adff
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/7c/03f68c7f8898f7e9dd739eb5351daca7aee748
@@ -348,8 +357,10 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/9c/8a4645844653fdf0973dc6b2970b214ba6a2b8
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/73/df5d6af659f7d27af599e03f0e334e19f0037f
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/73/a7a2fce66518ee398e323101afc9b678665fb3
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/33/c1d59470ff929523fc7ff80039cd9bbb499e3d
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/6e/8f2f47e2f3bcda0f408be064b66102f8a5628c
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/6e/804e4f8c99cbb34e4267afa5ac498e5e30909c
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/6e/948fd275ee9d4a8941c03569fad1bead5f52ac
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/4f/258c88932255a6f0d16b4b3e3406c6d0b9d215
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/1e/6823f9a132cf2edc9a3d619b58e30fb45bdbd9
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/46/6e34298a683d6bc19632a5d83a8fea1977a100
@@ -379,6 +390,7 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/54/54a3721513963bffe103ed2bac38816c88f5c4
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/54/b621d1e4d75dbe05894968f599c40b7c473f5a
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/3e/5260f6fe9e0bf706d3c680128ce5cc8cbe9fde
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/3e/ff1885da42777d07137d758cce58210edfef83
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/6f/95cdd50b4a7648219207c819c267beab0b0eac
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/6f/fbeeaae84d08dfea4f460186d23b476a9cf8db
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/94/d627717d9aebfad91d88ecb7c3f3765f26a84c
@@ -417,6 +429,7 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/b1/44f9ddae95660171081f6c02e471d312a2ceef
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/b1/b0969d5555dc9d249545a21ec6f6f4a61a20d7
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/ab/23b476f323b25c26a8461ff8e9b853ce6164c8
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/75/cf8d29920eec2ff7bbb2c0015e065abb801888
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/75/9c33f14595f3480da6a8964b6c7a8c03cf8f47
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/3d/1fb6784677e5e5388b84e630c791d5bf966195
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/c1/02dde8e895448b171dc66e6cedc274c0173ae8
@@ -443,6 +456,7 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/72/a58d05f0f716afb51de63a4a8d25a7ff6e8d43
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/5d/eea8c407bfd73118be107a6d7b0284c645a481
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/5d/59ec08018af8e309577d3c038ba86816ab32ad
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/5d/146c4f02a08611952caa60d9d748c8b787b531
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/58/654ae7b9a7bb7ac709fc3cd3414c56606486e0
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/22/bf25b61fa1ea3af3fdcbcc3e97abd8f855698a
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/22/a6c27e7da01b159cbef432303c31ccf5c3d55e
@@ -491,6 +505,7 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/2c/69fa64051aa39778d598d79a080348f8987b10
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/cf/684ccef0661e0dd8a95e919c806c8563a59920
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/7f/3ad89ad4300292bde649bbcbdadbf6a70b119a
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/7f/f2982996fd2ed32463c52d200483da3c9ea044
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/c0/fbb345131fc728b5936225e085c6257a28eb20
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/43/22c077d222f277dc2d2786db1119ca19478bfa
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/02/437557c66196fd34807ff55e6430f60cc03aea
@@ -507,6 +522,7 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/47/7e99ae6fa6c4901180a53fd130a037217ab9a9
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/eb/f0fc0140a7ffbcd78b3d29c2dd9bf5c418c50a
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/eb/f9d99791c30a2a66523ba649040e1bc15025fe
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/aa/737a1af07e45d788831a6763ac165f07425f05
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/10/049b9f14bb872f3efe2f37109932dec31e248d
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/92/bb9301ec5df236059eaa3bab525c75edcdbcb5
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/b3/7b5fae87a02aaea34823d88c51fe31fd6a6a17
@@ -517,6 +533,7 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/88/0a23967f0a3e8ef1de0fe52ff4d9e201802000
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/de/747bc8e124f6af83fdaedf06adbd7af7f1a7b8
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/de/e158b6ab82bca0f1dccdca20e52dafb0f71860
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/df/b2fea9a5ee414e568aa066c3d438e55868c394
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/df/d121ba4ed0f680bb6b5b6a86d8e6637f3ec5bd
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/35/f18a8885d4eb6e9d5f064ab232e38a8737e845
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/templates/bamboo-app/.git/objects/a6/195a48b27257722db809396b7a05eb986e92ba

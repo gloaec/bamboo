@@ -23,8 +23,7 @@ def main(argv=None, prog=None, **kwargs):
         # Add Current Application to python path
         _basedir = basedir()
         sys.path.append(_basedir)
-
-        from app import models, create_app, db
+        from app import db, app, models
         from .db_manager import db_manager
 
         def _make_context():
@@ -33,10 +32,9 @@ def main(argv=None, prog=None, **kwargs):
                 models_list[model.__name__] = model
             print "app = %s" % str(app)
             print "db = %s" % str(db)
-            print "models = [%s]" % ', '.join(models_list.keys())
+            print "Available models: %s" % ', '.join(models_list.keys())
             return dict(app=app, db=db, **models_list)
 
-        app = create_app(__name__)
         manager = Manager(app, with_default_commands=False)
         manager.add_command("db", db_manager)
         manager.add_command("console", Shell(make_context=_make_context))

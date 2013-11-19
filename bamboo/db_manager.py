@@ -10,7 +10,8 @@ from .util import basedir, find_subclasses
 
 _basedir = basedir()
 sys.path.append(_basedir)
-from app import models, db
+#from app import models, db
+from .application import db
 
 def _get_config(directory):
     config = Config(os.path.join(_basedir, 'config', 'database.ini'))

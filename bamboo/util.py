@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+
 import os
 import inspect
 import glob
 from os.path import join, dirname, basename
+from flask import Flask, url_for, json, jsonify, g, request, Response, \
+        render_template, make_response, send_from_directory
 
 def basedir():
     cwd = os.getcwd()
@@ -42,3 +45,22 @@ def import_all_models(path):
                     locals()[model.title()] = klass
             except ImportError:
                 print 'Failed to import Model: ', model
+
+
+def json_response(body, status_code=200):
+    resp = make_response(json.dumps(body))
+    resp.status_code = status_code
+    resp.mimetype = 'application/json'
+    return resp
+
+
+def error_response(msg, status_code=500, to_json=False):
+    if(to_json): msg = json.dumps(msg)
+    resp = make_response(msg)
+    resp.status_code = status_code
+    resp.mimetype = ('application/json','text/plain')[to_json]
+    return resp
+
+def bad_id_response():
+    return make_error_response("Invalid ID", 400)
+
