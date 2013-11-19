@@ -15,7 +15,7 @@ def main(argv=None, prog=None, **kwargs):
     manager = None
     if not _basedir:
         manager = Manager(with_default_commands=False)
-        manager.add_command("new", NewApplication)
+        #manager.add_command("new", NewApplication)
     else:
         if _basedir != os.getcwd():
             print "(in %s)" % _basedir

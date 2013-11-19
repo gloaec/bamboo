@@ -170,19 +170,19 @@ Usage
     
     Populate database with data from `db/seeds.py`
 
-  * `bamboo db sdowngrade  [-h] [-d DIRECTORY] [--sql] [--tag TAG] [revision]`
+  * `bamboo db downgrade  [-h] [-d DIRECTORY] [--sql] [--tag TAG] [revision]`
     
     Revert to a previous version
 
-  * `bamboo db shistory [-h] [-d DIRECTORY] [-r REV_RANGE]`
+  * `bamboo db history [-h] [-d DIRECTORY] [-r REV_RANGE]`
     
     List changeset scripts in chronological order.
 
-  * `bamboo db sempty [-h]`
+  * `bamboo db empty [-h]`
     
     Empty all tables in database
 
-  * `bamboo db srevision [-h] [-d DIRECTORY] [-m MESSAGE] [--autogenerate] [--sql]`
+  * `bamboo db revision [-h] [-d DIRECTORY] [-m MESSAGE] [--autogenerate] [--sql]`
     
     Create a new revision file.
 
