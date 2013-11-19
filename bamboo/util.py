@@ -30,8 +30,8 @@ def import_mod(name):
     return mod
 
 
-def import_all_models():
-    for f in glob.glob(join(dirname(__file__),"*.py")):
+def import_all_models(path):
+    for f in glob.glob(join(dirname(path),"*.py")):
         model = basename(f)[:-3] 
         if model != '__init__':
             mod_name = 'app.models.%s' % model
