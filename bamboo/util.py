@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import os
 import inspect
 import glob
+
 from os.path import join, dirname, basename
 from flask import Flask, url_for, json, jsonify, g, request, Response, \
         render_template, make_response, send_from_directory
@@ -61,6 +61,8 @@ def error_response(msg, status_code=500, to_json=False):
     resp.mimetype = ('application/json','text/plain')[to_json]
     return resp
 
-def bad_id_response():
-    return make_error_response("Invalid ID", 400)
+
+def bad_id_response(id):
+        return error_response("Invalid id: %s" % id, 400)
+
 

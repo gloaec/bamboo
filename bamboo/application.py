@@ -3,6 +3,7 @@ import yaml
 import sys
 import os
 import glob
+from flask import Module
 from .util import Flask, url_for, json, jsonify, g, request, Response, \
         render_template, make_response, send_from_directory, basedir, \
         json_response, error_response, bad_id_response
@@ -30,7 +31,7 @@ sys.path.append(_basedir)
 
 db = SQLAlchemy()
 babel = Babel()
-
+app = Module(__name__)
 
 from app import models
 for f in glob.glob(os.path.join(_appdir, 'models' ,'*.py')):
@@ -46,7 +47,6 @@ for f in glob.glob(os.path.join(_appdir, 'models' ,'*.py')):
                 exec('models.%s = klass' % model.title())
         except ImportError:
             print 'Failed to import Model: ', model.title()
-
 
 
 ROOT_PATH = _basedir
@@ -168,18 +168,19 @@ def load_models(application):
 
 
 def load_views(application):
-    for f in glob.glob(os.path.join(_appdir, 'views' ,'*.py')):
-        view = os.path.basename(f)[:-3] 
-        if view != '__init__':
-            mod_name = 'app.views.%s' % view
-            try:
-                mod = __import__(mod_name, globals(), locals(), fromlist=[view])
-                klass = getattr(mod, view)
-                if not '%s' % view in locals(): 
-                    locals()[view] = klass
-            except ImportError:
-                print 'Failed to import Model: ', view
     pass
+#    for f in glob.glob(os.path.join(_appdir, 'views' ,'*.py')):
+#        view = os.path.basename(f)[:-3] 
+#        if view != '__init__':
+#            mod_name = 'app.views.%s' % view
+#            try:
+#                mod = __import__(mod_name, globals(), locals(), fromlist=[view])
+#                klass = getattr(mod, view)
+#                if not '%s' % view in locals(): 
+#                    locals()[view] = klass
+#            except ImportError:
+#                print 'Failed to import View: ', view
+#    pass
 
 
 def load_module_models(application, module):
@@ -224,4 +225,4 @@ def init_modules(application):
             load_module_models(application, m)
             application.register_module(views.module, url_prefix=url_prefix)
 
-
+app = create_app(__name__)
