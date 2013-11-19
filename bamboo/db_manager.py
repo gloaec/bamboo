@@ -1,9 +1,11 @@
 import os
 import sys
 
+from sqlalchemy.exc import IntegrityError
+
 from .manager import Manager
 from .alembic.config import Config
-from .alembic import command
+from .alembic import command, package_dir
 from .util import basedir, find_subclasses
 
 _basedir = basedir()
@@ -24,6 +26,7 @@ db_manager = Manager(usage = 'Perform database migrations')
 def init(directory):
     "Generates a new migration"
     config = Config()
+    directory = os.path.join(_basedir, directory)
     config.set_main_option('script_location', directory)
     config.config_file_name = os.path.join(directory, 'database.yml')
     command.init(config, directory, 'flask')
@@ -54,11 +57,15 @@ def history(directory, rev_range):
             migration operatons, based on comparison of database to model")
 @db_manager.option('-m', '--message', dest='message', default=None)
 @db_manager.option('-d', '--directory', dest='directory', default='db', 
-            help="Migration script directory (default is 'db')")
-def revision(directory, message, autogenerate, sql):
+            help="Database directory (default is 'db')")
+@db_manager.option('-t', '--template-dir', dest='template_dir', default=None, 
+            help="Template script directory")
+def revision(directory, message, autogenerate, sql, template_dir):
     "Create a new revision file."
     config = _get_config(directory)
-    command.revision(config, message, autogenerate = autogenerate, sql = sql)
+    if template_dir: template_dir = os.path.join(_basedir, template_dir)
+    command.revision(config, message, autogenerate = autogenerate, sql = sql,
+                    template_dir= template_dir)
 
 
 @db_manager.option('--tag', dest='tag', default=None, 

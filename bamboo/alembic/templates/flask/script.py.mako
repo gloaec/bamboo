@@ -10,7 +10,7 @@ Create Date: ${create_date}
 revision = ${repr(up_revision)}
 down_revision = ${repr(down_revision)}
 
-from alembic import op
+from bamboo.alembic import op
 import sqlalchemy as sa
 ${imports if imports else ""}
 

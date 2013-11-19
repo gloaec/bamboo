@@ -58,5 +58,6 @@ setup(
     ],
     entry_points = {
       'console_scripts': [ 'bamboo = bamboo:main' ],
-    }
+    },
+    include_package_data=True
 )

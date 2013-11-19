@@ -2,7 +2,7 @@ import datetime
 import os
 import re
 import shutil
-from . import util
+from . import util, package_dir
 
 _rev_file = re.compile(r'.*\.py$')
 _legacy_rev = re.compile(r'([a-f0-9]+)\.py$')
@@ -190,7 +190,9 @@ class ScriptDirectory(object):
 
 
         """
-        util.load_python_file(self.dir, 'env.py')
+        path_ = os.path.join(package_dir, 'templates', 'flask')
+        #path_ = self.dir
+        util.load_python_file(path_, 'env.py')
 
     @property
     def env_py_location(self):
@@ -330,8 +332,9 @@ class ScriptDirectory(object):
         current_head = self.get_current_head()
         create_date = datetime.datetime.now()
         path = self._rev_path(revid, message, create_date)
+        config = kw.get('config')
         self._generate_template(
-            os.path.join(self.dir, "script.py.mako"),
+            os.path.join(config.get_template_directory(), "flask", "script.py.mako"),
             path,
             up_revision=str(revid),
             down_revision=current_head,

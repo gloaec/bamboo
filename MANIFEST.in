@@ -1,6 +1,9 @@
 include LICENSE tests.py
 recursive-include docs *
-recursive-exclude docs *.pyc
-recursive-exclude docs *.pyo
+recursive-include bamboo/templates *
+recursive-include bamboo/alembic/templates *
+recursive-exclude bamboo/alembic/templates *.pyc
+recursive-exclude *.pyc
+recursive-exclude *.pyo
 prune docs/_build
 prune docs/_themes/.git

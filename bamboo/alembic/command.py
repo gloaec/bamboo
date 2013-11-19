@@ -40,7 +40,6 @@ def init(config, directory, template='generic'):
                 os.makedirs, versions)
 
     script = ScriptDirectory(directory)
-
     for file_ in os.listdir(template_dir):
         file_path = os.path.join(template_dir, file_)
         #if file_ == 'alembic.ini.mako':
@@ -55,7 +54,18 @@ def init(config, directory, template='generic'):
                     config_file,
                     script_location=directory
                 )
-        elif file_ == 'env.py': pass        
+        elif file_ == 'seeds.py.mako':
+            #config_file = os.path.abspath(config.config_file_name)
+            seeds_file = os.path.join(_basedir, 'db', 'seeds.py')
+            if os.access(seeds_file, os.F_OK):
+                util.msg("File %s already exists, skipping" % seeds_file)
+            else:
+                script._generate_template(
+                    file_path,
+                    seeds_file,
+                    script_location=directory
+                )
+        elif any(file_.endswith(x) for x in ('.py','.pyc')): pass
         elif file_ == 'script.py.mako': pass        
         elif os.path.isfile(file_path):
             output_file = os.path.join(directory, file_)
@@ -67,7 +77,8 @@ def init(config, directory, template='generic'):
     util.msg("Please edit configuration/connection/logging "\
             "settings in %r before proceeding." % config_file)
 
-def revision(config, message=None, autogenerate=False, sql=False):
+def revision(config, message=None, autogenerate=False, sql=False,
+                template_dir=None):
     """Create a new revision file."""
 
     script = ScriptDirectory.from_config(config)
