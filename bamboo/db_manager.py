@@ -7,10 +7,11 @@ from .manager import Manager
 from .alembic.config import Config
 from .alembic import command, package_dir
 from .util import basedir, find_subclasses
+from .cli import prompt, prompt_pass, prompt_bool, prompt_choices
 
 _basedir = basedir()
 sys.path.append(_basedir)
-from app.models import *
+from app import models
 from .application import db
 
 def _get_config(directory):
