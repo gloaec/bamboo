@@ -67,34 +67,30 @@ I18N = True
 
 class Api(Blueprint):
     def __init__(self, import_name, name=None, url_prefix=None,
+                 static_path=None, subdomain='api'):
+        if name is None:
+            assert '.' in import_name, 'name required if package name ' \
+                'does not point to a submodule'
+            name = import_name.rsplit('.', 1)[1]
+            if url_prefix is None: url_prefix = '/api/%s' % name 
+            name = '%s.api' % name
+        Blueprint.__init__(self, name, import_name, url_prefix=url_prefix,
+                           subdomain=subdomain, template_folder='templates')
+        if os.path.isdir(os.path.join(self.root_path, 'static')):
+            self._static_folder = 'static'
+
+class View(Blueprint):
+    def __init__(self, import_name, name=None, url_prefix=None,
                  static_path=None, subdomain=None):
         if name is None:
             assert '.' in import_name, 'name required if package name ' \
                 'does not point to a submodule'
             name = import_name.rsplit('.', 1)[1]
-        if url_prefix is None: url_prefix = '/api/%s' % name 
+            if url_prefix is None: url_prefix = '/%s' % name 
         Blueprint.__init__(self, name, import_name, url_prefix=url_prefix,
                            subdomain=subdomain, template_folder='templates')
-
         if os.path.isdir(os.path.join(self.root_path, 'static')):
             self._static_folder = 'static'
-
-
-#class Api(object):#(Module):
-#    __metaclass__ = Module
-#    def __init__(self, import_name, name=None, url_prefix=None,
-#                static_path=None, subdomain=None):
-#        Blueprint.__init__(self, name, import_name, url_prefix=url_prefix,
-#                    subdomain=subdomain)
-#
-#    @classmethod
-#    def __subclasshook__(cls, C):
-#        return True
-    
-
-class View(Module):
-    def __init__(self, *args, **kwargs):
-        super(Module, self).__init__(args[0])
 
 
 def create_app(name = __name__):
@@ -209,7 +205,16 @@ def load_models(application):
 
 
 def load_views(application):
-    pass
+    for f in glob.glob(os.path.join(_appdir, 'views' ,'*.py')):
+        view = os.path.basename(f)[:-3] 
+        if view != '__init__':
+            mod_name = 'app.views.%s' % view
+            try:
+                mod = __import__(mod_name, globals(), locals(), ['view'])
+                blueprint = getattr(mod, 'view')
+                application.register_blueprint(blueprint)
+            except ImportError:
+                print 'Failed to import View: ', view
 
 
 def load_apis(application):

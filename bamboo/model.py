@@ -2,9 +2,14 @@ from bamboo.application import db
 from sqlalchemy.ext.declarative import declarative_base
 import json
 
-___all___ = ['Base', 'Column', 'Integer', 'String', 'Unicode']
+___all___ = ['Base', 'Column', 'Foreignkey', 
+            'Date', 'Datetime', 'Float' 'Integer', 'String', 'Unicode']
 
 Column = db.Column
+Foreignkey = db.ForeignKey
+Date = db.Date
+Datetime = db.DateTime
+Float = db.Float
 Integer = db.Integer
 String = db.String
 Unicode = db.Unicode
@@ -38,6 +43,14 @@ class BaseModel(db.Model):
     @classmethod
     def all(cls):
         return Collection(db.session.query(cls).all())
+
+    @classmethod
+    def first(cls):
+        return db.session.query(cls).first()
+
+    @classmethod
+    def last(cls):
+        return db.session.query(cls).order_by(cls.id.desc()).limit(1).one()
 
     @classmethod
     def find(cls, id):
