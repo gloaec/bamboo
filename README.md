@@ -20,7 +20,6 @@ methods for any-scale application developpment. Intended to indented code lovers
 bamboo bootstraps all the good practices of modern RESTful application
 deployment.
 
-
 Bamboo Application Tree
 -----------------------
 
