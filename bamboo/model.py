@@ -22,7 +22,7 @@ class Collection(list):
         return [model.to_dict() for model in self]
 
     def to_json(self):
-        return [model.to_json() for model in self]
+        return json.dumps(self.to_dict())
 
 class BaseModel(db.Model):
 

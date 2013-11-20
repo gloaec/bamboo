@@ -61,13 +61,13 @@ import_submodules('models', classes=True)
 
 ROOT_PATH = _basedir
 YAML = False
-HAML = False
-HAML_TAG = True
+HAML = True
+HAML_TAG = False
 I18N = True
 
 class Api(Blueprint):
     def __init__(self, import_name, name=None, url_prefix=None,
-                 static_path=None, subdomain='api'):
+                 static_path=None, subdomain=None):
         if name is None:
             assert '.' in import_name, 'name required if package name ' \
                 'does not point to a submodule'
@@ -75,7 +75,7 @@ class Api(Blueprint):
             if url_prefix is None: url_prefix = '/api/%s' % name 
             name = '%s.api' % name
         Blueprint.__init__(self, name, import_name, url_prefix=url_prefix,
-                           subdomain=subdomain, template_folder='templates')
+                           subdomain=subdomain, template_folder=None)
         if os.path.isdir(os.path.join(self.root_path, 'static')):
             self._static_folder = 'static'
 
@@ -88,7 +88,8 @@ class View(Blueprint):
             name = import_name.rsplit('.', 1)[1]
             if url_prefix is None: url_prefix = '/%s' % name 
         Blueprint.__init__(self, name, import_name, url_prefix=url_prefix,
-                           subdomain=subdomain, template_folder='templates')
+                           subdomain=subdomain, 
+                           template_folder= os.path.join(_appdir, 'templates'))
         if os.path.isdir(os.path.join(self.root_path, 'static')):
             self._static_folder = 'static'
 
@@ -96,7 +97,8 @@ class View(Blueprint):
 def create_app(name = __name__):
     application = Flask(__name__, 
                     instance_path=ROOT_PATH, 
-                    instance_relative_config=True
+                    instance_relative_config=True,
+                    static_folder=os.path.join(_appdir, 'static')
     )
     load_config(application)
     init_babel(application)
@@ -137,7 +139,7 @@ def init_assets(application):
         from hamlish_jinja import HamlishTagExtension
         application.jinja_env.add_extension(HamlishTagExtension)
     assets = Environment(application)
-    assets.url = application.static_url_path
+    assets.url = application.static_url_path# = os.path.join(_appdir, 'static')
     
     all_css = Bundle('css/application.css.sass', filters='sass', output='all.css',
                     depends=('css/**/*.scss','css/**/*.sass')) 
@@ -145,6 +147,7 @@ def init_assets(application):
     
     all_jst = Bundle( \
             'templates/*.hamlc', 'templates/**/*.hamlc', \
+            depends=('templates/*.hamlc', 'templates/**/*.hamlc'), \
             filters='jst', output='templates.js')
     
     all_coffee = Bundle( \
@@ -172,6 +175,7 @@ def init_assets(application):
             #'js/lib/sugar', \
             #'js/lib/backbone_rails_sync', \
             'js/lib/backbone-marionette.js', \
+            'js/lib/backbone-marionette-subrouter.js', \
             all_jst, all_coffee, output='all.js')
     
     all_js_min = Bundle(all_js, filters='jsmin', output='all.min.js')
