@@ -3,16 +3,17 @@ import yaml
 import sys
 import os
 import glob
-from flask import Module
-from .util import Flask, url_for, json, jsonify, g, request, Response, \
-        render_template, make_response, send_from_directory, basedir, \
-        json_response, error_response, bad_id_response
+from flask import Blueprint, Module
 from flask.ext.assets import Environment, Bundle
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.babel import Babel
 
+from .util import Flask, url_for, json, jsonify, g, request, Response, \
+        render_template, make_response, send_from_directory, basedir, \
+        json_response, error_response, bad_id_response
+
 __all__ = [
-        'create_app', 'db', 'models'
+        'create_app', 'db', 'models', 'Api', 'View',
         'json_response', 'error_respone', 'bad_id_response'
 ]
 
@@ -27,33 +28,73 @@ MODULES = [
 #application.register_blueprint(postsModule)
 _basedir = basedir()
 _appdir = os.path.join(_basedir, 'app')
+_modelsdir = os.path.join(_appdir, 'models')  
+_apisdir = os.path.join(_appdir, 'apis')  
+_viewsdir = os.path.join(_appdir, 'views')  
 sys.path.append(_basedir)
 
 db = SQLAlchemy()
 babel = Babel()
-app = Module(__name__)
+app = None
 
-from app import models
-for f in glob.glob(os.path.join(_appdir, 'models' ,'*.py')):
-    model = os.path.basename(f)[:-3] 
-    if model != '__init__':
-        mod_name = 'app.models.%s' % model
-        mod_class = 'app.models.%s' % model.title()
-        try:
-            mod = __import__(mod_name, globals(), locals(), fromlist=[model.title()])
-            klass = getattr(mod, model.title())
-            if not mod_class in sys.modules: 
-                sys.modules[mod_class] = klass
-                exec('models.%s = klass' % model.title())
-        except ImportError:
-            print 'Failed to import Model: ', model.title()
+def import_submodules(name, classes=False):
+    exec('from app import %s' % name)
+    for f in glob.glob(os.path.join(_appdir, name ,'*.py')):
+        model = submodel = os.path.basename(f)[:-3] 
+        if classes: submodel = model.title()
+        if model != '__init__':
+            mod_name = 'app.%s.%s' % (name, model)
+            mod_class = 'app.%s.%s' % (name, submodel)
+            try:
+                if classes:
+                    mod = __import__(mod_name, globals(), locals(), fromlist=[submodel])
+                    mod = getattr(mod, submodel)
+                else:
+                    mod = __import__(mod_name, globals(), locals())
+                if not mod_class in sys.modules: 
+                    sys.modules[mod_class] = mod
+                    exec('%s.%s = mod' % (name, submodel))
+            except ImportError:
+                print 'Failed to import Model: ', model.title()
 
+import_submodules('models', classes=True)
 
 ROOT_PATH = _basedir
 YAML = False
 HAML = False
 HAML_TAG = True
 I18N = True
+
+class Api(Blueprint):
+    def __init__(self, import_name, name=None, url_prefix=None,
+                 static_path=None, subdomain=None):
+        if name is None:
+            assert '.' in import_name, 'name required if package name ' \
+                'does not point to a submodule'
+            name = import_name.rsplit('.', 1)[1]
+        if url_prefix is None: url_prefix = '/api/%s' % name 
+        Blueprint.__init__(self, name, import_name, url_prefix=url_prefix,
+                           subdomain=subdomain, template_folder='templates')
+
+        if os.path.isdir(os.path.join(self.root_path, 'static')):
+            self._static_folder = 'static'
+
+
+#class Api(object):#(Module):
+#    __metaclass__ = Module
+#    def __init__(self, import_name, name=None, url_prefix=None,
+#                static_path=None, subdomain=None):
+#        Blueprint.__init__(self, name, import_name, url_prefix=url_prefix,
+#                    subdomain=subdomain)
+#
+#    @classmethod
+#    def __subclasshook__(cls, C):
+#        return True
+    
+
+class View(Module):
+    def __init__(self, *args, **kwargs):
+        super(Module, self).__init__(args[0])
 
 
 def create_app(name = __name__):
@@ -152,11 +193,11 @@ def init_assets(application):
                         }); \
                     }'
 
-
 def init_app(application):
 
     load_models(application)
     load_views(application)
+    load_apis(application)
 
     @application.errorhandler(404)
     def not_found(error):
@@ -169,18 +210,19 @@ def load_models(application):
 
 def load_views(application):
     pass
-#    for f in glob.glob(os.path.join(_appdir, 'views' ,'*.py')):
-#        view = os.path.basename(f)[:-3] 
-#        if view != '__init__':
-#            mod_name = 'app.views.%s' % view
-#            try:
-#                mod = __import__(mod_name, globals(), locals(), fromlist=[view])
-#                klass = getattr(mod, view)
-#                if not '%s' % view in locals(): 
-#                    locals()[view] = klass
-#            except ImportError:
-#                print 'Failed to import View: ', view
-#    pass
+
+
+def load_apis(application):
+    for f in glob.glob(os.path.join(_appdir, 'apis' ,'*.py')):
+        api = os.path.basename(f)[:-3] 
+        if api != '__init__':
+            mod_name = 'app.apis.%s' % api
+            try:
+                mod = __import__(mod_name, globals(), locals(), ['api'])
+                blueprint = getattr(mod, 'api')
+                application.register_blueprint(blueprint)
+            except ImportError:
+                print 'Failed to import Api: ', api
 
 
 def load_module_models(application, module):
