@@ -77,10 +77,18 @@ class BaseModel(db.Model):
         return model
 
     def update(self, **attr):
-        pass       
+        for key, val in attr.items():
+            print key, val
+            setattr(self, key, val)
+        try: db.session.commit()
+        except Exception, e: print(e); db.session.rollback()
+        return self
 
     def delete(self):
         db.session.delete(self)
+        try: db.session.commit()
+        except Exception, e: print(e); db.session.rollback()
+        return None
 
     def to_dict(self):
         dict = {}
