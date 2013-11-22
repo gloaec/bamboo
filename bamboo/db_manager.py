@@ -4,6 +4,7 @@ import sys
 from sqlalchemy.exc import IntegrityError
 
 from .manager import Manager
+from .commands import Command, Option
 from .alembic.config import Config
 from .alembic import command, package_dir
 from .util import basedir, find_subclasses
@@ -20,136 +21,280 @@ def _get_config(directory):
     return config
 
 
-db_manager = Manager(usage = 'Perform database migrations')
-
+class DBManager(Manager):
     
-@db_manager.option('-d', '--directory', dest='directory', default='db', 
-            help="Migration script directory (default is 'db')")
-def init(directory):
-    "Generates a new migration"
-    config = Config()
-    directory = os.path.join(_basedir, directory)
-    config.set_main_option('script_location', directory)
-    config.config_file_name = os.path.join(directory, 'database.yml')
-    command.init(config, directory, 'flask')
+    help = description = usage = "Performs Database migration"
+
+    def add_default_commands(self):
+        self.add_command('init', DBInit())
+        self.add_command('current', DBCurrent())
+        self.add_command('history', DBHistory())
+        self.add_command('revision', DBRevision())
+        self.add_command('migrate', DBMigrate())
+        self.add_command('stamp', DBStamp())
+        self.add_command('upgrade', DBUpgrade())
+        self.add_command('downgrade', DBDowngrade())
+        self.add_command('seed', DBSeed())
+        self.add_command('empty', DBEmpty())
+        self.add_command('drop', DBDrop())
 
 
-@db_manager.option('-d', '--directory', dest='directory', default='db', 
-            help = "Migration script directory (default is 'db')")
-def current(directory):
-    "Display the current revision for each database."
-    config = _get_config(directory)
-    command.current(config)
+class DBInit(Command):
+
+    help = description = "Generates a new migration"
+
+    def __init__(self, directory='db'):
+        self.directory = directory
+
+    def get_options(self):
+        return (
+            Option('-d', '--directory', dest='directory', default='db', 
+                    help="Migration script directory (default is 'db')"),
+        )
+
+    def run(self, directory):
+        config = Config()
+        directory = os.path.join(_basedir, directory)
+        config.set_main_option('script_location', directory)
+        config.config_file_name = os.path.join(directory, 'database.yml')
+        command.init(config, directory, 'flask')
 
 
-@db_manager.option('-r', '--rev-range', dest='rev_range', default=None, 
-            help="Specify a revision range; format is [start]:[end]")
-@db_manager.option('-d', '--directory', dest='directory', default='db', 
-            help = "Migration script directory (default is 'db')")
-def history(directory, rev_range):
-    "List changeset scripts in chronological order."
-    config = _get_config(directory)
-    command.history(config)
+class DBCurrent(Command):
+
+    help = description = "Display the current revision for each database."
+
+    def __init__(self, directory='db'):
+        self.directory = directory
+
+    def get_options(self):
+        return (
+            Option('-d', '--directory', dest='directory', default='db', 
+                    help = "Migration script directory (default is 'db')"),
+        )
+
+    def run(self, directory):
+        config = _get_config(directory)
+        command.current(config)
 
 
-@db_manager.option('--sql', dest='sql', action='store_true', default=False, 
-            help = "Don't emit SQL to database - dump to standard output instead")
-@db_manager.option('--autogenerate', dest='autogenerate', action='store_true', 
-            default=False, help="Populate revision script with andidatea \
-            migration operatons, based on comparison of database to model")
-@db_manager.option('-m', '--message', dest='message', default=None)
-@db_manager.option('-d', '--directory', dest='directory', default='db', 
-            help="Database directory (default is 'db')")
-@db_manager.option('-t', '--template-dir', dest='template_dir', default=None, 
-            help="Template script directory")
-def revision(directory, message, autogenerate, sql, template_dir):
-    "Create a new revision file."
-    config = _get_config(directory)
-    if template_dir: template_dir = os.path.join(_basedir, template_dir)
-    command.revision(config, message, autogenerate = autogenerate, sql = sql,
-                    template_dir= template_dir)
+class DBHistory(Command):
+
+    help = description = "List changeset scripts in chronological order."
+
+    def __init__(self, directory='db', rev_range=None):
+        self.directory = directory
+        self.rev_range = rev_range
+
+    def get_options(self):
+        return (
+            Option('-r', '--rev-range', dest='rev_range', default=None, 
+                help="Specify a revision range; format is [start]:[end]"),
+            Option('-d', '--directory', dest='directory', default='db', 
+                help = "Migration script directory (default is 'db')"),
+        )
+
+    def run(self, directory, rev_range):
+        config = _get_config(directory)
+        command.history(config)
 
 
-@db_manager.option('--tag', dest='tag', default=None, 
-            help="Arbitrary 'tag' name - can be used by custom env.py scripts")
-@db_manager.option('--sql', dest='sql', action='store_true', default=False, 
-            help="Don't emit SQL to database - dump to standard output instead")
-@db_manager.option('-m', '--message', dest='message', default=None)
-@db_manager.option('-d', '--directory', dest='directory', default='db', 
-            help="Migration script directory (default is 'db')")
-def migrate(directory, message, sql, tag):
-    "Alias for 'revision --autogenerate'"
-    config = _get_config(directory)
-    command.revision(config, message, autogenerate = True, sql = sql)
-    command.upgrade(config, 'head', sql = sql, tag = tag)
+class DBRevision(Command):
+
+    help = description = "Create a new revision file."
+
+    def __init__(self, directory='db', message=None, autogenerate=False,
+                    sql=False, template_dir=None):
+        self.directory = directory
+        self.message = message
+        self.autogenerate = autogenerate
+        self.sql = sql
+        self.template_dir = template_dir
+
+    def get_options(self):
+        return (
+            Option('--sql', dest='sql', action='store_true', default=False, 
+                help = "Don't emit SQL to database - dump to standard output instead"),
+            Option('--autogenerate', dest='autogenerate', action='store_true', 
+                default=False, help="Populate revision script with andidatea \
+                migration operatons, based on comparison of database to model"),
+            Option('-m', '--message', dest='message', default=None),
+            Option('-d', '--directory', dest='directory', default='db', 
+                help="Database directory (default is 'db')"),
+            Option('-t', '--template-dir', dest='template_dir', default=None, 
+                help="Template script directory"),
+        )
+
+    def run(self, directory, message, autogenerate, sql, template_dir):
+        config = _get_config(directory)
+        if template_dir: template_dir = os.path.join(_basedir, template_dir)
+        command.revision(config, message, autogenerate = autogenerate, sql = sql,
+                        template_dir= template_dir)
 
 
-@db_manager.option('--tag', dest='tag', default=None, 
-            help="Arbitrary 'tag' name - can be used by custom env.py scripts")
-@db_manager.option('--sql', dest='sql', action='store_true', default=False, 
-            help="Don't emit SQL to database - dump to standard output instead")
-@db_manager.option('revision', default=None, 
-            help="revision identifier")
-@db_manager.option('-d', '--directory', dest='directory', default='db',
-            help = "Migration script directory (default is 'db')")
-def stamp(directory, revision, sql, tag):
-    "'stamp' the revision table with the given revision; don't run any migrations"
-    config = _get_config(directory)
-    command.stamp(config, revision, sql = sql, tag = tag)
+class DBMigrate(Command):
+
+    help = description = "Alias for 'revision --autogenerate'"
+
+    def __init__(self, directory='db', message=None, sql=False, tag=None):
+        self.directory = directory
+        self.message = message
+        self.sql = sql
+        self.tag = tag
+
+    def get_options(self):
+        return (
+            Option('--tag', dest='tag', default=None, 
+                help="Arbitrary 'tag' name - can be used by custom env.py scripts"),
+            Option('--sql', dest='sql', action='store_true', default=False, 
+                help="Don't emit SQL to database - dump to standard output instead"),
+            Option('-m', '--message', dest='message', default=None),
+            Option('-d', '--directory', dest='directory', default='db', 
+                help="Migration script directory (default is 'db')"),
+        )
+
+    def run(self, directory, message, sql, tag):
+        config = _get_config(directory)
+        command.revision(config, message, autogenerate = True, sql = sql)
+        command.upgrade(config, 'head', sql = sql, tag = tag)
 
 
-@db_manager.option('--tag', dest='tag', default=None, 
-            help="Arbitrary 'tag' name - can be used by custom env.py scripts")
-@db_manager.option('--sql', dest='sql', action='store_true', default=False, 
-            help="Don't emit SQL to database - dump to standard output instead")
-@db_manager.option('revision', nargs='?', default='head', 
-            help="revision identifier")
-@db_manager.option('-d', '--directory', dest='directory', default='db', 
-            help="Migration script directory (default is 'db')")
-def upgrade(directory, revision, sql, tag):
-    "Upgrade to a later version"
-    config = _get_config(directory)
-    command.upgrade(config, revision, sql = sql, tag = tag)
+class DBStamp(Command):
 
+    help = description = "'stamp' the revision table with the given revision; don't run any migrations"
+
+    def __init__(self, directory='db', revision=None, sql=False, tag=None):
+        self.directory = directory
+        self.revision = revision
+        self.sql = sql
+        self.tag = tag
+
+    def get_options(self):
+        return (
+            Option('--tag', dest='tag', default=None, 
+                help="Arbitrary 'tag' name - can be used by custom env.py scripts"),
+            Option('--sql', dest='sql', action='store_true', default=False, 
+                help="Don't emit SQL to database - dump to standard output instead"),
+            Option('revision', default=None, 
+                help="revision identifier"),
+            Option('-d', '--directory', dest='directory', default='db',
+                help = "Migration script directory (default is 'db')"),
+        )
+
+    def run(self, directory, revision, sql, tag):
+        config = _get_config(directory)
+        command.stamp(config, revision, sql = sql, tag = tag)
+
+
+class DBUpgrade(Command):
+
+    help = description = "Upgrade to a later version"
+
+    def __init__(self, directory='db', revision='head', sql=False, tag=None):
+        self.directory = directory
+        self.revision = revision
+        self.sql = sql
+        self.tag = tag
+
+    def get_options(self):
+        return (
+            Option('--tag', dest='tag', default=None, 
+                help="Arbitrary 'tag' name - can be used by custom env.py scripts"),
+            Option('--sql', dest='sql', action='store_true', default=False, 
+                help="Don't emit SQL to database - dump to standard output instead"),
+            Option('revision', nargs='?', default='head', 
+                help="revision identifier"),
+            Option('-d', '--directory', dest='directory', default='db', 
+                help="Migration script directory (default is 'db')"),
+        )
+
+    def run(self, directory, revision, sql, tag):
+        config = _get_config(directory)
+        command.upgrade(config, revision, sql = sql, tag = tag)
+
+
+class DBDowngrade(Command):
+
+    help = description = "Revert to a previous version"
+
+    def __init__(self, directory='db', revision='head', sql=False, tag=None):
+        self.directory = directory
+        self.revision = revision
+        self.sql = sql
+        self.tag = tag
+
+    def get_options(self):
+        return (
+            Option('--tag', dest='tag', default=None, 
+                help="Arbitrary 'tag' name - can be used by custom env.py scripts"),
+            Option('--sql', dest='sql', action='store_true', default=False, 
+                help="Don't emit SQL to database - dump to standard output instead"),
+            Option('revision', nargs='?', default='-1', 
+                help="revision identifier"),
+            Option('-d', '--directory', dest='directory', default='db', 
+                help="Migration script directory (default is 'db')"),
+        )
+
+    def run(self, directory, revision, sql, tag):
+        config = _get_config(directory)
+        command.downgrade(config, revision, sql = sql, tag = tag)
+
+
+class DBSeed(Command):
+
+    help = description = "Populate database with data from `db/seeds.py`"
     
-@db_manager.option('--tag', dest='tag', default=None, 
-            help="Arbitrary 'tag' name - can be used by custom env.py scripts")
-@db_manager.option('--sql', dest='sql', action='store_true', default=False, 
-            help="Don't emit SQL to database - dump to standard output instead")
-@db_manager.option('revision', nargs='?', default="-1", 
-            help="revision identifier")
-@db_manager.option('-d', '--directory', dest='directory', default='db', 
-            help="Migration script directory (default is 'db')")
-def downgrade(directory, revision, sql, tag):
-    "Revert to a previous version"
-    config = _get_config(directory)
-    command.downgrade(config, revision, sql = sql, tag = tag)
+    def __init__(self, directory='db'):
+        self.directory = directory
+
+    def get_options(self):
+        return (
+            Option('-d', '--directory', dest='directory', default='db', 
+                help="Migration script directory (default is 'db')"),
+        )
+
+    def run(self, directory):
+        try:
+            execfile(os.path.join(_basedir, directory, 'seeds.py'))
+        except IntegrityError, e:
+            print "Integrity Error: ", str(e)
 
 
-@db_manager.option('-d', '--directory', dest='directory', default='db', 
-            help="Migration script directory (default is 'db')")
-def seed(directory):
-    "Populate database with data from `db/seeds.py`"
-    try:
-        execfile(os.path.join(_basedir, directory, 'seeds.py'))
-    except IntegrityError, e:
-        print "Integrity Error: ", str(e)
+class DBEmpty(Command):
+
+    help = description = "Empty all tables in database"
+    
+    def __init__(self, directory='db'):
+        self.directory = directory
+
+    def get_options(self):
+        return (
+            Option('-d', '--directory', dest='directory', default='db', 
+                help="Migration script directory (default is 'db')"),
+        )
+
+    def run(self, directory):
+        if prompt_bool("Are you sure you want to lose all your records"):
+            for model in find_subclasses(models):
+                print 'Empty %s ...' % model.__name__
+                db.session.query(model).delete(synchronize_session=False)
+            db.session.commit()
 
 
+class DBDrop(Command):
 
-@db_manager.command
-def empty():
-    "Empty all tables in database"
-    if prompt_bool("Are you sure you want to lose all your records"):
-        for model in find_subclasses(models):
-            print 'Empty %s ...' % model.__name__
-            db.session.query(model).delete(synchronize_session=False)
-        db.session.commit()
+    help = description = "Drop all tables in database"
+    
+    def run(self, directory='db'):
+        self.directory = directory
 
+    def get_options(self):
+        return [
+            Option('-d', '--directory', dest='directory', default='db', 
+                help="Migration script directory (default is 'db')"),
+        ]
 
-@db_manager.command
-def drop():
-    "Drop all tables in database"
-    if prompt_bool("Are you sure you want to lose all your data"):
-        db.drop_all()
-        db.session.commit()
+    def run(self, directory):
+        if prompt_bool("Are you sure you want to lose all your data"):
+            db.drop_all()
+            db.session.commit()

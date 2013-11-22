@@ -61,6 +61,7 @@ class Manager(object):
     :param disable_argcomplete: disable automatic loading of argcomplete.
 
     """
+    help = description = usage = None
 
     def __init__(self, app=None, with_default_commands=None, usage=None,
                  help=None, description=None, disable_argcomplete=False):
@@ -75,9 +76,9 @@ class Manager(object):
         if with_default_commands or (app and with_default_commands is None):
             self.add_default_commands()
 
-        self.usage = usage
-        self.help = help if help is not None else usage
-        self.description = description if description is not None else usage
+        self.usage = usage if usage is not None else self.usage
+        self.help = help if help is not None else usage if usage is not None else self.help
+        self.description = description if description is not None else usage if usage is not None else self.description
         self.disable_argcomplete = disable_argcomplete
 
         self.parent = None

@@ -6,6 +6,8 @@ import sys
 
 from .migrate import Migrate
 from .manager import Manager
+from .db_manager import DBManager
+from .assets_manager import AssetsManager
 from .util import basedir, find_subclasses
 from .commands import Clean, ShowUrls, Group, Option, InvalidCommand, Command, \
                       Server, Shell, NewApplication, NewModule
@@ -23,8 +25,7 @@ def main(argv=None, prog=None, **kwargs):
         # Add Current Application to python path
         _basedir = basedir()
         sys.path.append(_basedir)
-        from app import db, app, models
-        from .db_manager import db_manager
+        from app import db, app, models, assets
 
         def _make_context():
             models_list = {}
@@ -36,11 +37,12 @@ def main(argv=None, prog=None, **kwargs):
             return dict(app=app, db=db, **models_list)
 
         manager = Manager(app, with_default_commands=False)
-        manager.add_command("db", db_manager)
+        manager.add_command("db", DBManager(app, with_default_commands=True))
         manager.add_command("console", Shell(make_context=_make_context))
         manager.add_command("server", Server())
         manager.add_command("routes", ShowUrls())
+        manager.add_command("assets", AssetsManager(assets))
         manager.add_command("clean", Clean())
         manager.add_command("new", NewModule())
-        migrate = Migrate(app, db)
+        #migrate = Migrate(app, db)
     manager.run()

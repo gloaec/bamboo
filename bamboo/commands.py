@@ -179,6 +179,21 @@ class Command(object):
         prompt_choices(name, choices, default)
 
 
+class ManageAssets(Command):
+
+    help = description = 'WebAssets Utils'
+
+    def get_options(self):
+        return  []
+
+    def __init__(self, assets_env=None):
+        self.env = assets_env
+
+    def handle(self, app, *args, **kwargs):
+        from webassets import script
+        script.main(args, env=self.env)
+
+
 class Shell(Command):
     """
     Runs a Python shell inside Flask application context.

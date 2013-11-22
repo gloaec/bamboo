@@ -11,8 +11,10 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/model.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/application.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/util.py
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/application_bkp.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/db_manager.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/manager.py
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/application_bkp.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/commands.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/_compat.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/_compat.py
@@ -20,9 +22,11 @@
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/application.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/model.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/migrate.pyc
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/assets_manager.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/__init__.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/__init__.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/cli.pyc
+/usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/assets_manager.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/db_manager.pyc
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/cli.py
 /usr/local/lib/python2.7/dist-packages/Bamboo-0.0.1-py2.7.egg/bamboo/alembic/util.pyc
