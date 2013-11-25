@@ -1,3 +1,0 @@
-[submodule "bamboo/templates/bamboo-app"]
-	path = bamboo/templates/bamboo-app
-	url = git@github.com:gloaec/bamboo-app.git
