@@ -134,7 +134,7 @@ class DBRevision(Command):
 
 class DBMigrate(Command):
 
-    help = description = "Alias for 'revision --autogenerate'"
+    help = description = "Alias for 'revision --autogenerate && upgrade'"
 
     def __init__(self, directory='db', message=None, sql=False, tag=None):
         self.directory = directory

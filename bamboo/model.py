@@ -66,7 +66,9 @@ class BaseModel(db.Model):
 
     @classmethod
     def new(cls, **attr):
-        return db.session.add(cls(**attr))
+        model = cls(**attr)
+        db.session.add(model)
+        return model
 
     @classmethod
     def create(cls, **attr):

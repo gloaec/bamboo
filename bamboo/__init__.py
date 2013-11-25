@@ -8,6 +8,7 @@ from .migrate import Migrate
 from .manager import Manager
 from .db_manager import DBManager
 from .assets_manager import AssetsManager
+from .gen_manager import GenManager
 from .util import basedir, find_subclasses
 from .commands import Clean, ShowUrls, Group, Option, InvalidCommand, Command, \
                       Server, Shell, NewApplication, NewModule
@@ -38,6 +39,7 @@ def main(argv=None, prog=None, **kwargs):
 
         manager = Manager(app, with_default_commands=False)
         manager.add_command("db", DBManager(app, with_default_commands=True))
+        manager.add_command("generate", GenManager(app, with_default_commands=True))
         manager.add_command("console", Shell(make_context=_make_context))
         manager.add_command("server", Server())
         manager.add_command("routes", ShowUrls())
