@@ -1,0 +1,38 @@
+#content.bb-header
+  .container
+    %h1
+      %i.icon-plus
+      New Folder
+    %p
+      Create a new Folder
+
+#container.bb-container
+  .container
+    .row
+
+      .col-md-3
+        .bb-sidebar.hidden-print.affix-top{role:"complementary"}
+          %ul.nav.bb-sidenav
+            %li
+              %a{href:"/back"}
+                %i.icon-reply
+                Back
+
+      .col-md-9{role:"main"}
+        %form#new-post
+          %fieldset
+            .form-group
+              %label{for:"name"} Name
+              %input#name.form-control{type:"text", name:"name", placeholder:"Name"}/
+              %p.help-block
+            .form-group
+              %label{for:"decription"} Description
+              %textarea#description.form-control{type:"text", name:"description", placeholder:"Description", rows: 10}/
+              %p.help-block
+            %button.btn.btn-primary{type:"submit"}
+              %i.icon-plus 
+              Create Folder
+            %a.btn.btn-default{href:"/index"} 
+              %i.icon-reply 
+              Cancel
+      
