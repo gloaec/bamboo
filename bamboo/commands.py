@@ -506,16 +506,19 @@ class NewApplication(Command):
             Option('appname',
                    nargs='?',
                    default=self.appname),
-            Option('--use-haml',
+            Option('--no-haml',
                    dest='use_haml',
+                   action='store_false',
                    default=self.use_haml),
 
-            Option('--use-coffeescript',
-                   dest='use_coffescript',
+            Option('--no-coffeescript',
+                   dest='use_coffeescript',
+                   action='store_false',
                    default=self.use_coffeescript),
 
-            Option('--use-sass',
+            Option('--no-sass',
                    dest='use_sass',
+                   action='store_false',
                    default=self.use_sass)
         )
 
@@ -533,9 +536,23 @@ class NewApplication(Command):
         return options
 
     #def handle(self, name, use_debugger):
-    def run(self):
+    def run(self, appname, use_haml, use_coffeescript, use_sass, use_debugger):
         """ Generates an app skeletor from template """
+        print "Supposed to generate application"
+        _pkgdir = os.path.abspath(os.path.dirname(__file__))
+        _appdir = os.path.abspath(os.path.join(os.getcwd(), appname))
+        try:
+            os.makedirs(_appdir)
+        except OSError as exc:
+            if exc.errno == errno.EEXIST and os.path.isdir(path):
+                pass
+            else: raise
         pass
+        import distutils.core
+        distutils.dir_util.copy_tree(
+                os.path.join(_pkgdir, 'templates', 'bamboo-app'),
+                os.path.join(_appdir))
+        
 
 
 class NewModule(Command):
@@ -599,5 +616,6 @@ class NewModule(Command):
     #def handle(self, app, modname, use_haml, use_coffescript, use_sass, 
     #            use_debugger):
     def run(self):
+
         """ Action to create module template """
         pass

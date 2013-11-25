@@ -4,24 +4,27 @@ from __future__ import absolute_import
 import os
 import sys
 
+from flask import Flask
+
 from .migrate import Migrate
 from .manager import Manager
-from .db_manager import DBManager
-from .assets_manager import AssetsManager
-from .gen_manager import GenManager
 from .util import basedir, find_subclasses
-from .commands import Clean, ShowUrls, Group, Option, InvalidCommand, Command, \
-                      Server, Shell, NewApplication, NewModule
 
 def main(argv=None, prog=None, **kwargs):
     _basedir = basedir()
     manager = None
     if not _basedir:
-        manager = Manager(with_default_commands=False)
-        #manager.add_command("new", NewApplication)
+        from .commands import NewApplication
+        manager = Manager(Flask(__name__), with_default_commands=False)
+        manager.add_command("new", NewApplication)
     else:
         if _basedir != os.getcwd():
             print "(in %s)" % _basedir
+        from .db_manager import DBManager
+        from .assets_manager import AssetsManager
+        from .gen_manager import GenManager
+        from .commands import Clean, ShowUrls, Group, Option, InvalidCommand, Command, \
+                              Server, Shell, NewApplication, NewModule
 
         # Add Current Application to python path
         _basedir = basedir()
