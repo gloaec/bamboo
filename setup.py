@@ -15,8 +15,12 @@ except ImportError:
     pass
 
 install_requires = [
-    'Flask',
-    'cssmin'
+    'cssmin', 'pyyaml',
+    'Flask-SQLAlchemy',
+    'Flask-Assets',
+    'Flask-Babel',
+    'Hamlish-Jinja',
+    'Mako'
 ]
 if sys.version_info < (2, 7):
     install_requires += ['argparse']
