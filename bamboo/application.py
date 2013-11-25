@@ -80,9 +80,17 @@ def get_locale():
 if HAML:
     from hamlish_jinja import HamlishExtension
     app.jinja_env.add_extension(HamlishExtension)
+    env = Environment(extensions=[HamlishExtension])
+    if app.config['debug']:
+        env.hamlish_mode='debug'
+    env.hamlish_enable_div_shortcut=True
 elif HAML_TAG:
     from hamlish_jinja import HamlishTagExtension
     app.jinja_env.add_extension(HamlishTagExtension)
+    env = Environment(extensions=[HamlishTagExtension])
+    if app.config['debug']:
+        env.hamlish_mode='debug'
+    env.hamlish_enable_div_shortcut=True
 
 assets.url = app.static_url_path# = os.path.join(_appdir, 'static')
 
