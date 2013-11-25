@@ -4,6 +4,6 @@ Populate the database with the artificial data below :
 
 """
 
-model1 = Base.create(name=u'Model 1', value=1)
-model2 = Base.create(name=u'Model 2', value=2)
-model3 = Base.create(name=u'Model 3', value=3)
+model1 = Folder.create(name='app',    description=u"Contains the application itself")
+model2 = Folder.create(name='config', description=u"Application configuration")
+model3 = Folder.create(name='db',     description=u"Database / Migrations / Seeds")
