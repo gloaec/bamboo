@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Migrate(object):
     def __init__(self, app = None, db = None):
         if app is not None and db is not None:

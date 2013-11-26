@@ -6,6 +6,8 @@ import glob
 from os.path import join, dirname, basename
 from flask import Flask, url_for, json, jsonify, g, request, Response, \
         render_template, make_response, send_from_directory
+from jinja2 import Environment, FileSystemLoader
+
 
 def basedir():
     cwd = os.getcwd()
@@ -45,6 +47,34 @@ def import_all_models(path):
                     locals()[model.title()] = klass
             except ImportError:
                 print 'Failed to import Model: ', model
+
+
+def generate_template(src, dest, **kwargs):
+    _basedir = basedir()
+    _pkgdir = os.path.abspath(os.path.dirname(__file__))
+
+    print "Generating %s" % dest
+
+    env = Environment(loader=FileSystemLoader(os.path.join(_pkgdir, 'templates')))
+    template = env.get_template(src)
+    output_from_parsed_template = template.render(**kwargs)
+    with open(os.path.join(_basedir, dest), "wb") as fh:
+        fh.write(output_from_parsed_template.encode('utf-8'))
+
+
+def generate_directory(directory):
+    _basedir = basedir()
+    path = os.path.join(_basedir, directory)
+    if not os.path.exists(path):
+        print "Creating directory %s" % directory
+        os.makedirs(path)
+
+
+def append_in_file(src, append_string):
+    _basedir = basedir()
+    path = os.path.join(_basedir, src)
+    with open(path, "a") as fh:
+        fh.write(append_string)
 
 
 def json_response(body, status_code=200):

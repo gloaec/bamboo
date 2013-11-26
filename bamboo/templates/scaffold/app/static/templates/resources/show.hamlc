@@ -1,0 +1,39 @@
+#content.bb-header
+  .container
+    %h1
+      Showing {{ resource.title() }} #{@id}
+
+#container.bb-container
+  .container
+    .row
+
+      .col-md-3
+        .bb-sidebar.hidden-print.affix-top{role:"complementary"}
+          %ul.nav.bb-sidenav
+            %li.active
+              %a{href:"/{{ resource }}s/#{@id}/edit"} 
+                %i.icon-edit
+                Edit {{ resource.title() }}
+            %li
+              %a.delete{href:"/{{ resource }}s/#{@id}/delete"} 
+                %i.icon-remove
+                Delete {{ resource.title() }}
+            %li.separator
+            %li
+              %a{href:"/back"}
+                %i.icon-reply
+                Back
+
+      .col-md-9{role:"main"}
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Attribute
+              %th Value
+          %tbody.{{ resource }}s
+            {% for attribute, type in attributes.items() %}
+            %tr
+              %th
+                {{ attribute.title() }}
+              %td#{{ attribute }}
+            {% endfor %}

@@ -7,4 +7,4 @@ from app.models import Folder
 @app.route('/<path:hashbang>') # Marionette Application
 def root(hashbang=None):
     folders = Folder.all()
-    return render_template('index.html.haml', **locals())
+    return render_template('index.haml', **locals())

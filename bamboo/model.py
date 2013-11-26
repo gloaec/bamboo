@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bamboo.application import db
 from sqlalchemy.ext.declarative import declarative_base
 import json

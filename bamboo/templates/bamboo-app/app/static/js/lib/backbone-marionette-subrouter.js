@@ -10,12 +10,16 @@
     }
 }(function(_, Backbone) {
     Marionette.SubRouter = Marionette.AppRouter.extend({
-        constructor: function(prefix, options) {
+        constructor: function(options) {
  
             var routes = {};
  
             // Prefix is optional, set to empty string if not passed
-            this.prefix = prefix = prefix || "";
+            if(this.prefix === undefined){
+                this.prefix = prefix = options.prefix || "";
+            } else {
+                 prefix = this.prefix;
+            }
  
             // SubRoute instances may be instantiated using a prefix with or without a trailing slash.
             // If the prefix does *not* have a trailing slash, we need to insert a slash as a separator

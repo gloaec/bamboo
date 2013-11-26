@@ -1,0 +1,9 @@
+{% for attribute in attributes.keys() %}
+{% if key == 'id' %}
+%td
+  %a{href:"/{{ resource }}s/#{@id}"}=@id
+{% else %}
+%td#{{ attribute }}
+{% endif %}
+{% endfor %}
+

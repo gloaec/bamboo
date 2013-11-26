@@ -9,4 +9,4 @@ view = View(__name__, url_prefix='/folders')
 
 #@view.route('/')
 #def index():
-#    return render_template('folders/index.html.haml', folders=Folder.all())
+#    return render_template('folders/index.haml', folders=Folder.all())

@@ -5,12 +5,20 @@ Bamboo
 Get Started
 -----------
  
+Install bamboo (Waiting for debian package)
+
 1. `git clone https://github.com/gloaec/bamboo.git` Clone the project
 2. `cd bamboo` Go to the project directory
 3. `[sudo] python setup.py install` Install Bamboo & cies
+
+New Application
+
 4. `bamboo new <app_name>` Create a new application
 5. `cd <app_bamboo>` Go to the new application root
-6. `bamboo server` Browse to [localhost:8080](http://localhost:8080)
+6. `bamboo db init` Init the database directory
+7. `bamboo db migrate` Migrate current schema to database
+8. `bamboo db seed` Populate database with artificial data
+9. `bamboo server` Browse to [localhost:5000](http://localhost:5000)
 
 Bamboo Features
 ---------------

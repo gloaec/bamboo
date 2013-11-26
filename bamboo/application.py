@@ -102,13 +102,13 @@ all_jst = Bundle( \
         filters='jst', output='templates.js')
 
 all_coffee = Bundle( \
-        'js/application.js.coffee', \
-        'js/lib/bamboo.js.coffee', \
+        'js/application.coffee', \
+        'js/lib/bamboo.coffee', \
         'js/**/*.coffee', 'js/**/**/*.coffee', \
         #'js/models/*.coffee', 'js/models/**/*.coffee', \
         #'js/views/*.coffee', 'js/views/**/*.coffee', \
         #'js/routers/*.coffee', 'js/routers/**/*.coffee', \
-        'js/router.js.coffee', \
+        'js/router.coffee', \
         filters='coffeescript', output='all.js')
 
 all_js = Bundle(
@@ -154,7 +154,7 @@ app.config['JST_COMPILER'] = ' \
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html.haml'), 404
+    return render_template('404.haml'), 404
 
 class Api(Blueprint):
     def __init__(self, import_name, name=None, url_prefix=None,

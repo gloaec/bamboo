@@ -1,0 +1,35 @@
+#content.bb-header
+  .container
+    %h1
+      %i.icon-edit
+      Edit {{ resource.title() }} #{@id}
+
+#container.bb-container
+  .container
+    .row
+
+      .col-md-3
+        .bb-sidebar.hidden-print.affix-top{role:"complementary"}
+          %ul.nav.bb-sidenav
+            %li
+              %a{href:"/back"}
+                %i.icon-reply
+                Back
+
+      .col-md-9{role:"main"}
+        %form#edit-{{ resource }}
+          %fieldset
+            /TODO : Handle different datatypes 
+            {% for attribute, type in attributes.noiditems() %}
+            /Type = {{ type }}
+            .form-group
+              %label{for:"{{ attribute }}"} {{ attribute.title() }}
+              %input#{{ attribute }}.form-control{type:"text", name:"{{ attribute }}", placeholder:"{{ attribute.title() }}"}/
+              %p.help-block
+            {% endfor %}
+            %button.btn.btn-primary{type:"submit"}
+              %i.icon-save
+              Save {{ resource.title() }}
+            %a.btn.btn-default{href:"/back"} 
+              %i.icon-reply 
+              Cancel
