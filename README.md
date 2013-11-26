@@ -13,12 +13,12 @@ Install bamboo (Waiting for debian package)
 
 New Application
 
-4. `bamboo new <app_name>` Create a new application
-5. `cd <app_bamboo>` Go to the new application root
-6. `bamboo db init` Init the database directory
-7. `bamboo db migrate` Migrate current schema to database
-8. `bamboo db seed` Populate database with artificial data
-9. `bamboo server` Browse to [localhost:5000](http://localhost:5000)
+1. `bamboo new <app_name>` Create a new application
+2. `cd <app_bamboo>` Go to the new application root
+3. `bamboo db init` Init the database directory
+4. `bamboo db migrate` Migrate current schema to database
+5. `bamboo db seed` Populate database with artificial data
+6. `bamboo server` Browse to [localhost:5000](http://localhost:5000)
 
 Bamboo Features
 ---------------
@@ -30,6 +30,8 @@ deployment.
 
 Bamboo Application Tree
 -----------------------
+
+TODO: not up-to-date
 
     bamboo-app
     ├── app
