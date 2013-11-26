@@ -16,8 +16,8 @@ New Application
 1. `bamboo new <app_name>` Create a new application
 2. `cd <app_bamboo>` Go to the new application root
 3. `bamboo db init` Init the database directory
-4. `bamboo db migrate` Migrate current schema to database 
-5. `bamboo db seed` Populate database with artificial data
+4. `bamboo db migrate` Migrate current schema to database
+5. `bamboo db seed` Populate database with artificial data
 6. `bamboo server` Browse to [localhost:5000](http://localhost:5000)
 
 Bamboo Features
