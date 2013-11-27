@@ -77,3 +77,6 @@ _.extend Backbone.Marionette.Region.prototype,
       $('[data-spy="scroll"]').each ->
         $(@).scrollspy 'refresh'
       callback.call @
+
+App.addInitializer ->
+  @folders = new App.Collections.Folders

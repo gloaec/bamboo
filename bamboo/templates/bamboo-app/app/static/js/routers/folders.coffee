@@ -9,6 +9,10 @@ class App.Routers.Folders extends Backbone.Marionette.SubRouter
     ':id/edit'   : 'edit'
 
 class App.Controllers.Folders
+
+  constructor: (route)->
+    App.folders.fetch() if /folders/.test(route)
+
   showView: (view)->
     App.mainRegion.show view
 
@@ -16,7 +20,6 @@ class App.Controllers.Folders
     @showView new App.Views.Folders.Index collection: App.folders
 
   show: (id) ->
-    console.log 'show', id
     @showView new App.Views.Folders.Show model: App.folders.get(id)
 
   new: ->

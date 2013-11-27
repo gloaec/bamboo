@@ -10,8 +10,6 @@ App.redirectHashBang = ->
   window.location = window.location.hash.substring(2)
 
 App.addInitializer ->
-  @folders = new App.Collections.Folders App.folders
-
   @addRegions mainRegion: '#main-content'
 
   @router = new @Routers.Main(controller: new @Controllers.Main)

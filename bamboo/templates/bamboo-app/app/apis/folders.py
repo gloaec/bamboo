@@ -10,6 +10,8 @@ api = Api(__name__)
 @api.route('/', methods=['GET'])
 @api.route('', methods=['GET'])
 def index():
+    import time
+    time.sleep(1)
     try:
         return json_response(Folder.all().to_dict())
     except Exception, e:

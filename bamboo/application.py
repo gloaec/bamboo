@@ -37,27 +37,28 @@ db = SQLAlchemy(app)
 babel = Babel(app)
 assets = Environment(app)
 
-def import_submodules(name, classes=False):
-    exec('from app import %s' % name)
-    for f in glob.glob(os.path.join(_appdir, name ,'*.py')):
-        model = submodel = os.path.basename(f)[:-3] 
-        if classes: submodel = model.title()
-        if model != '__init__':
-            mod_name = 'app.%s.%s' % (name, model)
-            mod_class = 'app.%s.%s' % (name, submodel)
-            try:
-                if classes:
-                    mod = __import__(mod_name, globals(), locals(), fromlist=[submodel])
-                    mod = getattr(mod, submodel)
-                else:
-                    mod = __import__(mod_name, globals(), locals())
-                if not mod_class in sys.modules: 
-                    sys.modules[mod_class] = mod
-                    exec('%s.%s = mod' % (name, submodel))
-            except ImportError:
-                print 'Failed to import Model: ', model.title()
-
-import_submodules('models', classes=True)
+#def import_submodules(name, path='', classes=False):
+#    exec('from app import %s' % name)
+#    for f in glob.glob(os.path.join(_appdir, name ,'*.py')):
+#        model = submodel = os.path.basename(f)[:-3] 
+#        if classes: submodel = model.title()
+#        if model != '__init__':
+#            mod_name = 'app.%s.%s' % (name, model)
+#            mod_class = 'app.%s.%s' % (name, submodel)
+#            try:
+#                if classes:
+#                    mod = __import__(mod_name, globals(), locals(), fromlist=[submodel])
+#                    mod = getattr(mod, submodel)
+#                else:
+#                    mod = __import__(mod_name, globals(), locals())
+#                if not mod_class in sys.modules: 
+#                    sys.modules[mod_class] = mod
+#                    exec('%s.%s = mod' % (name, submodel))
+#            except ImportError:
+#                print 'Failed to import Model: ', model.title()
+#
+#import_submodules('models', classes=True)
+#import_submodules('models', plugins=classes=True)
 
 
 # load_config(app):

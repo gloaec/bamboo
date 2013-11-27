@@ -3,7 +3,7 @@ class App.Routers.Main extends Backbone.Marionette.AppRouter
     ''                   : 'root'
     'back'               : 'back'
     'commands'           : 'commands'
-    '*subroute'          : 'subroute'
+    '*other'             : 'other'
 
 class App.Controllers.Main
   constructor: ->
@@ -21,5 +21,6 @@ class App.Controllers.Main
   commands: ->
     @showView new App.Views.Commands
 
-  subroute: (subroute) ->
-    new App.Routers.Folders controller: new App.Controllers.Folders()
+  # DO NOT MODIFY
+  other: (route) ->
+    new App.Routers.Folders controller: new App.Controllers.Folders(route)

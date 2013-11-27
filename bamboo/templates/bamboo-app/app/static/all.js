@@ -18,7 +18,6 @@ App.redirectHashBang = function() {
 };
 
 App.addInitializer(function() {
-  this.folders = new App.Collections.Folders(App.folders);
   this.addRegions({
     mainRegion: '#main-content'
   });
@@ -192,6 +191,10 @@ _.extend(Backbone.Marionette.Region.prototype, {
   }
 });
 
+App.addInitializer(function() {
+  return this.folders = new App.Collections.Folders;
+});
+
 App.flashes = [];
 
 App.flash = function(msg, type, icon) {
@@ -309,6 +312,10 @@ _.extend(Backbone.Marionette.Region.prototype, {
   }
 });
 
+App.addInitializer(function() {
+  return this.folders = new App.Collections.Folders;
+});
+
 App.module('Views').Commands = (function(_super) {
 
   __extends(Commands, _super);
@@ -360,6 +367,22 @@ App.module('Views').Home = (function(_super) {
 
 })(Backbone.Marionette.Layout);
 
+App.module('Views').Loading = (function(_super) {
+
+  __extends(Loading, _super);
+
+  function Loading() {
+    Loading.__super__.constructor.apply(this, arguments);
+  }
+
+  Loading.prototype.className = 'loading';
+
+  Loading.prototype.template = 'loading';
+
+  return Loading;
+
+})(Backbone.Marionette.Layout);
+
 App.Routers.Folders = (function(_super) {
 
   __extends(Folders, _super);
@@ -368,15 +391,13 @@ App.Routers.Folders = (function(_super) {
     Folders.__super__.constructor.apply(this, arguments);
   }
 
-  Folders.prototype.prefix = '/folders';
-
-  Folders.prototype.controller = App.Controllers.Folders;
+  Folders.prototype.prefix = 'folders';
 
   Folders.prototype.appRoutes = {
     '': 'index',
-    '/:id': 'show',
-    '/:id/new': 'new',
-    '/:id/edit': 'edit'
+    'new': 'new',
+    ':id': 'show',
+    ':id/edit': 'edit'
   };
 
   return Folders;
@@ -385,7 +406,9 @@ App.Routers.Folders = (function(_super) {
 
 App.Controllers.Folders = (function() {
 
-  function Folders() {}
+  function Folders(route) {
+    if (/folders/.test(route)) App.folders.fetch();
+  }
 
   Folders.prototype.showView = function(view) {
     return App.mainRegion.show(view);
@@ -393,26 +416,25 @@ App.Controllers.Folders = (function() {
 
   Folders.prototype.index = function() {
     return this.showView(new App.Views.Folders.Index({
-      collection: this.folders
+      collection: App.folders
     }));
   };
 
   Folders.prototype.show = function(id) {
-    console.log('show', id);
     return this.showView(new App.Views.Folders.Show({
-      model: this.folders.get(id)
+      model: App.folders.get(id)
     }));
   };
 
   Folders.prototype["new"] = function() {
     return this.showView(new App.Views.Folders.New({
-      collection: this.folders
+      collection: App.folders
     }));
   };
 
   Folders.prototype.edit = function(id) {
     return this.showView(new App.Views.Folders.Edit({
-      model: this.folders.get(id)
+      model: App.folders.get(id)
     }));
   };
 
@@ -590,6 +612,8 @@ App.module('Views.Folders').Index = (function(_super) {
 
   Index.prototype.template = 'folders/index';
 
+  Index.prototype.emptyView = App.Views.Loading;
+
   Index.prototype.itemViewContainer = 'tbody.folders';
 
   Index.prototype.initialize = function() {
@@ -599,6 +623,31 @@ App.module('Views.Folders').Index = (function(_super) {
   return Index;
 
 })(Backbone.Marionette.CompositeView);
+
+App.module('Views.Folders').Show = (function(_super) {
+
+  __extends(Show, _super);
+
+  function Show() {
+    Show.__super__.constructor.apply(this, arguments);
+  }
+
+  Show.prototype.className = 'row';
+
+  Show.prototype.template = 'folders/show';
+
+  Show.prototype.bindings = {
+    '#name': 'name',
+    '#description': 'description'
+  };
+
+  Show.prototype.onRender = function() {
+    return this.stickit();
+  };
+
+  return Show;
+
+})(Backbone.Marionette.ItemView);
 
 App.module('Views.Folders').Folder = (function(_super) {
 
@@ -634,31 +683,6 @@ App.module('Views.Folders').Folder = (function(_super) {
 
 })(Backbone.Marionette.ItemView);
 
-App.module('Views.Folders').Show = (function(_super) {
-
-  __extends(Show, _super);
-
-  function Show() {
-    Show.__super__.constructor.apply(this, arguments);
-  }
-
-  Show.prototype.className = 'row';
-
-  Show.prototype.template = 'folders/show';
-
-  Show.prototype.bindings = {
-    '#name': 'name',
-    '#description': 'description'
-  };
-
-  Show.prototype.onRender = function() {
-    return this.stickit();
-  };
-
-  return Show;
-
-})(Backbone.Marionette.ItemView);
-
 App.Routers.Main = (function(_super) {
 
   __extends(Main, _super);
@@ -671,10 +695,7 @@ App.Routers.Main = (function(_super) {
     '': 'root',
     'back': 'back',
     'commands': 'commands',
-    'folders': 'index',
-    'folders/new': 'new',
-    'folders/:id': 'show',
-    'folders/:id/edit': 'edit'
+    '*other': 'other'
   };
 
   return Main;
@@ -702,28 +723,10 @@ App.Controllers.Main = (function() {
     return this.showView(new App.Views.Commands);
   };
 
-  Main.prototype.index = function() {
-    return this.showView(new App.Views.Folders.Index({
-      collection: App.folders
-    }));
-  };
-
-  Main.prototype.show = function(id) {
-    return this.showView(new App.Views.Folders.Show({
-      model: App.folders.get(id)
-    }));
-  };
-
-  Main.prototype["new"] = function() {
-    return this.showView(new App.Views.Folders.New({
-      collection: App.folders
-    }));
-  };
-
-  Main.prototype.edit = function(id) {
-    return this.showView(new App.Views.Folders.Edit({
-      model: App.folders.get(id)
-    }));
+  Main.prototype.other = function(route) {
+    return new App.Routers.Folders({
+      controller: new App.Controllers.Folders(route)
+    });
   };
 
   return Main;
