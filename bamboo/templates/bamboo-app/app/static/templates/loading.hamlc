@@ -1,0 +1,7 @@
+#content.bb-header.bb-loading
+  .container
+    %h1
+      %i.icon-refresh.icon-spin
+      | Loading
+    %p
+      Please wait...
