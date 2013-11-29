@@ -1,0 +1,5 @@
+.col-md-12
+  .row
+    #results-region
+    #rentals-region
+    #pagination-region

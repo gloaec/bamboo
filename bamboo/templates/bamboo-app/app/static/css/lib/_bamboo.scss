@@ -1,33 +1,25 @@
-$navbar-default-color:             #FE008F;
-$navbar-default-bg:                #004455;
-$navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
+.bb-wrap {
+    height: auto !important;
+    margin: 0 auto -60px;
+    min-height: 100%;
+}
 
-// Navbar links
-$navbar-default-link-color:                #D5F6FF;
-$navbar-default-link-hover-color:          darken($navbar-default-link-color, 10%);
-$navbar-default-link-hover-bg:             darken($navbar-default-bg, 1.5%);
-$navbar-default-link-active-color:         #FFF;
-$navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
-$navbar-default-link-disabled-color:       #ccc !default;
-$navbar-default-link-disabled-bg:          transparent !default;
+.bb-push, .bb-footer {
+    height: 60px;
+}
 
-// Navbar brand label
-$navbar-default-brand-color:               #FFFFFF;
-$navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 10%) !default;
-$navbar-default-brand-hover-bg:            transparent !default;
+.bb-footer p {
+    margin: 19px 0;
+    text-align: center;
+}
 
-// Navbar toggle
-$navbar-default-toggle-hover-bg:           #ddd !default;
-$navbar-default-toggle-icon-bar-bg:        #ccc !default;
-$navbar-default-toggle-border-color:       #ddd !default;
+.loading-container {
+    min-height: 200px;
+}
 
-// Bamboo Header
-$bb-header-default-color:   #FFF;
-$bb-header-default-bg:      #006680;
-$bb-header-p-default-color: darken($bb-header-default-color, 10%);
-
-// Bambo Sidebar
-$bb-sidebar-default-link-color: $bb-header-default-bg;
+[class^="icon-"], [class*=" icon-"] {
+    line-height: inherit;
+}
 
 h1, h3 { position: relative; }
 
@@ -36,9 +28,14 @@ html, body {
 }
 
 body {
-    padding-top: 50px;
+    padding-top: 70px;
     position: relative;
     background: #FFF;
+    font-family: "Libertinage";
+}
+
+h1, h2, h3, .bb-footer { 
+    font-family: "NewscycleRegular" 
 }
 
 .alert {
@@ -51,8 +48,16 @@ body {
     display: table;
 }
 
+.bb-navbar {
+    font-family: "Intuitive"
+}
+
 .bb-navbar .navbar-brand {
     line-height: 16px;
+}
+
+.bb-navbar .navbar-nav > li > a {
+    line-height: 18px;
 }
 
 .bb-header {
@@ -70,10 +75,6 @@ body {
 
 .bb-header.bb-home {
    min-height: 100%;
-}
-
-.bb-header h1 {
-    font-family: "SansRegular";
 }
 
 .bb-header p {
@@ -158,13 +159,7 @@ h1[id], h3[id] {
 }
 
 .bb-footer {
-    text-align: left;
-}
-.bb-footer {
     border-top: 1px solid #E5E5E5;
     color: #777777;
-    margin-top: 100px;
-    padding-bottom: 30px;
-    padding-top: 40px;
     text-align: center;
 }

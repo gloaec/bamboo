@@ -1,11 +1,14 @@
 -extends 'layout/base.haml'
 
--block js
-  =super()
+-block content:
+  .bb-wrap
+    %header#header-region.navbar.navbar-default.navbar-fixed-top.bb-navbar role="navigation"
+    %section#main-region
+    .bb-push
+  #dialog-region
+  %footer#footer-region.bb-footer role="contentinfo"
+  
   %script
-    ;App.folders = { folders.to_json() };
-
--block content
-  %h1
-    %i.icon-refresh.icon-spin
-    | Loading ... 
+    $(function(){
+      LoadingViews.start();                
+    });

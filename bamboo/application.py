@@ -97,24 +97,37 @@ all_css = Bundle('css/application.css.sass', filters='sass', output='all.css',
                 depends=('css/**/*.scss','css/**/*.sass')) 
 all_css_min = Bundle(all_css, filters='cssmin', output="all.min.css")
 
+
+#//= require_tree ./backbone/config
+#//= require backbone/app
+#//= require_tree ./backbone/controllers
+#//= require_tree ./backbone/entities
+#//= require_tree ./backbone/views
+#//= require_tree ./backbone/components
+#//= require_tree ./backbone/apps
+
+
 all_jst = Bundle( \
-        'templates/*.hamlc', 'templates/**/*.hamlc', \
-        depends=('templates/*.hamlc', 'templates/**/*.hamlc'), \
+        'js/apps/**/**/templates/*.hamlc', 'js/components/**/**/templates/*.hamlc', \
+        #depends=('templates/*.hamlc', 'templates/**/*.hamlc'), \
         filters='jst', output='templates.js')
 
 all_coffee = Bundle( \
-        'js/application.coffee', \
-        'js/lib/bamboo.coffee', \
-        'js/**/*.coffee', 'js/**/**/*.coffee', \
-        #'js/models/*.coffee', 'js/models/**/*.coffee', \
-        #'js/views/*.coffee', 'js/views/**/*.coffee', \
-        #'js/routers/*.coffee', 'js/routers/**/*.coffee', \
-        'js/router.coffee', \
+        'js/config/*.coffee','js/config/**/*.coffee', \
+        'js/app.coffee', \
+        'js/controllers/*.coffee', 'js/controllers/**/*.coffee', \
+        'js/entities/**/*.coffee','js/entities/*.coffee',  \
+        'js/views/*.coffee', 'js/views/**/*.coffee', \
+        'js/components/*.coffee', 'js/components/**/*.coffee', \
+        'js/apps/*.coffee', 'js/apps/**/*.coffee', \
+        'js/apps/**/**/*.coffee', 'js/apps/**/**/**/*.coffee', \
         filters='coffeescript', output='all.js')
 
 all_js = Bundle(
         'js/lib/json2.js',
         'js/lib/jquery.js', \
+        'js/lib/spin.js', \
+        'js/lib/jquery-spin.js', \
         #UI
         'js/lib/bootstrap.js', \
         'js/lib/underscore.js', \
