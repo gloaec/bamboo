@@ -1,4 +1,4 @@
-@LoadingViews.module "FooterApp", (FooterApp, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "FooterApp", (FooterApp, App, Backbone, Marionette, $, _) ->
 
 	API =
 		show: ->

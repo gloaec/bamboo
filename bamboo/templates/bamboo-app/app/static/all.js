@@ -2,6 +2,27 @@ var __hasProp = Object.prototype.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
 (function(Backbone) {
+  console.log('push', Backbone.history);
+  if (Backbone.history && Backbone.history._hasPushState) {
+    return $(document).delegate('a', 'click', function(event) {
+      var href, passThrough, protocol;
+      event = event || window.event;
+      href = $(this).attr("href");
+      protocol = this.protocol + "//";
+      passThrough = href.indexOf('special_url') >= 0 || ($(this).data('reload') != null);
+      passThrough || (passThrough = href.slice(protocol.length) === protocol);
+      passThrough || (passThrough = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey);
+      console.log('pass', passThrough);
+      if (!passThrough) {
+        event.preventDefault();
+        Backbone.history.navigate(href, true);
+        return false;
+      }
+    });
+  }
+})(Backbone);
+
+(function(Backbone) {
   var _sync;
   _sync = Backbone.sync;
   return Backbone.sync = function(method, entity, options) {
@@ -60,13 +81,35 @@ var __hasProp = Object.prototype.hasOwnProperty,
       }
     },
     startHistory: function() {
-      if (Backbone.history) return Backbone.history.start();
+      if (Backbone.history) {
+        Backbone.history.start({
+          pushState: true
+        });
+        if (Backbone.history._hasPushState) {
+          return $(document).delegate('a', 'click', function(event) {
+            var href, passThrough, protocol;
+            event = event || window.event;
+            href = $(this).attr("href");
+            protocol = this.protocol + "//";
+            passThrough = href.indexOf('special_url') >= 0 || ($(this).data('reload') != null);
+            passThrough || (passThrough = href.slice(protocol.length) === protocol);
+            passThrough || (passThrough = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey);
+            if (!passThrough) {
+              event.preventDefault();
+              Backbone.history.navigate(href, true);
+              return false;
+            }
+          });
+        }
+      }
     },
     register: function(instance, id) {
+      console.info("Register", id, instance);
       if (this._registry == null) this._registry = {};
       return this._registry[id] = instance;
     },
     unregister: function(instance, id) {
+      console.info("Unregister", id, instance);
       return delete this._registry[id];
     },
     resetRegistry: function() {
@@ -90,51 +133,7 @@ var __hasProp = Object.prototype.hasOwnProperty,
   });
 })(Backbone);
 
-(function(Marionette) {
-  return _.extend(Backbone.Marionette.Region.prototype, {
-    show: function(view) {
-      this.ensureEl();
-      view.render();
-      return this.close(function() {
-        if (this.currentView && this.currentView !== view) return;
-        this.currentView = view;
-        return this.open(view, function() {
-          if (view.onShow) view.onShow();
-          view.trigger("show");
-          if (this.onShow) this.onShow(view);
-          return this.trigger("view:show", view);
-        });
-      });
-    },
-    close: function(cb) {
-      var view,
-        _this = this;
-      view = this.currentView;
-      delete this.currentView;
-      if (!view) {
-        if (cb) cb.call(this);
-        return;
-      }
-      return view.$el.fadeOut("fast", function() {
-        if (view.close) view.close();
-        _this.trigger("view:closed", view);
-        if (cb) return cb.call(_this);
-      });
-    },
-    open: function(view, callback) {
-      var _this = this;
-      this.$el.html(view.$el.hide());
-      return view.$el.fadeIn("fast", function() {
-        $('[data-spy="scroll"]').each(function() {
-          return $(this).scrollspy('refresh');
-        });
-        return callback.call(_this);
-      });
-    }
-  });
-})(Marionette);
-
-this.LoadingViews = (function(Backbone, Marionette) {
+this.BambooApp = (function(Backbone, Marionette) {
   var App;
   App = new Marionette.Application;
   App.addRegions({
@@ -167,7 +166,7 @@ this.LoadingViews = (function(Backbone, Marionette) {
   return App;
 })(Backbone, Marionette);
 
-this.LoadingViews.module("Controllers", function(Controllers, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Controllers", function(Controllers, App, Backbone, Marionette, $, _) {
   return Controllers.Base = (function(_super) {
 
     __extends(Base, _super);
@@ -214,7 +213,7 @@ this.LoadingViews.module("Controllers", function(Controllers, App, Backbone, Mar
   })(Marionette.Controller);
 });
 
-this.LoadingViews.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
   return Entities.Model = (function(_super) {
 
     __extends(Model, _super);
@@ -228,7 +227,7 @@ this.LoadingViews.module("Entities", function(Entities, App, Backbone, Marionett
   })(Backbone.Model);
 });
 
-this.LoadingViews.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
   return Entities.Collection = (function(_super) {
 
     __extends(Collection, _super);
@@ -242,7 +241,7 @@ this.LoadingViews.module("Entities", function(Entities, App, Backbone, Marionett
   })(Backbone.Collection);
 });
 
-this.LoadingViews.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
   return App.commands.setHandler("when:fetched", function(entities, callback) {
     var xhrs;
     xhrs = _.chain([entities]).flatten().pluck("_fetch").value();
@@ -252,7 +251,7 @@ this.LoadingViews.module("Entities", function(Entities, App, Backbone, Marionett
   });
 });
 
-this.LoadingViews.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
   var API;
   Entities.Movie = (function(_super) {
 
@@ -323,7 +322,7 @@ this.LoadingViews.module("Entities", function(Entities, App, Backbone, Marionett
   });
 });
 
-this.LoadingViews.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   return Views.CompositeView = (function(_super) {
 
     __extends(CompositeView, _super);
@@ -339,7 +338,9 @@ this.LoadingViews.module("Views", function(Views, App, Backbone, Marionette, $, 
   })(Marionette.CompositeView);
 });
 
-this.LoadingViews.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Views", function(Views, App, Backbone, Marionette, $, _) {});
+
+this.BambooApp.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   return Views.Layout = (function(_super) {
 
     __extends(Layout, _super);
@@ -355,13 +356,13 @@ this.LoadingViews.module("Views", function(Views, App, Backbone, Marionette, $, 
   })(Marionette.Layout);
 });
 
-this.LoadingViews.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   return _.extend(Marionette.View.prototype, {
     templateHelpers: function() {}
   });
 });
 
-this.LoadingViews.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   return Views.CollectionView = (function(_super) {
 
     __extends(CollectionView, _super);
@@ -377,7 +378,7 @@ this.LoadingViews.module("Views", function(Views, App, Backbone, Marionette, $, 
   })(Marionette.CollectionView);
 });
 
-this.LoadingViews.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   return Views.ItemView = (function(_super) {
 
     __extends(ItemView, _super);
@@ -391,7 +392,7 @@ this.LoadingViews.module("Views", function(Views, App, Backbone, Marionette, $, 
   })(Marionette.ItemView);
 });
 
-this.LoadingViews.module("Components.Loading", function(Loading, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Components.Loading", function(Loading, App, Backbone, Marionette, $, _) {
   Loading.LoadingController = (function(_super) {
 
     __extends(LoadingController, _super);
@@ -457,7 +458,7 @@ this.LoadingViews.module("Components.Loading", function(Loading, App, Backbone, 
   });
 });
 
-this.LoadingViews.module("Components.Loading", function(Loading, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("Components.Loading", function(Loading, App, Backbone, Marionette, $, _) {
   return Loading.LoadingView = (function(_super) {
 
     __extends(LoadingView, _super);
@@ -506,7 +507,7 @@ this.LoadingViews.module("Components.Loading", function(Loading, App, Backbone, 
   })(App.Views.ItemView);
 });
 
-this.LoadingViews.module("DashboardTheatresApp", function(DashboardTheatresApp, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("DashboardTheatresApp", function(DashboardTheatresApp, App, Backbone, Marionette, $, _) {
   var API;
   API = {
     list: function(region) {
@@ -520,7 +521,7 @@ this.LoadingViews.module("DashboardTheatresApp", function(DashboardTheatresApp, 
   });
 });
 
-this.LoadingViews.module("DashboardApp", function(DashboardApp, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("DashboardApp", function(DashboardApp, App, Backbone, Marionette, $, _) {
   var API;
   DashboardApp.Router = (function(_super) {
 
@@ -549,7 +550,7 @@ this.LoadingViews.module("DashboardApp", function(DashboardApp, App, Backbone, M
   });
 });
 
-this.LoadingViews.module("DashboardUpcomingApp", function(DashboardUpcomingApp, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("DashboardUpcomingApp", function(DashboardUpcomingApp, App, Backbone, Marionette, $, _) {
   var API;
   API = {
     list: function(region) {
@@ -563,7 +564,7 @@ this.LoadingViews.module("DashboardUpcomingApp", function(DashboardUpcomingApp, 
   });
 });
 
-this.LoadingViews.module("RentalsApp", function(RentalsApp, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("RentalsApp", function(RentalsApp, App, Backbone, Marionette, $, _) {
   var API;
   RentalsApp.Router = (function(_super) {
 
@@ -592,7 +593,7 @@ this.LoadingViews.module("RentalsApp", function(RentalsApp, App, Backbone, Mario
   });
 });
 
-this.LoadingViews.module("HeaderApp", function(HeaderApp, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("HeaderApp", function(HeaderApp, App, Backbone, Marionette, $, _) {
   var API;
   API = {
     list: function() {
@@ -606,7 +607,7 @@ this.LoadingViews.module("HeaderApp", function(HeaderApp, App, Backbone, Marione
   });
 });
 
-this.LoadingViews.module("SearchApp", function(SearchApp, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("SearchApp", function(SearchApp, App, Backbone, Marionette, $, _) {
   var API;
   SearchApp.Router = (function(_super) {
 
@@ -635,7 +636,7 @@ this.LoadingViews.module("SearchApp", function(SearchApp, App, Backbone, Marione
   });
 });
 
-this.LoadingViews.module("FooterApp", function(FooterApp, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("FooterApp", function(FooterApp, App, Backbone, Marionette, $, _) {
   var API;
   API = {
     show: function() {
@@ -649,7 +650,7 @@ this.LoadingViews.module("FooterApp", function(FooterApp, App, Backbone, Marione
   });
 });
 
-this.LoadingViews.module("DashboardTheatresApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("DashboardTheatresApp.List", function(List, App, Backbone, Marionette, $, _) {
   return List.Controller = (function(_super) {
 
     __extends(Controller, _super);
@@ -678,7 +679,7 @@ this.LoadingViews.module("DashboardTheatresApp.List", function(List, App, Backbo
   })(App.Controllers.Base);
 });
 
-this.LoadingViews.module("DashboardTheatresApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("DashboardTheatresApp.List", function(List, App, Backbone, Marionette, $, _) {
   List.Theatre = (function(_super) {
 
     __extends(Theatre, _super);
@@ -713,7 +714,7 @@ this.LoadingViews.module("DashboardTheatresApp.List", function(List, App, Backbo
   })(App.Views.CompositeView);
 });
 
-this.LoadingViews.module("DashboardApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("DashboardApp.Show", function(Show, App, Backbone, Marionette, $, _) {
   return Show.Layout = (function(_super) {
 
     __extends(Layout, _super);
@@ -734,7 +735,7 @@ this.LoadingViews.module("DashboardApp.Show", function(Show, App, Backbone, Mari
   })(App.Views.Layout);
 });
 
-this.LoadingViews.module("DashboardApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("DashboardApp.Show", function(Show, App, Backbone, Marionette, $, _) {
   return Show.Controller = (function(_super) {
 
     __extends(Controller, _super);
@@ -770,7 +771,7 @@ this.LoadingViews.module("DashboardApp.Show", function(Show, App, Backbone, Mari
   })(App.Controllers.Base);
 });
 
-this.LoadingViews.module("DashboardUpcomingApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("DashboardUpcomingApp.List", function(List, App, Backbone, Marionette, $, _) {
   return List.Controller = (function(_super) {
 
     __extends(Controller, _super);
@@ -799,7 +800,7 @@ this.LoadingViews.module("DashboardUpcomingApp.List", function(List, App, Backbo
   })(App.Controllers.Base);
 });
 
-this.LoadingViews.module("DashboardUpcomingApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("DashboardUpcomingApp.List", function(List, App, Backbone, Marionette, $, _) {
   List.UpcomingMovie = (function(_super) {
 
     __extends(UpcomingMovie, _super);
@@ -834,7 +835,7 @@ this.LoadingViews.module("DashboardUpcomingApp.List", function(List, App, Backbo
   })(App.Views.CompositeView);
 });
 
-this.LoadingViews.module("RentalsApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("RentalsApp.List", function(List, App, Backbone, Marionette, $, _) {
   return List.Controller = (function(_super) {
 
     __extends(Controller, _super);
@@ -914,7 +915,7 @@ this.LoadingViews.module("RentalsApp.List", function(List, App, Backbone, Marion
   })(App.Controllers.Base);
 });
 
-this.LoadingViews.module("RentalsApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("RentalsApp.List", function(List, App, Backbone, Marionette, $, _) {
   List.Layout = (function(_super) {
 
     __extends(Layout, _super);
@@ -994,7 +995,7 @@ this.LoadingViews.module("RentalsApp.List", function(List, App, Backbone, Marion
   })(App.Views.ItemView);
 });
 
-this.LoadingViews.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
   return List.Controller = (function(_super) {
 
     __extends(Controller, _super);
@@ -1017,7 +1018,7 @@ this.LoadingViews.module("HeaderApp.List", function(List, App, Backbone, Marione
   })(App.Controllers.Base);
 });
 
-this.LoadingViews.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
   return List.Layout = (function(_super) {
 
     __extends(Layout, _super);
@@ -1037,7 +1038,7 @@ this.LoadingViews.module("HeaderApp.List", function(List, App, Backbone, Marione
   })(App.Views.Layout);
 });
 
-this.LoadingViews.module("SearchApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("SearchApp.List", function(List, App, Backbone, Marionette, $, _) {
   return List.Controller = (function(_super) {
 
     __extends(Controller, _super);
@@ -1123,7 +1124,7 @@ this.LoadingViews.module("SearchApp.List", function(List, App, Backbone, Marione
   })(App.Controllers.Base);
 });
 
-this.LoadingViews.module("SearchApp.List", function(List, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("SearchApp.List", function(List, App, Backbone, Marionette, $, _) {
   List.Layout = (function(_super) {
 
     __extends(Layout, _super);
@@ -1234,7 +1235,7 @@ this.LoadingViews.module("SearchApp.List", function(List, App, Backbone, Marione
   })(App.Views.ItemView);
 });
 
-this.LoadingViews.module("FooterApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("FooterApp.Show", function(Show, App, Backbone, Marionette, $, _) {
   return Show.Layout = (function(_super) {
 
     __extends(Layout, _super);
@@ -1254,7 +1255,7 @@ this.LoadingViews.module("FooterApp.Show", function(Show, App, Backbone, Marione
   })(App.Views.Layout);
 });
 
-this.LoadingViews.module("FooterApp.Show", function(Show, App, Backbone, Marionette, $, _) {
+this.BambooApp.module("FooterApp.Show", function(Show, App, Backbone, Marionette, $, _) {
   return Show.Controller = (function(_super) {
 
     __extends(Controller, _super);

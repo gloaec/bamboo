@@ -1,4 +1,4 @@
-@LoadingViews.module "DashboardUpcomingApp.List", (List, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "DashboardUpcomingApp.List", (List, App, Backbone, Marionette, $, _) ->
 
 	class List.UpcomingMovie extends App.Views.ItemView
 		template: "dashboard_upcoming/list/_upcoming_movie"

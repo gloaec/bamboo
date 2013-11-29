@@ -1,4 +1,4 @@
-@LoadingViews.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.Movie extends Entities.Model
 

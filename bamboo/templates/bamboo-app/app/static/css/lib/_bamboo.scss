@@ -31,7 +31,11 @@ body {
     padding-top: 70px;
     position: relative;
     background: #FFF;
-    font-family: "Libertinage";
+    font-family: "RalewayRegular";
+}
+
+table {
+    font-size: 14px;
 }
 
 h1, h2, h3, .bb-footer { 
@@ -54,6 +58,7 @@ h1, h2, h3, .bb-footer {
 
 .bb-navbar .navbar-brand {
     line-height: 16px;
+    font-family: "Intuitive"
 }
 
 .bb-navbar .navbar-nav > li > a {

@@ -1,4 +1,4 @@
-@LoadingViews.module "RentalsApp", (RentalsApp, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "RentalsApp", (RentalsApp, App, Backbone, Marionette, $, _) ->
 
 	class RentalsApp.Router extends Marionette.AppRouter
 		appRoutes:

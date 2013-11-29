@@ -1,4 +1,4 @@
-@LoadingViews.module "SearchApp", (SearchApp, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "SearchApp", (SearchApp, App, Backbone, Marionette, $, _) ->
 
 	class SearchApp.Router extends Marionette.AppRouter
 		appRoutes:

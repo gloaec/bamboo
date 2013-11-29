@@ -1,4 +1,4 @@
-@LoadingViews.module "RentalsApp.List", (List, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "RentalsApp.List", (List, App, Backbone, Marionette, $, _) ->
 
   class List.Controller extends App.Controllers.Base
 

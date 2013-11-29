@@ -7639,14 +7639,6 @@ td.visible-print {
 }
 
 @font-face {
-  font-family: 'Libertinage';
-  src: url("fonts/libertinage-webfont.eot");
-  src: url("fonts/libertinage-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/libertinage-webfont.woff") format("woff"), url("fonts/libertinage-webfont.ttf") format("truetype"), url("fonts/libertinage-webfont.svg#libertinagefull") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
   font-family: 'NewscycleBold';
   src: url("fonts/newscycle-bold-webfont.eot");
   src: url("fonts/newscycle-bold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/newscycle-bold-webfont.woff") format("woff"), url("fonts/newscycle-bold-webfont.ttf") format("truetype"), url("fonts/newscycle-bold-webfont.svg#news_cyclebold") format("svg");
@@ -7658,6 +7650,30 @@ td.visible-print {
   font-family: 'NewscycleRegular';
   src: url("fonts/newscycle-regular-webfont.eot");
   src: url("fonts/newscycle-regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/newscycle-regular-webfont.woff") format("woff"), url("fonts/newscycle-regular-webfont.ttf") format("truetype"), url("fonts/newscycle-regular-webfont.svg#news_cycleregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RalewayBold';
+  src: url("fonts/raleway-bold-webfont.eot");
+  src: url("fonts/raleway-bold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/raleway-bold-webfont.woff") format("woff"), url("fonts/raleway-bold-webfont.ttf") format("truetype"), url("fonts/raleway-bold-webfont.svg#ralewaybold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RalewayLight';
+  src: url("fonts/raleway-light-webfont.eot");
+  src: url("fonts/raleway-light-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/raleway-light-webfont.woff") format("woff"), url("fonts/raleway-light-webfont.ttf") format("truetype"), url("fonts/raleway-light-webfont.svg#ralewaylight") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RalewayRegular';
+  src: url("fonts/raleway-regular-webfont.eot");
+  src: url("fonts/raleway-regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/raleway-regular-webfont.woff") format("woff"), url("fonts/raleway-regular-webfont.ttf") format("truetype"), url("fonts/raleway-regular-webfont.svg#ralewayregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -7705,42 +7721,48 @@ body {
   padding-top: 70px;
   position: relative;
   background: #FFF;
-  font-family: "Libertinage";
+  font-family: "RalewayRegular";
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000337}}
+table {
+  font-size: 14px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000341}}
 h1, h2, h3, .bb-footer {
   font-family: "NewscycleRegular";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000345}}
 .alert {
   margin-bottom: 0 !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000349}}
 #main-content:after {
   clear: both;
   content: " ";
   display: table;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000355}}
 .bb-navbar {
   font-family: "Intuitive";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000359}}
 .bb-navbar .navbar-brand {
   line-height: 16px;
+  font-family: "Intuitive";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000364}}
 .bb-navbar .navbar-nav > li > a {
   line-height: 18px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000368}}
 .bb-header {
   color: white;
   font-size: 16px;
@@ -7753,25 +7775,25 @@ h1, h2, h3, .bb-footer {
   box-shadow: inset 0 0 20px #005267;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000381}}
 .bb-header.bb-home {
   min-height: 100%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000385}}
 .bb-header p {
   font-family: "Mono";
   color: #e6e6e6;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000390}}
 .bb-navbar {
   border-color: #463265;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003102}}
 .bb-sidenav {
   background-color: #F7F5FA;
   border-radius: 5px;
@@ -7782,40 +7804,40 @@ h1, h2, h3, .bb-footer {
   text-shadow: 0 1px 0 #FFFFFF;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003107}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003112}}
 .bb-sidebar {
   position: relative;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003117}}
 .bb-sidebar.affix-bottom,
 .bb-sidebar.affix {
   width: 263px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003115}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003120}}
 .bb-sidebar.affix {
   position: fixed;
   top: 50px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003120}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003125}}
 .bb-sidebar.affix-bottom {
   position: absolute;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003129}}
 .bb-sidebar .nav > li > a {
   padding: 5px 20px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003128}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003133}}
 .bb-sidebar .nav > .nav-header {
   color: #888;
   padding: 10px 10px 5px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003135}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003140}}
 .bb-sidebar .nav > .active > a,
 .bb-sidebar .nav > .active:hover > a,
 .bb-sidebar .nav > .active:focus > a {
@@ -7824,7 +7846,7 @@ h1, h2, h3, .bb-footer {
   font-weight: bold;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003146}}
 .bb-sidebar .nav .nav > li > a {
   font-size: 90%;
   padding-bottom: 3px;
@@ -7832,24 +7854,24 @@ h1, h2, h3, .bb-footer {
   padding-top: 3px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003148}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003153}}
 .bb-sidebar .nav > .active > ul {
   display: block;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003151}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003156}}
 .bb-sidebar .nav .nav {
   display: none;
   margin-bottom: 8px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003156}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003161}}
 h1[id], h3[id] {
   margin-top: -45px;
   padding-top: 80px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003161}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/bamboo\/bamboo\/templates\/bamboo-app\/app\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003166}}
 .bb-footer {
   border-top: 1px solid #E5E5E5;
   color: #777777;

@@ -1,4 +1,4 @@
-@LoadingViews.module "HeaderApp.List", (List, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "HeaderApp.List", (List, App, Backbone, Marionette, $, _) ->
 
 	class List.Controller extends App.Controllers.Base
 

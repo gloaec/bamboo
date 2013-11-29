@@ -1,4 +1,4 @@
-@LoadingViews = do (Backbone, Marionette) ->
+@BambooApp = do (Backbone, Marionette) ->
 
   App = new Marionette.Application
 

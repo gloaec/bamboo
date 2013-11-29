@@ -1,4 +1,4 @@
-@LoadingViews.module "SearchApp.List", (List, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "SearchApp.List", (List, App, Backbone, Marionette, $, _) ->
 
 	class List.Layout extends App.Views.Layout
 		template: "search/list/list_layout"

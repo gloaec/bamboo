@@ -1,3 +1,3 @@
-@LoadingViews.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 	
 	class Entities.Collection extends Backbone.Collection

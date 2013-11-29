@@ -1,4 +1,4 @@
-@LoadingViews.module "DashboardUpcomingApp", (DashboardUpcomingApp, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "DashboardUpcomingApp", (DashboardUpcomingApp, App, Backbone, Marionette, $, _) ->
 		
 	API =
 		list: (region) ->

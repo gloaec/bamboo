@@ -1,4 +1,4 @@
-@LoadingViews.module "HeaderApp", (HeaderApp, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "HeaderApp", (HeaderApp, App, Backbone, Marionette, $, _) ->
 
 	API =
 		list: ->

@@ -11,16 +11,16 @@
   .collapse.navbar-collapse.nav-collapse-1
     %ul.nav.navbar-nav
       %li.active
-        %a{href:"#dashboard"}
+        %a{href:"/dashboard"}
           %i.icon-home
           Dashboard
       %li
-        %a{href:"#search"}
+        %a{href:"/search"}
           %i.icon-search
           Search
       %li
-        %a{href:"#rentals"}
+        %a{href:"/rentals"}
           %i.icon-list-alt
-          Folders
+          Rentals
       -if 'user' == 'admin'
         %li Menu Admin only

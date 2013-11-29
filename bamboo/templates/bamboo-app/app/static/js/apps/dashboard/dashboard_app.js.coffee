@@ -1,4 +1,4 @@
-@LoadingViews.module "DashboardApp", (DashboardApp, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "DashboardApp", (DashboardApp, App, Backbone, Marionette, $, _) ->
 
 	class DashboardApp.Router extends Marionette.AppRouter
 		appRoutes:
