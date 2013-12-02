@@ -2,27 +2,6 @@ var __hasProp = Object.prototype.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
 (function(Backbone) {
-  console.log('push', Backbone.history);
-  if (Backbone.history && Backbone.history._hasPushState) {
-    return $(document).delegate('a', 'click', function(event) {
-      var href, passThrough, protocol;
-      event = event || window.event;
-      href = $(this).attr("href");
-      protocol = this.protocol + "//";
-      passThrough = href.indexOf('special_url') >= 0 || ($(this).data('reload') != null);
-      passThrough || (passThrough = href.slice(protocol.length) === protocol);
-      passThrough || (passThrough = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey);
-      console.log('pass', passThrough);
-      if (!passThrough) {
-        event.preventDefault();
-        Backbone.history.navigate(href, true);
-        return false;
-      }
-    });
-  }
-})(Backbone);
-
-(function(Backbone) {
   var _sync;
   _sync = Backbone.sync;
   return Backbone.sync = function(method, entity, options) {
@@ -80,11 +59,13 @@ var __hasProp = Object.prototype.hasOwnProperty,
         return frag;
       }
     },
-    startHistory: function() {
+    startHistory: function(options) {
+      if (options == null) options = {};
+      _.defaults(options, {
+        pushState: true
+      });
       if (Backbone.history) {
-        Backbone.history.start({
-          pushState: true
-        });
+        Backbone.history.start(options);
         if (Backbone.history._hasPushState) {
           return $(document).delegate('a', 'click', function(event) {
             var href, passThrough, protocol;
@@ -104,12 +85,10 @@ var __hasProp = Object.prototype.hasOwnProperty,
       }
     },
     register: function(instance, id) {
-      console.info("Register", id, instance);
       if (this._registry == null) this._registry = {};
       return this._registry[id] = instance;
     },
     unregister: function(instance, id) {
-      console.info("Unregister", id, instance);
       return delete this._registry[id];
     },
     resetRegistry: function() {
@@ -133,13 +112,71 @@ var __hasProp = Object.prototype.hasOwnProperty,
   });
 })(Backbone);
 
+(function(Backbone, Marionette) {
+  return Marionette.Region.Dialog = (function(_super) {
+
+    __extends(Dialog, _super);
+
+    function Dialog() {
+      _.extend(this, Backbone.Events);
+    }
+
+    Dialog.prototype.open = function(view) {
+      return this.$el.empty().append($('<div>').addClass('modal-dialog').append($('<div>').addClass('modal-content').append(view.el)));
+    };
+
+    Dialog.prototype.onShow = function(view) {
+      var options,
+        _this = this;
+      this.setupBindings(view);
+      options = this.getDefaultOptions(_.result(view, "dialog"));
+      this.$el.modal(options);
+      return this.$el.on("hidden.bs.modal", function() {
+        return _this.closeDialog();
+      });
+    };
+
+    Dialog.prototype.getDefaultOptions = function(options) {
+      if (options == null) options = {};
+      return _.defaults(options, {
+        backdrop: true,
+        keyboard: true,
+        show: true,
+        remote: false
+      });
+    };
+
+    Dialog.prototype.setupBindings = function(view) {
+      this.listenTo(view, "dialog:close", this.closeDialog);
+      return this.listenTo(view, "dialog:title", this.titleizeDialog);
+    };
+
+    Dialog.prototype.closeDialog = function() {
+      this.$el.modal('hide');
+      this.stopListening();
+      this.close();
+      return this.$el.empty();
+    };
+
+    Dialog.prototype.titleizeDialog = function(title) {
+      return this.$('.modal-title').html(title);
+    };
+
+    return Dialog;
+
+  })(Marionette.Region);
+})(Backbone, Marionette);
+
 this.BambooApp = (function(Backbone, Marionette) {
   var App;
   App = new Marionette.Application;
   App.addRegions({
     headerRegion: "#header-region",
     mainRegion: "#main-region",
-    footerRegion: "#footer-region"
+    footerRegion: "#footer-region",
+    dialogRegion: Marionette.Region.Dialog.extend({
+      el: "#dialog-region"
+    })
   });
   App.rootRoute = "dashboard";
   App.reqres.setHandler("default:region", function() {
@@ -319,6 +356,59 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
       page_limit: 10,
       page: 1
     });
+  });
+});
+
+this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+  var API;
+  Entities.Event = (function(_super) {
+
+    __extends(Event, _super);
+
+    function Event() {
+      Event.__super__.constructor.apply(this, arguments);
+    }
+
+    return Event;
+
+  })(Backbone.Model);
+  Entities.EventsCollection = (function(_super) {
+
+    __extends(EventsCollection, _super);
+
+    function EventsCollection() {
+      EventsCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    EventsCollection.prototype.model = Entities.Event;
+
+    return EventsCollection;
+
+  })(Backbone.Collection);
+  API = {
+    getEvents: function() {
+      return new Entities.EventsCollection([
+        {
+          id: 1,
+          date: "03/14/2013",
+          name: "Birthday",
+          description: "Age is a high price to pay for maturity."
+        }, {
+          id: 2,
+          date: "03/17/2013",
+          name: "Screencasts",
+          description: "Release new screencasts, and update the site."
+        }, {
+          id: 3,
+          date: "03/27/2013",
+          name: "Blog",
+          description: "Finish writing epic blog post."
+        }
+      ]);
+    }
+  };
+  return App.reqres.setHandler("event:entities", function() {
+    return API.getEvents();
   });
 });
 
@@ -588,6 +678,42 @@ this.BambooApp.module("RentalsApp", function(RentalsApp, App, Backbone, Marionet
   };
   return App.addInitializer(function() {
     return new RentalsApp.Router({
+      controller: API
+    });
+  });
+});
+
+this.BambooApp.module("EventsApp", function(EventsApp, App, Backbone, Marionette, $, _) {
+  var API;
+  this.startWithParent = false;
+  EventsApp.Router = (function(_super) {
+
+    __extends(Router, _super);
+
+    function Router() {
+      Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "events": "list"
+    };
+
+    return Router;
+
+  })(Marionette.AppRouter);
+  API = {
+    list: function() {
+      return EventsApp.List.Controller.list();
+    },
+    edit: function(event) {
+      return EventsApp.Edit.Controller.edit(event);
+    }
+  };
+  App.vent.on("edit:event:clicked", function(event) {
+    return API.edit(event);
+  });
+  return App.addInitializer(function() {
+    return new EventsApp.Router({
       controller: API
     });
   });
@@ -993,6 +1119,130 @@ this.BambooApp.module("RentalsApp.List", function(List, App, Backbone, Marionett
     return Pagination;
 
   })(App.Views.ItemView);
+});
+
+this.BambooApp.module("EventsApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = {
+    list: function() {
+      var events, listView;
+      events = App.request("event:entities");
+      listView = this.getListView(events);
+      listView.on("itemview:edit:event:clicked", function(iv, event) {
+        return App.vent.trigger("edit:event:clicked", event);
+      });
+      return App.mainRegion.show(listView);
+    },
+    getListView: function(events) {
+      return new List.Events({
+        collection: events
+      });
+    }
+  };
+});
+
+this.BambooApp.module("EventsApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.Event = (function(_super) {
+
+    __extends(Event, _super);
+
+    function Event() {
+      Event.__super__.constructor.apply(this, arguments);
+    }
+
+    Event.prototype.tagName = "tr";
+
+    Event.prototype.template = "events/list/templates/_event";
+
+    Event.prototype.events = {
+      "click button": function() {
+        return this.trigger("edit:event:clicked", this.model);
+      }
+    };
+
+    return Event;
+
+  })(Marionette.ItemView);
+  return List.Events = (function(_super) {
+
+    __extends(Events, _super);
+
+    function Events() {
+      Events.__super__.constructor.apply(this, arguments);
+    }
+
+    Events.prototype.className = 'container';
+
+    Events.prototype.template = "events/list/templates/events";
+
+    Events.prototype.itemView = List.Event;
+
+    Events.prototype.itemViewContainer = "tbody";
+
+    return Events;
+
+  })(Marionette.CompositeView);
+});
+
+this.BambooApp.module("EventsApp.Edit", function(Edit, App, Backbone, Marionette, $, _) {
+  return Edit.Event = (function(_super) {
+
+    __extends(Event, _super);
+
+    function Event() {
+      Event.__super__.constructor.apply(this, arguments);
+    }
+
+    Event.prototype.template = "events/edit/templates/edit_event";
+
+    Event.prototype.modelEvents = {
+      "change:name": function() {
+        return console.log("name changed");
+      }
+    };
+
+    Event.prototype.events = {
+      "click #close-dialog": function() {
+        return this.trigger("dialog:close");
+      }
+    };
+
+    Event.prototype.dialog = {
+      title: "Edit Event",
+      className: "dialogClass",
+      buttons: false
+    };
+
+    Event.prototype.onClose = function() {
+      return console.log("view closing");
+    };
+
+    Event.prototype.onDialogButtonClicked = function() {
+      return console.log("dialog method onDialogButtonClicked");
+    };
+
+    return Event;
+
+  })(Marionette.ItemView);
+});
+
+this.BambooApp.module("EventsApp.Edit", function(Edit, App, Backbone, Marionette, $, _) {
+  return Edit.Controller = {
+    edit: function(event) {
+      var editView;
+      window.event = event;
+      editView = this.getEditView(event);
+      window.editView = editView;
+      editView.on("dialog:button:clicked", function() {
+        return console.log("editView instance dialog:button:clicked");
+      });
+      return App.dialogRegion.show(editView);
+    },
+    getEditView: function(event) {
+      return new Edit.Event({
+        model: event
+      });
+    }
+  };
 });
 
 this.BambooApp.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {

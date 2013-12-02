@@ -6,7 +6,9 @@
     headerRegion: 	"#header-region"
     mainRegion:			"#main-region"
     footerRegion:		"#footer-region"
-	
+    dialogRegion: Marionette.Region.Dialog.extend
+      el: "#dialog-region"
+		
   App.rootRoute = "dashboard"
 
   App.reqres.setHandler "default:region", ->

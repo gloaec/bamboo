@@ -113,7 +113,7 @@ all_jst = Bundle( \
         filters='jst', output='templates.js')
 
 all_coffee = Bundle( \
-        'js/config/*.coffee','js/config/**/*.coffee', \
+        'js/config/*.coffee','js/config/**/*.coffee', 'js/config/**/**/*.coffee', \
         'js/app.coffee', \
         'js/controllers/*.coffee', 'js/controllers/**/*.coffee', \
         'js/entities/**/*.coffee','js/entities/*.coffee',  \

@@ -9,9 +9,12 @@ do (Backbone) ->
       frag = Backbone.history.fragment
       if _.isEmpty(frag) then null else frag
 		
-    startHistory: ->
+    startHistory: (options = {})->
+      _.defaults options,
+        pushState: true
+
       if Backbone.history
-        Backbone.history.start pushState: true
+        Backbone.history.start options
         if Backbone.history._hasPushState
           $(document).delegate 'a', 'click', (event) ->
             event = event || window.event
@@ -34,12 +37,10 @@ do (Backbone) ->
               false
 		
     register: (instance, id) ->
-      console.info "Register", id, instance
       @_registry ?= {}
       @_registry[id] = instance
 		
     unregister: (instance, id) ->
-      console.info "Unregister", id, instance
       delete @_registry[id]
 		
     resetRegistry: ->
