@@ -1,0 +1,12 @@
+-macro render_field(field)
+  .form_field
+  =field.label(class="label")
+  -if field.errors
+      -set css_class = 'has_error ' + kwargs.pop('class', '')
+      =field(class=css_class, **kwargs)
+      %ul.errors
+        -for error in field.errors
+          %li
+            =error|e
+  -else
+    =field(**kwargs)

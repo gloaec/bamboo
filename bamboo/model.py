@@ -4,7 +4,8 @@ from sqlalchemy.ext.declarative import declarative_base
 import json
 
 ___all___ = ['Base', 'Column', 'Foreignkey', 
-            'Date', 'Datetime', 'Float' 'Integer', 'String', 'Unicode']
+            'Date', 'Datetime', 'Float', 'Integer', 'SmallInteger', 
+            'String', 'Unicode']
 
 Column = db.Column
 Foreignkey = db.ForeignKey
@@ -12,6 +13,7 @@ Date = db.Date
 Datetime = db.DateTime
 Float = db.Float
 Integer = db.Integer
+SmallInteger = db.SmallInteger
 String = db.String
 Unicode = db.Unicode
 

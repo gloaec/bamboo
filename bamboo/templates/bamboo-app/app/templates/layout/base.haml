@@ -2,11 +2,15 @@
   %head
     %title 
       Bamboo-App
-    -block css:
+    -block css
       -assets "all_css"
         %link href="{{ ASSET_URL }}" rel="stylesheet" type="text/css"
-    -block js:
+    -block js
       -assets "all_js"
         %script src="{{ ASSET_URL }}" type="text/javascript"
   %body
-    -block content:
+    -block messages
+      -for category, msg in get_flashed_messages(with_categories=true)
+        %p class="message flash-{{ category }}"
+          =msg
+    -block content
