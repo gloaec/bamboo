@@ -16,6 +16,27 @@ from .forms import SignupForm, LoginForm, RecoverPasswordForm, ReauthForm, Chang
 frontend = Blueprint('frontend', __name__)
 
 
+@frontend.route('/home')
+@frontend.route('/<path:hashbang>')
+@login_required
+def home(hashbang=None):
+    if not current_user.is_authenticated():
+        abort(403)
+    return render_template('home.html', user=current_user)
+
+
+@frontend.route('/')
+def index():
+    current_app.logger.debug('debug')
+
+    if current_user.is_authenticated():
+        return redirect(url_for('frontend.home'))
+
+    page = int(request.args.get('page', 1))
+    pagination = User.query.paginate(page=page, per_page=10)
+    return render_template('index.html', pagination=pagination)
+
+
 @frontend.route('/login/openid', methods=['GET', 'POST'])
 @oid.loginhandler
 def login_openid():
@@ -35,7 +56,7 @@ def create_or_login(resp):
     user = User.query.filter_by(openid=resp.identity_url).first()
     if user and login_user(user):
         flash('Logged in', 'success')
-        return redirect(oid.get_next_url() or url_for('user.index'))
+        return redirect(oid.get_next_url() or url_for('frontend.home'))
     return redirect(url_for('frontend.create_profile', next=oid.get_next_url(),
             name=resp.fullname or resp.nickname, email=resp.email,
             openid=resp.identity_url))
@@ -62,18 +83,6 @@ def create_profile():
     return render_template('frontend/create_profile.html', form=form)
 
 
-@frontend.route('/')
-def index():
-    current_app.logger.debug('debug')
-
-    if current_user.is_authenticated():
-        return redirect(url_for('user.index'))
-
-    page = int(request.args.get('page', 1))
-    pagination = User.query.paginate(page=page, per_page=10)
-    return render_template('index.html', pagination=pagination)
-
-
 @frontend.route('/search')
 def search():
     keywords = request.args.get('keywords', '').strip()
@@ -82,7 +91,7 @@ def search():
         page = int(request.args.get('page', 1))
         pagination = User.search(keywords).paginate(page, 1)
     else:
-        flash(_('Please input keyword(s)'), 'error')
+        flash(_('Please input keyword(s)'), 'danger')
     return render_template('frontend/search.html', pagination=pagination, keywords=keywords)
 
 
@@ -102,9 +111,9 @@ def login():
             remember = request.form.get('remember') == 'y'
             if login_user(user, remember=remember):
                 flash(_("Logged in"), 'success')
-            return redirect(form.next.data or url_for('user.index'))
+            return redirect(form.next.data or url_for('frontend.home'))
         else:
-            flash(_('Sorry, invalid login'), 'error')
+            flash(_('Sorry, invalid login'), 'danger')
 
     return render_template('frontend/login.html', form=form)
 
@@ -123,7 +132,7 @@ def reauth():
             flash(_('Reauthenticated.'), 'success')
             return redirect('/change_password')
 
-        flash(_('Password is wrong.'), 'error')
+        flash(_('Password is wrong.'), 'danger')
     return render_template('frontend/reauth.html', form=form)
 
 
@@ -209,7 +218,7 @@ def reset_password():
 
             return render_template('frontend/reset_password.html', form=form)
         else:
-            flash(_('Sorry, no user found for that email address'), 'error')
+            flash(_('Sorry, no user found for that email address'), 'danger')
 
     return render_template('frontend/reset_password.html', form=form)
 

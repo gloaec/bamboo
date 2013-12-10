@@ -46,6 +46,10 @@ class DefaultConfig(BaseConfig):
     # Flask-babel: http://pythonhosted.org/Flask-Babel/
     ACCEPT_LANGUAGES = ['zh']
     BABEL_DEFAULT_LOCALE = 'en'
+    # TODO: Add to Babel.cfg
+    # [python: **.py]
+    # [jinja2: **.html]
+    # extensions=jinja2.ext.autoescape,jinja2.ext.with_,webassets.ext.jinja2.AssetsExtension
 
     # Flask-cache: http://pythonhosted.org/Flask-Cache/
     CACHE_TYPE = 'simple'

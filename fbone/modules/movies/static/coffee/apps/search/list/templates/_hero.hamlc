@@ -1,0 +1,3 @@
+.jumbotron
+  %h2 Go on! Get searching...
+  %p Type in the search input above to find movie results.

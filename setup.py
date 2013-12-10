@@ -25,6 +25,7 @@ setup(
         'Flask-Cache',
         'Flask-Login',
         'Flask-OpenID',
+        'Flask-Assets',
         'nose',
         'mysql-python',
     ],

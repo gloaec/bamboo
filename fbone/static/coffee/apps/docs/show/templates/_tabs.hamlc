@@ -1,0 +1,14 @@
+%ul.nav.nav-tabs
+  %li
+    %a{href:"/docs/getstarted"} 
+      %i.icon-home
+      Get Started
+  %li
+    %a{href:"/docs/architecture"} 
+      %i.icon-sitemap
+      Architecture
+  %li
+    %a{href:"/docs/commands"} 
+      %i.icon-terminal 
+      Commands
+

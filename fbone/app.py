@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import os
+import glob
 
 from flask import Flask, request, render_template
-from flask.ext.babel import Babel
 
 from .config import DefaultConfig
 from .user import User, user
@@ -11,38 +11,48 @@ from .settings import settings
 from .frontend import frontend
 from .api import api
 from .admin import admin
-from .extensions import db, mail, cache, login_manager, oid
+from .extensions import db, mail, cache, login_manager, oid, babel, assets
 from .utils import INSTANCE_FOLDER_PATH
 
+from .modules.movies import movies
 
 # For import *
 __all__ = ['create_app']
 
-DEFAULT_BLUEPRINTS = (
+DEFAULT_MODULES = [
+    movies
+]
+
+DEFAULT_BLUEPRINTS = [
     frontend,
     user,
     settings,
     api,
     admin,
-)
+]
 
-
-def create_app(config=None, app_name=None, blueprints=None):
+def create_app(config=None, app_name=None, blueprints=None, modules=None):
     """Create a Flask app."""
 
     if app_name is None:
         app_name = DefaultConfig.PROJECT
     if blueprints is None:
         blueprints = DEFAULT_BLUEPRINTS
+    if modules is None:
+        modules = DEFAULT_MODULES
 
     app = Flask(app_name, instance_path=INSTANCE_FOLDER_PATH, instance_relative_config=True)
+
     configure_app(app, config)
     configure_hook(app)
     configure_blueprints(app, blueprints)
+    configure_modules(app, modules)
     configure_extensions(app)
+    configure_assets(app, modules)
     configure_logging(app)
     configure_template_filters(app)
     configure_error_handlers(app)
+    configure_marionette(app)
 
     return app
 
@@ -74,7 +84,7 @@ def configure_extensions(app):
     cache.init_app(app)
 
     # flask-babel
-    babel = Babel(app)
+    babel.init_app(app)
 
     @babel.localeselector
     def get_locale():
@@ -84,6 +94,7 @@ def configure_extensions(app):
     # flask-login
     login_manager.login_view = 'frontend.login'
     login_manager.refresh_view = 'frontend.reauth'
+    login_manager.login_message_category = 'danger'
 
     @login_manager.user_loader
     def load_user(id):
@@ -92,6 +103,139 @@ def configure_extensions(app):
 
     # flask-openid
     oid.init_app(app)
+    
+    # flask-assets
+    assets.init_app(app)
+
+
+def configure_assets(app, modules):
+    """ Configure the asset pipeline """
+
+    app.config['ASSETS_URL'] = app.static_url_path
+    app.config['ASSETS_CACHE'] = os.path.join(app.root_path, app.static_folder, '.cache')
+
+    from webassets import Bundle
+
+    if app.config['DEBUG']:
+
+        """ Compile coffee bundle file by file """ 
+
+        app.config['ASSETS_DEBUG'] = True
+        app.config['JST_COMPILER'] = ' \
+                        function(template){ \
+                            return haml.compileHaml({ \
+                                source: template, generator: "coffeescript"\
+                            }); \
+                        }'
+
+        def _bundle_dir(directory, static_root, static_folder, recursive=True):
+            bundle           = []
+            coffee_folder    = os.path.join(static_folder, 'coffee')
+            coffee_root      = os.path.join(static_root, 'coffee')
+            js_folder        = os.path.join(static_folder, 'js')
+            js_root          = os.path.join(static_root, 'js')
+            coffee_directory = os.path.join(coffee_folder, directory)
+            js_directory     = os.path.join(js_folder, directory)
+
+            if not os.path.isdir(coffee_directory):
+                return bundle
+            elif not os.path.isdir(js_directory):
+                os.makedirs(js_directory)
+
+            root, dirs, files = next(os.walk(coffee_directory))
+
+            if recursive:
+                for d in dirs:
+                    next_directory = os.path.join(directory, d)
+                    bundle.extend(_bundle_dir(next_directory, static_root,
+                            static_folder, recursive=True))
+
+            for f in files:
+                if f.endswith('.coffee'):
+                    coffee_file = os.path.join(coffee_root, directory, f)
+                    js_file     = os.path.join(js_root,   directory, f)
+                    js_file     = js_file.replace('.js.coffee', '.js')
+                    js_file     = js_file.replace('.coffee',    '.js')
+                    bundle.append(Bundle(coffee_file, filters="coffeescript", output=js_file))
+                    
+            return bundle
+
+        def _bundle_module(static_folder, static_root):
+            bundle        = []
+            js_folder     = os.path.join(static_folder, 'js')
+
+            if not os.path.exists(js_folder):
+                os.makedirs(js_folder)
+
+            bundle.extend(_bundle_dir('config',      static_root, static_folder))
+            bundle.extend(_bundle_dir('',            static_root, static_folder, recursive=False))
+            bundle.extend(_bundle_dir('controllers', static_root, static_folder))
+            bundle.extend(_bundle_dir('entities',    static_root, static_folder))
+            bundle.extend(_bundle_dir('views',       static_root, static_folder))
+            bundle.extend(_bundle_dir('components',  static_root, static_folder))
+            bundle.extend(_bundle_dir('apps',        static_root, static_folder))
+
+            return bundle
+
+        def _all_with_extension(prefix, extension, depth=6):
+            urls = []
+            if not prefix: prefix = ''
+            elif not prefix.endswith('/'): prefix+='/'
+            for i in range(depth):
+                urls.append(prefix+'**/'*i+'*.'+extension)
+            return urls
+
+        all_coffee = _bundle_module(app.static_folder, '')
+        jst_urls   = _all_with_extension('', 'hamlc')
+
+        for module in modules:
+            all_coffee.extend(_bundle_module(module.static_folder, module.name))
+            jst_urls.extend(_all_with_extension(module.name, 'hamlc'))
+
+        all_css = Bundle('css/app.scss',
+                filters = 'scss',
+                output  = 'app.css',
+                depends = ('css/**/*.scss','css/**/*.sass')) 
+
+        all_jst = Bundle(
+                *jst_urls,
+                filters = 'jst', 
+                output  = os.path.join(app.config['ASSETS_CACHE'], 'templates.js'))
+
+        all_js = Bundle(
+                'js/lib/json2.js',
+                'js/lib/jquery.js',
+                'js/lib/spin.js',
+                'js/lib/jquery-spin.js',
+                'js/lib/bootstrap.js',
+                'js/lib/underscore.js',
+                'js/lib/underscore-string.js',
+                'js/lib/coffeescript.js',
+                'js/lib/haml.js',
+                'js/lib/backbone.js',
+                'js/lib/backbone-stickit.js',
+                'js/lib/backbone-validation.js',
+                'js/lib/backbone-marionette.js',
+                'js/lib/backbone-marionette-subrouter.js',
+                all_jst,
+                *all_coffee,
+                output = 'app.js')
+
+        all_css_min = Bundle(all_css,
+                filters = 'cssmin',
+                output  = 'app.min.css')
+    
+        all_js_min = Bundle(
+                all_js, 
+                filters = 'jspacker',
+                output  = 'all.min.js')
+        assets.register('css', all_css)
+        assets.register('js', all_js)
+    
+    else:
+        assets.register('css', 'all.min.css')
+        assets.register('js', 'all.min.js')
+    
 
 
 def configure_blueprints(app, blueprints):
@@ -99,6 +243,13 @@ def configure_blueprints(app, blueprints):
 
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
+
+
+def configure_modules(app, modules):
+    """Configure blueprints in views."""
+
+    for module in modules:
+        app.register_blueprint(module)
 
 
 def configure_template_filters(app):
@@ -173,3 +324,6 @@ def configure_error_handlers(app):
     @app.errorhandler(500)
     def server_error_page(error):
         return render_template("errors/server_error.html"), 500
+
+def configure_marionette(app):
+    pass

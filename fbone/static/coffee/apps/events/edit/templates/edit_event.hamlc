@@ -1,0 +1,24 @@
+%form.form-horizontal
+  .modal-header
+    %button.close{type:"button",data:{dismiss:"modal"},aria:{hidden:"true"}} &times;
+    .modal-title Modal title
+  .modal-body
+  	.control-group
+  		%label.control-label ID
+  		.controls
+  			%span.help-inline= @id
+    .control-group
+  		%label.control-label{for:"event-date"} Date
+  		.controls
+  			%input#event-date{type:"text", value:@date, name:"date"}
+  	.control-group
+  		%label.control-label{for:"event-name"} Name
+  		.controls
+  			%input#event-name{type:"text", value:@name, name:"value"}
+  	.control-group
+  		%label.control-label{for:"event-description"} Description
+  		.controls
+  			%textarea#event-description{name:"description"}= @description
+  .modal-footer
+    %button.btn.btn-default{type:"button", data:{dismiss:"modal"}} Close
+    %button.btn.btn-primary{type:"button"} Save changes

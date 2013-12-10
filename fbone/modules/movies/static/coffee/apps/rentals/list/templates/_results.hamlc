@@ -1,0 +1,7 @@
+%section.lead
+  %h3 
+    Top 'US' Rentals
+    %small.pull-right
+      Found 
+      %span.badge.badge-info= @items.length
+      results

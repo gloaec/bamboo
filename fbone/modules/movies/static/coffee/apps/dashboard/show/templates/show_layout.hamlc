@@ -1,0 +1,10 @@
+.row
+  .col-md-6
+    %section.lead
+      %h3 Upcoming Movies
+    #upcoming-region
+
+  .col-md-6
+    %section.lead
+      %h3 In Theatres
+    #theatre-region

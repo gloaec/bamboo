@@ -14,3 +14,9 @@ login_manager = LoginManager()
 
 from flask.ext.openid import OpenID
 oid = OpenID()
+
+from flask.ext.babel import Babel
+babel = Babel()
+
+from flask.ext.assets import Environment
+assets = Environment()
