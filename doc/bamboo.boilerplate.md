@@ -128,7 +128,7 @@ functional programming support that you would expect in Prototype.js (or Ruby),
 but without extending any of the built-in JavaScript objects. It's the tie to go 
 along with jQuery's tux, and Backbone.js's suspenders. 
 
-### underscore.string [http://epeli.github.io/underscore.string/](http://epeli.github.io/underscore.string/)
+#### underscore.string [http://epeli.github.io/underscore.string/](http://epeli.github.io/underscore.string/)
 
 Underscore.string is JavaScript library for comfortable manipulation with strings, 
 extension for Underscore.js inspired by Prototype.js, Right.js, Underscore and 

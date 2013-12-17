@@ -31,21 +31,21 @@ Create a module to add some new features to the application. (=plugin)
 ### Structure
 
     mymodule
-    ├── __init__.py
-    ├── myblueprint
+    ├── __init__.py            (Module global declarations)
+    ├── myblueprint            (Blueprint inside module)
     │   ├── __init__.py
     │   ├── models.py
     │   ├── views.py
     │   ├── constants.py
     │   ├── decorators.py
     │   └── forms.py
-    ├── static
+    ├── static                 (Modules Static Files)
     │   ├── css
     │   │   └── mymodule.css
     │   ├── js
     │   │   └── mymodule.js
     │   └── img
-    └── templates
+    └── templates              (Jinga2 Templates)
         └── myblueprint
             ├── index.html
             ├── new.html
@@ -59,3 +59,49 @@ Marionette Module
 ### Why preferring marionette module ?
 
 Smoother/Auto integration
+
+### Structure
+
+    mymodule
+    ├── __init__.py                                               (Module global declarations)
+    ├── myblueprint                                               (Blueprint inside module)
+    │   ├── __init__.py
+    │   ├── models.py
+    │   ├── views.py
+    │   ├── constants.py
+    │   └── decorators.py
+    └── static                                                    (Modules Static Files)
+        ├── css
+        │   └── mymodule.css
+        ├── js
+        │   ├── apps                                              (Marionette Modules)
+        │   │   └── myblueprint
+        │   │       ├── list
+        │   │       │   ├── templates
+        │   │       │   │   ├── layout_view.html
+        │   │       │   │   ├── _list_view.html
+        │   │       │   │   └── _item_view.html
+        │   │       │   ├── list_controller.js
+        │   │       │   └── list_view.js
+        │   │       ├── new
+        │   │       │   ├── templates
+        │   │       │   │   └── item_view.html
+        │   │       │   ├── list_controller.js
+        │   │       │   └── list_view.js
+        │   │       ├── show
+        │   │       │   ├── templates
+        │   │       │   │   └── item_view.html
+        │   │       │   ├── list_controller.js
+        │   │       │   └── list_view.js
+        │   │       └── edit
+        │   │           ├── templates
+        │   │           │   └── item_view.html
+        │   │           ├── list_controller.js
+        │   │           └── list_view.js
+        │   ├── config                                            (Javascript Envrinement Configuration)
+        │   ├── components                                        (Application Components (reusable))
+        │   ├── controllers                                       (Application Controllers)
+        │   ├── entities                                          (Entities = Models / Collections)
+        │   ├── views                                             (Application Views)
+        │   └── mymodule.js                                       (Module Global Declarations)
+        └── img
