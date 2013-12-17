@@ -86,18 +86,18 @@ Smoother/Auto integration
         │   │       ├── new
         │   │       │   ├── templates
         │   │       │   │   └── item_view.html
-        │   │       │   ├── list_controller.js
-        │   │       │   └── list_view.js
+        │   │       │   ├── new_controller.js
+        │   │       │   └── new_view.js
         │   │       ├── show
         │   │       │   ├── templates
         │   │       │   │   └── item_view.html
-        │   │       │   ├── list_controller.js
-        │   │       │   └── list_view.js
+        │   │       │   ├── show_controller.js
+        │   │       │   └── show_view.js
         │   │       └── edit
         │   │           ├── templates
         │   │           │   └── item_view.html
-        │   │           ├── list_controller.js
-        │   │           └── list_view.js
+        │   │           ├── edit_controller.js
+        │   │           └── edit_view.js
         │   ├── config                                            (Javascript Envrinement Configuration)
         │   ├── components                                        (Application Components (reusable))
         │   ├── controllers                                       (Application Controllers)
