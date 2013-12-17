@@ -1,0 +1,2 @@
+%button.close{data:{dismiss:"alert"},aria:{hidden:"true"}} &times;
+= @message

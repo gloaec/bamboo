@@ -5,6 +5,8 @@
 {% block js_bottom %}
     <script>
         $(function(){
+            BambooApp.current_user = new
+            BambooApp.Entities.User({{current_user.serialize|tojson|safe}});
             BambooApp.start();
         });
     </script>

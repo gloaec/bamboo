@@ -1,0 +1,11 @@
+%section.lead
+  %h3 
+    Posts
+    %small
+      Listing
+      %span.badge.badge-info= @items.length
+      posts
+    %span.pull-right
+      %a.btn.btn-success.new{href:"/posts/new"}
+        %i.icon-plus
+        New Post

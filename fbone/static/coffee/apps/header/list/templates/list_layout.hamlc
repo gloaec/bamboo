@@ -16,7 +16,7 @@
           Documentation
 
       %li.dropdown
-        %a.dropdown-toggle{href:'/dashboard', data:{toggle:"dropdown"}}
+        %a.dropdown-toggle{data:{toggle:"dropdown"}}
           %i.icon-film
           Movies
           %b.caret
@@ -37,6 +37,10 @@
         %a{href:"/events"}
           %i.icon-calendar
           Events
+      %li
+        %a{href:"/posts"}
+          %i.icon-list
+          Blog
     %ul.nav.navbar-nav.pull-right
       %li
         %a{href:"/settings/profile", data:{reload:true}}  

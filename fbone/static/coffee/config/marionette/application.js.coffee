@@ -3,6 +3,7 @@ do (Backbone) ->
   _.extend Backbone.Marionette.Application::,
 
     navigate: (route, options = {}) ->
+      @vent.trigger 'navigate', route, options
       Backbone.history.navigate route, options
 	
     getCurrentRoute: ->

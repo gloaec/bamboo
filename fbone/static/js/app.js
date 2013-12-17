@@ -5,6 +5,9 @@ this.BambooApp = (function(Backbone, Marionette) {
     headerRegion: "#header-region",
     mainRegion: "#main-region",
     footerRegion: "#footer-region",
+    flashRegion: Marionette.Region.Flashes.extend({
+      el: "#flash-region"
+    }),
     dialogRegion: Marionette.Region.Dialog.extend({
       el: "#dialog-region"
     })

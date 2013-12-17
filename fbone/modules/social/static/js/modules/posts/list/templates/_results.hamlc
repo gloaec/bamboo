@@ -1,7 +1,0 @@
-%section.lead
-  %h3 
-    Posts
-    %small.pull-right
-      Showing
-      %span.badge.badge-info= @items.length
-      posts

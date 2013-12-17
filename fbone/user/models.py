@@ -70,6 +70,7 @@ class UserDetail(db.Model):
 class User(db.Model, UserMixin):
 
     __tablename__ = 'users'
+    __public__    = ['id', 'name', 'email', 'openid', 'avatar']
 
     id = Column(db.Integer, primary_key=True)
     name = Column(db.String(STRING_LEN), nullable=False, unique=True)
@@ -184,3 +185,17 @@ class User(db.Model, UserMixin):
 
     def check_name(self, name):
         return User.query.filter(db.and_(User.name == name, User.email != self.id)).count() == 0
+
+    @property
+    def serialize(self):
+        """ Return object data in easily serializeable format """
+        obj = {}
+        try:
+            for public_key in self.__public__:
+                value = getattr(self, public_key)
+                if isinstance(value, db.Model):
+                    obj[public_key] = value.serialize
+                elif value:
+                    obj[public_key] = value
+        except AttributeError, e: print(e)
+        return obj

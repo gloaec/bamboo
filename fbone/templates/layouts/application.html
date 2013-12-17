@@ -106,6 +106,7 @@
         </header>
         {% endblock %}
 
+        <div id="flash-region">
         {% block flash_message %}
             {% with messages = get_flashed_messages(with_categories=True) %}
                 {% if messages %}
@@ -122,6 +123,7 @@
                 {% endif %}
             {% endwith %}
         {% endblock %}
+        </div>
 
         <section id="main-region">
         {% block container %}

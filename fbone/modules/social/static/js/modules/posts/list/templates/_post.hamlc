@@ -1,9 +1,0 @@
-%section
-  .page_header
-    %h3#title= @title
-    .pull-right
-      %a.btn{href:"/posts/#{@id}/edit"}
-        %i.icon-edit
-        Edit
-  %p#content
-    = @content

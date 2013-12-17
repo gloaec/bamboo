@@ -14,14 +14,7 @@ from .admin import admin
 from .extensions import db, mail, cache, login_manager, oid, babel, assets
 from .utils import INSTANCE_FOLDER_PATH
 
-from .modules.movies import movies
-
-# For import *
 __all__ = ['create_app']
-
-DEFAULT_MODULES = [
-    movies
-]
 
 DEFAULT_BLUEPRINTS = [
     frontend,
@@ -39,7 +32,7 @@ def create_app(config=None, app_name=None, blueprints=None, modules=None):
     if blueprints is None:
         blueprints = DEFAULT_BLUEPRINTS
     if modules is None:
-        modules = DEFAULT_MODULES
+        modules = []
 
     app = Flask(app_name, instance_path=INSTANCE_FOLDER_PATH, instance_relative_config=True)
 
@@ -85,6 +78,7 @@ def configure_extensions(app):
 
     # flask-babel
     babel.init_app(app)
+    os.environ['TZ'] = app.config['BABEL_DEFAULT_TIMEZONE']
 
     @babel.localeselector
     def get_locale():
@@ -145,12 +139,12 @@ def configure_assets(app, modules):
             root, dirs, files = next(os.walk(coffee_directory))
 
             if recursive:
-                for d in dirs:
+                for d in sorted(dirs):
                     next_directory = os.path.join(directory, d)
                     bundle.extend(_bundle_dir(next_directory, static_root,
                             static_folder, recursive=True))
 
-            for f in files:
+            for f in sorted(files):
                 if f.endswith('.coffee'):
                     coffee_file = os.path.join(coffee_root, directory, f)
                     js_file     = os.path.join(js_root,   directory, f)
@@ -206,6 +200,7 @@ def configure_assets(app, modules):
                 'js/lib/json2.js',
                 'js/lib/jquery.js',
                 'js/lib/spin.js',
+                'js/lib/moment.js',
                 'js/lib/jquery-spin.js',
                 'js/lib/bootstrap.js',
                 'js/lib/underscore.js',
@@ -215,6 +210,7 @@ def configure_assets(app, modules):
                 'js/lib/backbone.js',
                 'js/lib/backbone-stickit.js',
                 'js/lib/backbone-validation.js',
+                'js/lib/backbone-memento.js',
                 'js/lib/backbone-marionette.js',
                 'js/lib/backbone-marionette-subrouter.js',
                 all_jst,
@@ -246,10 +242,17 @@ def configure_blueprints(app, blueprints):
 
 
 def configure_modules(app, modules):
-    """Configure blueprints in views."""
+    """Configure modules in views."""
 
-    for module in modules:
-        app.register_blueprint(module)
+    from .modules.blog import create_mod
+    blog = create_mod(app)
+    app.register_blueprint(blog)
+    modules.append(blog)
+
+    from .modules.movies import create_mod
+    movies = create_mod(app)
+    app.register_blueprint(movies)
+    modules.append(movies)
 
 
 def configure_template_filters(app):

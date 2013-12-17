@@ -3,12 +3,14 @@
   App = new Marionette.Application
 
   App.addRegions
-    headerRegion: 	"#header-region"
-    mainRegion:			"#main-region"
-    footerRegion:		"#footer-region"
+    headerRegion: "#header-region"
+    mainRegion:	  "#main-region"
+    footerRegion: "#footer-region"
+    flashRegion:  Marionette.Region.Flashes.extend
+      el: "#flash-region"
     dialogRegion: Marionette.Region.Dialog.extend
       el: "#dialog-region"
-		
+
   App.rootRoute = "dashboard"
 
   App.reqres.setHandler "default:region", ->
@@ -17,10 +19,10 @@
   App.addInitializer ->
     App.module("HeaderApp").start()
     App.module("FooterApp").start()
-	
+
   App.commands.setHandler "register:instance", (instance, id) ->
     App.register instance, id
-	
+
   App.commands.setHandler "unregister:instance", (instance, id) ->
     App.unregister instance, id
 

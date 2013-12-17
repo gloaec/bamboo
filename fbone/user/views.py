@@ -3,7 +3,7 @@
 import os
 
 from flask import Blueprint, render_template, send_from_directory, abort
-from flask import current_app as APP
+from flask import current_app as app
 from flask.ext.login import login_required, current_user
 
 from .models import User
@@ -29,5 +29,5 @@ def profile(user_id):
 @user.route('/<int:user_id>/avatar/<path:filename>')
 @login_required
 def avatar(user_id, filename):
-    dir_path = os.path.join(APP.config['UPLOAD_FOLDER'], 'user_%s' % user_id)
+    dir_path = os.path.join(app.config['UPLOAD_FOLDER'], 'user_%s' % user_id)
     return send_from_directory(dir_path, filename, as_attachment=True)

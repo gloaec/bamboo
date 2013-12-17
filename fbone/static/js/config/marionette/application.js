@@ -2,6 +2,7 @@
   return _.extend(Backbone.Marionette.Application.prototype, {
     navigate: function(route, options) {
       if (options == null) options = {};
+      this.vent.trigger('navigate', route, options);
       return Backbone.history.navigate(route, options);
     },
     getCurrentRoute: function() {

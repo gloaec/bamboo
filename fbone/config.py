@@ -46,6 +46,7 @@ class DefaultConfig(BaseConfig):
     # Flask-babel: http://pythonhosted.org/Flask-Babel/
     ACCEPT_LANGUAGES = ['zh']
     BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'CET'
     # TODO: Add to Babel.cfg
     # [python: **.py]
     # [jinja2: **.html]

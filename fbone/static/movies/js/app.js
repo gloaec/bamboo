@@ -1,1 +1,1 @@
-alert('hellllllllo');
+console.info('Movies module loaded');
