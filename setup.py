@@ -28,6 +28,7 @@ setup(
         'Flask-Assets',
         'nose',
         'mysql-python',
+        'inflect'
     ],
     test_suite='tests',
     classifiers=[

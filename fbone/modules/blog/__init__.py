@@ -10,6 +10,7 @@ DEFAULT_BLUEPRINTS = [
 ]
 
 def create_mod(app, blueprints=None):
+    """ Initiate module with current_app """
 
     if not blueprints:
         blueprints = DEFAULT_BLUEPRINTS
@@ -24,7 +25,6 @@ def create_mod(app, blueprints=None):
 
 def configure_routes(app):
     """ Define some routes directly pluggable to the application """
-
 
     @app.route('/foo')
     def foo():

@@ -6,6 +6,7 @@ from werkzeug import generate_password_hash, check_password_hash
 from flask.ext.login import UserMixin
 
 from ..extensions import db
+from ..model import *
 from ..utils import get_current_time, SEX_TYPE, STRING_LEN
 from .constants import USER, USER_ROLE, ADMIN, INACTIVE, USER_STATUS
 
@@ -45,7 +46,7 @@ class DenormalizedText(Mutable, types.TypeDecorator):
         return set(value)
 
 
-class UserDetail(db.Model):
+class UserDetail(db.Model, Base):
 
     __tablename__ = 'user_details'
 
@@ -67,7 +68,7 @@ class UserDetail(db.Model):
     created_time = Column(db.DateTime, default=get_current_time)
 
 
-class User(db.Model, UserMixin):
+class User(db.Model, Base, UserMixin):
 
     __tablename__ = 'users'
     __public__    = ['id', 'name', 'email', 'openid', 'avatar']
