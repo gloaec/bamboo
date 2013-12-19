@@ -83,7 +83,7 @@
             bamboo clean
         %li.separator
         %li
-          %a{href:"/back"}
+          %a{onclick:'window.history.back()'}
             %i.icon-reply
             Back
 

@@ -5,4 +5,3 @@ do (Backbone) ->
     navigate = _navigate.call(@, fragment, options)
     @trigger 'navigate', fragment, options
     navigate
-

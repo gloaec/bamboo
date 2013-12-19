@@ -42,7 +42,7 @@
             return $(el).parent('li').addClass('active');
           }
         });
-        Backbone.history.navigate(href, true);
+        Backbone.history.navigate(href);
         return false;
       }
     },

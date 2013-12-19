@@ -18,6 +18,17 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
 
     Post.prototype.defaults = {};
 
+    Post.prototype.validation = {
+      title: {
+        required: true,
+        pattern: /^[A-Z]/
+      },
+      content: {
+        maxLength: 120,
+        msg: 'Too long'
+      }
+    };
+
     Post.prototype.urlRoot = function() {
       return "/api/posts";
     };

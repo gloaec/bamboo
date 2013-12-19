@@ -64,12 +64,12 @@ this.BambooApp.module("PostsModule", function(PostsModule, App, Backbone, Marion
     return API.show(post.id, post);
   });
   App.vent.on("new:post:clicked", function(posts) {
-    console.log('new');
     App.navigate("posts/new");
     return API["new"](posts);
   });
   App.vent.on("edit:post:clicked", function(post) {
-    return App.navigate("posts/" + post.id + "/edit");
+    App.navigate("posts/" + post.id + "/edit");
+    return API.edit(post.id, post);
   });
   App.vent.on("delete:post:clicked", function(post) {
     App.navigate("posts/" + post.id + "/delete");

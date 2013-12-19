@@ -7725,40 +7725,45 @@ body {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000337}}
+a:hover {
+  cursor: pointer;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000341}}
 table {
   font-size: 14px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000345}}
 h1, h2, h3, .bb-footer {
   font-family: "NewscycleRegular";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000349}}
 #main-content:after {
   clear: both;
   content: " ";
   display: table;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000355}}
 .bb-navbar {
   font-family: "Intuitive";
   font-family: "NewscycleRegular";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000360}}
 .bb-navbar .navbar-brand {
   line-height: 16px;
   font-family: "Intuitive";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000365}}
 .bb-navbar .navbar-nav > li > a {
   line-height: 18px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000369}}
 .bb-header {
   color: white;
   font-size: 16px;
@@ -7771,25 +7776,25 @@ h1, h2, h3, .bb-footer {
   box-shadow: inset 0 0 20px #005267;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000382}}
 .bb-header.bb-home {
   min-height: 100%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000386}}
 .bb-header p {
   font-family: "Mono";
   color: #e6e6e6;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000391}}
 .bb-navbar {
   border-color: #463265;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003103}}
 .bb-sidenav {
   background-color: #F7F5FA;
   border-radius: 5px;
@@ -7800,40 +7805,40 @@ h1, h2, h3, .bb-footer {
   text-shadow: 0 1px 0 #FFFFFF;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003109}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003113}}
 .bb-sidebar {
   position: relative;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003118}}
 .bb-sidebar.affix-bottom,
 .bb-sidebar.affix {
   width: 263px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003121}}
 .bb-sidebar.affix {
   position: fixed;
   top: 50px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003122}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003126}}
 .bb-sidebar.affix-bottom {
   position: absolute;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003130}}
 .bb-sidebar .nav > li > a {
   padding: 5px 20px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003130}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003134}}
 .bb-sidebar .nav > .nav-header {
   color: #888;
   padding: 10px 10px 5px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003137}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003141}}
 .bb-sidebar .nav > .active > a,
 .bb-sidebar .nav > .active:hover > a,
 .bb-sidebar .nav > .active:focus > a {
@@ -7842,7 +7847,7 @@ h1, h2, h3, .bb-footer {
   font-weight: bold;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003143}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003147}}
 .bb-sidebar .nav .nav > li > a {
   font-size: 90%;
   padding-bottom: 3px;
@@ -7850,24 +7855,24 @@ h1, h2, h3, .bb-footer {
   padding-top: 3px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003150}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003154}}
 .bb-sidebar .nav > .active > ul {
   display: block;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003157}}
 .bb-sidebar .nav .nav {
   display: none;
   margin-bottom: 8px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003158}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003162}}
 h1[id], h3[id] {
   margin-top: -45px;
   padding-top: 80px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003163}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ghis\/Workspace\/fbone\/fbone\/static\/css\/lib\/_bamboo\.scss}line{font-family:\00003167}}
 .bb-footer {
   border-top: 1px solid #E5E5E5;
   color: #777777;

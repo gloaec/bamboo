@@ -1,6 +1,8 @@
 @BambooApp.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
-	class Entities.Model extends Backbone.Model
+  _.extend Backbone.Model::, Backbone.Validation.mixin
+
+  class Entities.Model extends Backbone.Model
 
     initialize: ->
       _.extend @, new Backbone.Memento @

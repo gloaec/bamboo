@@ -8,9 +8,11 @@
       .form-group
         %label{for:'title'} Title
         %input#title.form-control{type:'text', placeholder:'Post Title...'}
+        %p.help-block
       .form-group
         %label{for:'content'} Content
         %textarea#content.form-control{rows:10, placeholder:'Post Content...'}/
+        %p.help-block
   .modal-footer
     %button.btn.btn-default{type:"button", data:{dismiss:"modal"}} 
       %i.icon-remove 

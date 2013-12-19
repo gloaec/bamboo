@@ -10,7 +10,15 @@
     defaults: {}
       # Defaults here ex:
       # title: "Post title"
-      
+ 
+    validation:
+      title:
+        required: true
+        pattern: /^[A-Z]/
+      content:
+        maxLength: 120
+        msg: 'Too long'
+
     urlRoot: -> "/api/posts"
     
   class Entities.PostsCollection extends Entities.Collection

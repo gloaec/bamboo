@@ -20,7 +20,7 @@
       buttons: false
 
     initialize: ->
-      @model.store()
+      @listenTo @model, 'validated', (_, __, attrs) => @showErrors(attrs)
 
     onRender: ->
       @stickit()

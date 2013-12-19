@@ -37,7 +37,10 @@ this.BambooApp.module("PostsModule.Edit", function(Edit, App, Backbone, Marionet
     };
 
     Post.prototype.initialize = function() {
-      return this.model.store();
+      var _this = this;
+      return this.listenTo(this.model, 'validated', function(_, __, attrs) {
+        return _this.showErrors(attrs);
+      });
     };
 
     Post.prototype.onRender = function() {
