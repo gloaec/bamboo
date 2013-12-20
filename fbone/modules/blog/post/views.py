@@ -36,7 +36,7 @@ def update_post(post_id):
     post.title   = request.json.get('title', None)
     post.content = request.json.get('content', None)
     db.session.commit()
-    return post.to_json
+    return json.dumps(post.serialize)
 
 
 @posts.route('/<int:post_id>', methods=['DELETE'])

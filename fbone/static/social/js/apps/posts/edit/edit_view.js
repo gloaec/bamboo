@@ -38,6 +38,7 @@ this.BambooApp.module("PostsModule.Edit", function(Edit, App, Backbone, Marionet
 
     Post.prototype.initialize = function() {
       var _this = this;
+      this.model.store();
       return this.listenTo(this.model, 'validated', function(_, __, attrs) {
         return _this.showErrors(attrs);
       });
@@ -54,7 +55,6 @@ this.BambooApp.module("PostsModule.Edit", function(Edit, App, Backbone, Marionet
       if (this.model.isValid(true)) {
         return this.model.save(null, {
           success: function(post) {
-            console.log('saved');
             _this.trigger("dialog:close");
             App.execute("flash:success", "Post #" + _this.model.id + " successfully updated");
             return App.navigate("posts", {

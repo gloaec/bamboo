@@ -11,21 +11,32 @@
   class List.Post extends App.Views.ItemView
     template: "posts/list/_post"
 
+    initialize: ->
+      @timer = setInterval =>
+        @model.trigger "change:updated_at", @model
+        @model.trigger "change:created_at", @model
+      , 30000
+
     bindings:
-      '.title'  : 'title'
-      '.content': 'content'
+      ".title"      : "title"
+      ".content"    : "content"
+      ".updated_at" :
+        observe: "updated_at"
+        onGet: (value) -> "updated #{moment(value).fromNow()}"
+      ".created_at" :
+        observe: "created_at"
+        onGet: (value) -> "created #{moment(value).fromNow()}"
 
     events:
       "click .edit"   : -> @trigger "edit:post:clicked", @model
       "click .delete" : -> @trigger "delete:post:clicked", @model
       "click .title"  : -> @trigger "post:clicked", @model
 
-    modelEvents:
-      'change': 'render'
-
     onRender: ->
       @stickit()
-      console.log 'render', moment(@model.get('updated_at')).fromNow()
+
+    onClose: ->
+      clearInterval(@timer)
 
   class List.Posts extends App.Views.CompositeView
     template: "posts/list/_posts"

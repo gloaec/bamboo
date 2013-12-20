@@ -42,6 +42,11 @@ def _class2tablename(classname):
 class Base(object):
     """ Define Base model with useful methods """
 
+    """ Default Attributes """
+    id          = Column(db.Integer, primary_key=True)
+    created_at  = Column(db.DateTime, default=datetime.utcnow)
+    updated_at  = Column(db.DateTime, onupdate=datetime.utcnow)
+
     @declared_attr
     def __tablename__(cls):
         """ By default, pluralize class name for tablename """
@@ -50,13 +55,7 @@ class Base(object):
     @property
     def __public__(self):
         """ By default, serialize all attributes """
-        #return [c.key for c in class_mapper(cls).iterate_properties
-        #        if isinstance(c, sqlalchemy.orm.ColumnProperty)]
         return [c.name for c in self.__class__.__table__.columns]
-
-    id          = Column(db.Integer, primary_key=True)
-    created_at  = Column(db.DateTime, default=datetime.utcnow)
-    updated_at  = Column(db.DateTime, onupdate=datetime.utcnow)
 
     def __repr__(self):
         return '<%s #%s>' % [self.__class__.__name__, self.id]

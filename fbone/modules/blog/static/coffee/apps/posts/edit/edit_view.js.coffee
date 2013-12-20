@@ -20,6 +20,7 @@
       buttons: false
 
     initialize: ->
+      @model.store()
       @listenTo @model, 'validated', (_, __, attrs) => @showErrors(attrs)
 
     onRender: ->
@@ -31,7 +32,6 @@
       if @model.isValid(true)
         @model.save null,
           success: (post) =>
-            console.log 'saved'
             @trigger "dialog:close"
             App.execute "flash:success", "Post ##{@model.id} successfully updated"
             App.navigate "posts", trigger: true

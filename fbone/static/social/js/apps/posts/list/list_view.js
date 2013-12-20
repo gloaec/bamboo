@@ -31,9 +31,29 @@ this.BambooApp.module("PostsModule.List", function(List, App, Backbone, Marionet
 
     Post.prototype.template = "posts/list/_post";
 
+    Post.prototype.initialize = function() {
+      var _this = this;
+      return this.timer = setInterval(function() {
+        _this.model.trigger("change:updated_at", _this.model);
+        return _this.model.trigger("change:created_at", _this.model);
+      }, 30000);
+    };
+
     Post.prototype.bindings = {
-      '.title': 'title',
-      '.content': 'content'
+      ".title": "title",
+      ".content": "content",
+      ".updated_at": {
+        observe: "updated_at",
+        onGet: function(value) {
+          return "updated " + (moment(value).fromNow());
+        }
+      },
+      ".created_at": {
+        observe: "created_at",
+        onGet: function(value) {
+          return "created " + (moment(value).fromNow());
+        }
+      }
     };
 
     Post.prototype.events = {
@@ -48,13 +68,12 @@ this.BambooApp.module("PostsModule.List", function(List, App, Backbone, Marionet
       }
     };
 
-    Post.prototype.modelEvents = {
-      'change': 'render'
+    Post.prototype.onRender = function() {
+      return this.stickit();
     };
 
-    Post.prototype.onRender = function() {
-      this.stickit();
-      return console.log('render', moment(this.model.get('updated_at')).fromNow());
+    Post.prototype.onClose = function() {
+      return clearInterval(this.timer);
     };
 
     return Post;
