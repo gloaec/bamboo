@@ -48,8 +48,13 @@ this.BambooApp.module("PostsModule.List", function(List, App, Backbone, Marionet
       }
     };
 
+    Post.prototype.modelEvents = {
+      'change': 'render'
+    };
+
     Post.prototype.onRender = function() {
-      return this.stickit();
+      this.stickit();
+      return console.log('render', moment(this.model.get('updated_at')).fromNow());
     };
 
     return Post;

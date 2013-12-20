@@ -9,8 +9,16 @@
       @store()
       super
 
-    save: ->
-      @store()
+    save: (key, val, options) ->
+      if not key? or _.isObject(key)
+        attrs = key
+        options = val
+      else
+        (attrs = {})[key] = val
+      {success} = options
+      options.success = (model, resp, options) =>
+        @store()
+        success(model, resp, options) if success
       super
 
     parse: (data) ->

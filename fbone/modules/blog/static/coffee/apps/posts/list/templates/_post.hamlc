@@ -17,3 +17,7 @@
     %p.content
   .panel-footer.clearfix
     %small.pull-left= moment(@created_at).fromNow()
+    - if @updated_at?
+      %small.pull-right
+        updated
+        = moment(@updated_at).fromNow()

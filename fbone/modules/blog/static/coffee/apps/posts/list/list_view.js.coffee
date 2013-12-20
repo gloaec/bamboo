@@ -20,7 +20,12 @@
       "click .delete" : -> @trigger "delete:post:clicked", @model
       "click .title"  : -> @trigger "post:clicked", @model
 
-    onRender: -> @stickit()
+    modelEvents:
+      'change': 'render'
+
+    onRender: ->
+      @stickit()
+      console.log 'render', moment(@model.get('updated_at')).fromNow()
 
   class List.Posts extends App.Views.CompositeView
     template: "posts/list/_posts"

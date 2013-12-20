@@ -32,12 +32,11 @@ def get_post(post_id):
 @posts.route('/<int:post_id>', methods=['PUT'])
 def update_post(post_id):
     """ Update a post by id """
-    for key in ['id', 'author', 'author_id', 'created_at', 'updated_at']:
-        if request.json.get(key, None) is not None:
-            del request.json[key] 
-    Post.query.filter_by(id=post_id).update(request.json)
+    post = Post.query.get_or_404(post_id)
+    post.title   = request.json.get('title', None)
+    post.content = request.json.get('content', None)
     db.session.commit()
-    return Post.query.get_or_404(post_id).to_json
+    return post.to_json
 
 
 @posts.route('/<int:post_id>', methods=['DELETE'])

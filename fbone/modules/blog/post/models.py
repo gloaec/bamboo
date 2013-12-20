@@ -1,7 +1,3 @@
-from flask import json
-from sqlalchemy import Column, types
-from datetime import datetime, date
-
 from fbone.model import *
 from fbone.extensions import db
 
@@ -15,11 +11,8 @@ class Post(db.Model, Base):
             'author', 'author_id'
     ]
 
-    id          = Column(Integer, primary_key=True)
     title       = Column(String)
     content     = Column(Text)
-    created_at  = Column(DateTime, default=datetime.utcnow)
-    updated_at  = Column(DateTime, onupdate=datetime.utcnow)
     author_id   = Column(Integer, ForeignKey("users.id"))
     author      = relationship("User", uselist=False, backref="posts")
 

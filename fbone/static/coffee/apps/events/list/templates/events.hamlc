@@ -1,6 +1,6 @@
 .row
 	%h2 Event Schedule
-	%table.table.table-striped.table-bordered.table-hover
+	%table.table.table-striped.table-hover
 		%thead
 			%tr
 				%th ID

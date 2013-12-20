@@ -17,8 +17,20 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
       return Model.__super__.initialize.apply(this, arguments);
     };
 
-    Model.prototype.save = function() {
-      this.store();
+    Model.prototype.save = function(key, val, options) {
+      var attrs, success,
+        _this = this;
+      if (!(key != null) || _.isObject(key)) {
+        attrs = key;
+        options = val;
+      } else {
+        (attrs = {})[key] = val;
+      }
+      success = options.success;
+      options.success = function(model, resp, options) {
+        _this.store();
+        if (success) return success(model, resp, options);
+      };
       return Model.__super__.save.apply(this, arguments);
     };
 

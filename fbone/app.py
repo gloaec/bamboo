@@ -67,6 +67,8 @@ def configure_app(app, config=None):
 
 
 def configure_extensions(app):
+    """ Initialize all extensions with current_app """
+
     # flask-sqlalchemy
     db.init_app(app)
 
@@ -111,7 +113,6 @@ def configure_assets(app, modules):
     from webassets import Bundle
 
     if app.config['DEBUG']:
-
         """ Compile coffee bundle file by file """ 
 
         app.config['ASSETS_DEBUG'] = True
@@ -256,6 +257,7 @@ def configure_modules(app, modules):
 
 
 def configure_template_filters(app):
+    """ Define some helpers for templates rendered with Jinga2 """
 
     @app.template_filter()
     def pretty_date(value):
@@ -309,12 +311,14 @@ def configure_logging(app):
 
 
 def configure_hook(app):
+    """ Configure the application hooks """
     @app.before_request
     def before_request():
         pass
 
 
 def configure_error_handlers(app):
+    """ Bind splash pages for errors """
 
     @app.errorhandler(403)
     def forbidden_page(error):

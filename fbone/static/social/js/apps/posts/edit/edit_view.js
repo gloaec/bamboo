@@ -53,7 +53,8 @@ this.BambooApp.module("PostsModule.Edit", function(Edit, App, Backbone, Marionet
       e.preventDefault();
       if (this.model.isValid(true)) {
         return this.model.save(null, {
-          success: function() {
+          success: function(post) {
+            console.log('saved');
             _this.trigger("dialog:close");
             App.execute("flash:success", "Post #" + _this.model.id + " successfully updated");
             return App.navigate("posts", {

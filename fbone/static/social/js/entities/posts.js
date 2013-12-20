@@ -11,6 +11,10 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
       Post.__super__.constructor.apply(this, arguments);
     }
 
+    Post.prototype.urlRoot = function() {
+      return "/api/posts";
+    };
+
     Post.prototype.relations = {
       parent: Post,
       author: Entities.User
@@ -19,18 +23,20 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
     Post.prototype.defaults = {};
 
     Post.prototype.validation = {
-      title: {
-        required: true,
-        pattern: /^[A-Z]/
-      },
+      title: [
+        {
+          required: true,
+          msg: 'Title is required'
+        }, {
+          pattern: /^[A-Z]/,
+          msg: 'Must start with capital letter'
+        }
+      ],
       content: {
+        required: false,
         maxLength: 120,
-        msg: 'Too long'
+        msg: 'Post is too long (120 chars maximum)'
       }
-    };
-
-    Post.prototype.urlRoot = function() {
-      return "/api/posts";
     };
 
     return Post;

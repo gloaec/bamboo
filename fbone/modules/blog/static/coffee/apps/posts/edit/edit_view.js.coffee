@@ -30,7 +30,8 @@
       e.preventDefault()
       if @model.isValid(true)
         @model.save null,
-          success: =>
+          success: (post) =>
+            console.log 'saved'
             @trigger "dialog:close"
             App.execute "flash:success", "Post ##{@model.id} successfully updated"
             App.navigate "posts", trigger: true

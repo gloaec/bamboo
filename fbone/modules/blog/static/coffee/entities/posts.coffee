@@ -2,6 +2,8 @@
 	
   class Entities.Post extends Entities.Model
 
+    urlRoot: -> "/api/posts"
+
     relations:
       parent: @
       author: Entities.User
@@ -12,16 +14,21 @@
       # title: "Post title"
  
     validation:
-      title:
+      title: [
         required: true
+        msg: 'Title is required'
+      ,
         pattern: /^[A-Z]/
+        msg: 'Must start with capital letter'
+      ]
       content:
+        required: false
         maxLength: 120
-        msg: 'Too long'
+        msg: 'Post is too long (120 chars maximum)'
 
-    urlRoot: -> "/api/posts"
     
   class Entities.PostsCollection extends Entities.Collection
+
     model: Entities.Post
 
     url: -> "/api/posts"
@@ -32,6 +39,7 @@
     getByAuthorID: (id) ->
       @where author_id: id
 	
+
   API =
     getPosts: () ->
       posts = new Entities.PostsCollection
@@ -42,6 +50,7 @@
       post = new Entities.Post id: id
       post.fetch()
       post
+
 
   App.reqres.setHandler "post:entities", ->
     API.getPosts()
