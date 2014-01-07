@@ -112,7 +112,7 @@ def configure_assets(app, modules):
 
     from webassets import Bundle
 
-    if app.config['DEBUG'] or app.config['TESTING']:
+    if app.debug or app.testing:
         """ Compile coffee bundle file by file """ 
 
         app.config['ASSETS_DEBUG'] = True
@@ -226,12 +226,13 @@ def configure_assets(app, modules):
                 all_js, 
                 filters = 'jspacker',
                 output  = 'all.min.js')
+
         assets.register('css', all_css)
         assets.register('js', all_js)
     
     else:
-        assets.register('css', 'all.min.css')
-        assets.register('js', 'all.min.js')
+        assets.register('css', 'app.min.css')
+        assets.register('js', 'app.min.js')
     
 
 
