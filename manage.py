@@ -2,10 +2,10 @@
 
 from flask.ext.script import Manager
 
-from fbone import create_app
-from fbone.extensions import db
-from fbone.user import User, UserDetail, ADMIN, ACTIVE
-from fbone.utils import MALE
+from bambooapp import create_app
+from bambooapp.extensions import db
+from bambooapp.user import User, UserDetail, ADMIN, ACTIVE
+from bambooapp.utils import MALE
 
 
 app = create_app()

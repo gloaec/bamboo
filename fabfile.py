@@ -4,7 +4,7 @@
 
 from fabric.api import *
 
-project = "fbone"
+project = "bambooapp"
 
 # the user to use for the remote commands
 env.user = ''

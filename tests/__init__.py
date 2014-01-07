@@ -9,11 +9,11 @@
 
 from flask.ext.testing import TestCase as Base, Twill
 
-from fbone import create_app
-from fbone.user import User, UserDetail, ADMIN, USER, ACTIVE
-from fbone.config import TestConfig
-from fbone.extensions import db
-from fbone.utils import MALE
+from bambooapp import create_app
+from bambooapp.user import User, UserDetail, ADMIN, USER, ACTIVE
+from bambooapp.config import TestConfig
+from bambooapp.extensions import db, assets
+from bambooapp.utils import MALE
 
 
 class TestCase(Base):
@@ -21,6 +21,8 @@ class TestCase(Base):
 
     def create_app(self):
         """Create and return a testing flask app."""
+
+        assets._named_bundles = {}
 
         app = create_app(TestConfig)
         self.twill = Twill(app, port=3000)
@@ -41,6 +43,7 @@ class TestCase(Base):
                     deposit=100.00,
                     location=u'Hangzhou',
                     bio=u'admin Guy is ... hmm ... just a demo guy.'))
+
         admin = User(
                 name=u'admin',
                 email=u'admin@example.com',
@@ -54,19 +57,18 @@ class TestCase(Base):
                     deposit=100.00,
                     location=u'Hangzhou',
                     bio=u'admin Guy is ... hmm ... just a admin guy.'))
+
         db.session.add(demo)
         db.session.add(admin)
         db.session.commit()
 
     def setUp(self):
         """Reset all tables before testing."""
-
         db.create_all()
         self.init_data()
 
     def tearDown(self):
         """Clean db session and drop all tables."""
-
         db.drop_all()
 
     def login(self, username, password):
@@ -75,7 +77,7 @@ class TestCase(Base):
             'password': password,
         }
         response = self.client.post('/login', data=data, follow_redirects=True)
-        assert "Hello" in response.data
+        assert "alert-success" in response.data
         return response
 
     def _logout(self):

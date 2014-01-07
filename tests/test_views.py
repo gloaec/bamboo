@@ -2,8 +2,8 @@
 
 from werkzeug.urls import url_quote
 
-from fbone.user import User
-from fbone.extensions import db, mail
+from bambooapp.user import User
+from bambooapp.extensions import db, mail
 
 from tests import TestCase
 
@@ -114,11 +114,15 @@ class TestSettings(TestCase):
 
 class TestError(TestCase):
 
-    def test_404(self):
-        response = self.client.get('/404/')
-        self.assert404(response)
-        self.assertTemplateUsed('errors/page_not_found.html')
+    #def test_404(self):
+    #    response = self.client.get('/404/')
+    #    self.assert404(response)
+    #    self.assertTemplateUsed('errors/page_not_found.html')
 
+    def test_403(self):
+        response = self.client.get('/home')
+        self.assert403(response)
+        self.assertTemplateUsed('errors/forbidden_page.html')
 
 class TestAdmin(TestCase):
 
