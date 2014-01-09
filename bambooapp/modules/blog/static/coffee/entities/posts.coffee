@@ -22,9 +22,8 @@
         msg: 'Must start with capital letter'
       ]
       content:
-        required: false
-        maxLength: 120
-        msg: 'Post is too long (120 chars maximum)'
+        maxLength: 140
+        msg: 'Post is too long (140 chars maximum)'
 
     
   class Entities.PostsCollection extends Entities.Collection

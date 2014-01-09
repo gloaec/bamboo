@@ -16,13 +16,13 @@ from .forms import SignupForm, LoginForm, RecoverPasswordForm, ReauthForm, Chang
 frontend = Blueprint('frontend', __name__)
 
 
-@frontend.route('/home')
+@frontend.route('/app')
 @frontend.route('/<path:hashbang>')
 @login_required
-def home(hashbang=None):
+def app(hashbang=None):
     if not current_user.is_authenticated():
         abort(403)
-    return render_template('home.html', user=current_user)
+    return render_template('app.html', user=current_user)
 
 
 @frontend.route('/')
@@ -30,7 +30,7 @@ def index():
     current_app.logger.debug('debug')
 
     if current_user.is_authenticated():
-        return redirect(url_for('frontend.home'))
+        return redirect(url_for('frontend.app'))
 
     page = int(request.args.get('page', 1))
     pagination = User.query.paginate(page=page, per_page=10)
@@ -56,7 +56,7 @@ def create_or_login(resp):
     user = User.query.filter_by(openid=resp.identity_url).first()
     if user and login_user(user):
         flash('Logged in', 'success')
-        return redirect(oid.get_next_url() or url_for('frontend.home'))
+        return redirect(oid.get_next_url() or url_for('frontend.app'))
     return redirect(url_for('frontend.create_profile', next=oid.get_next_url(),
             name=resp.fullname or resp.nickname, email=resp.email,
             openid=resp.identity_url))
@@ -111,7 +111,7 @@ def login():
             remember = request.form.get('remember') == 'y'
             if login_user(user, remember=remember):
                 flash(_("Logged in"), 'success')
-            return redirect(form.next.data or url_for('frontend.home'))
+            return redirect(form.next.data or url_for('frontend.app'))
         else:
             flash(_('Sorry, invalid login'), 'danger')
 

@@ -33,9 +33,8 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
         }
       ],
       content: {
-        required: false,
-        maxLength: 120,
-        msg: 'Post is too long (120 chars maximum)'
+        maxLength: 140,
+        msg: 'Post is too long (140 chars maximum)'
       }
     };
 

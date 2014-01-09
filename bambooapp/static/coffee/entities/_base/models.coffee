@@ -1,8 +1,17 @@
-@BambooApp.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@BambooApp.module "Entities", (Entities, App, Backbone, Marionette, Module, $, _) ->
 
-  _.extend Backbone.Model::, Backbone.Validation.mixin
+  #_.extend Backbone.Model::, Backbone.Validation.mixin
+  #_.extend Backbone.Model::, Backbone.AssociatedModel::
 
-  class Entities.Model extends Backbone.Model
+  class Entities.Model extends Module
+
+    @extend Backbone.Model
+    @extend Backbone.Validation
+    @extend Backbone.AssociatedModel
+
+    @include Backbone.Model
+    @include Backbone.Validation
+    @include Backbone.AssociatedModel
 
     initialize: ->
       _.extend @, new Backbone.Memento @

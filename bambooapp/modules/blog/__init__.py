@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint
+from flask import Blueprint, render_template
 
 from .post import posts
 
@@ -26,9 +26,13 @@ def create_mod(app, blueprints=None):
 def configure_routes(app):
     """ Define some routes directly pluggable to the application """
 
-    @app.route('/foo')
-    def foo():
-        return 'bar'
+    # Marionette Routes
+    @app.route('/posts')
+    @app.route('/posts/:id')
+    @app.route('/posts/:id/edit')
+    def app():
+        return render_template('app.html')
+    # facultative if using @app.route('/<path:hashbang>')
 
 
 def configure_blueprints(app, blueprints):
@@ -36,3 +40,4 @@ def configure_blueprints(app, blueprints):
 
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
+

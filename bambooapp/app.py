@@ -211,6 +211,7 @@ def configure_assets(app, modules):
                 'js/lib/backbone.js',
                 'js/lib/backbone-stickit.js',
                 'js/lib/backbone-validation.js',
+                'js/lib/backbone-associations.js',
                 'js/lib/backbone-memento.js',
                 'js/lib/backbone-marionette.js',
                 'js/lib/backbone-marionette-subrouter.js',
