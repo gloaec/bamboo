@@ -1,0 +1,6 @@
+%td
+  %a{href:"/folders/#{@id}"}
+    %i.icon-folder-close
+    %span#name
+%td
+  %p#description

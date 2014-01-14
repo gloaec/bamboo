@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # http://docs.python.org/distutils/sourcedist.html#manifest-template
 # http://docs.python.org/distutils/sourcedist.html#specifying-the-files-to-distribute
 
@@ -16,3 +17,14 @@ recursive-include fbone/translations *
 # Excluding
 recursive-exclude fbone *.pyc
 recursive-exclude tests *.pyc
+=======
+include LICENSE tests.py
+recursive-include docs *
+recursive-include bamboo/templates *
+recursive-include bamboo/alembic/templates *
+recursive-exclude bamboo/alembic/templates *.pyc
+recursive-exclude *.pyc
+recursive-exclude *.pyo
+prune docs/_build
+prune docs/_themes/.git
+>>>>>>> c1fa362d9f2c75b47e47ebdc0e8b9e79958a15ff

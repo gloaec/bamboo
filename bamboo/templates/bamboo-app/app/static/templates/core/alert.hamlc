@@ -1,0 +1,6 @@
+.alert{data: {alert: "alert"}, class: @class }
+  %a.close{href: "#", data: {dismiss: "alert"}} &times;
+  %i{class: @icon}
+  = @text
+
+

@@ -1,0 +1,58 @@
+%html
+  %head
+    %title -> Bamboo-App
+    -block css:
+      ;%link href="/static/all.css" rel="stylesheet" type="text/css"
+      -assets "all_css"
+        %link href="{{ ASSET_URL }}" rel="stylesheet" type="text/css"
+  %body data-spy="scroll" data-target=".bb-sidebar"
+    %header#header.navbar.navbar-default.navbar-fixed-top.bb-navbar role="navigation"
+      .container
+        -block header
+          .navbar-header
+            %button.navbar-toggle type="button" data-toggle="collapse" data-target=".nav-collapse-1"
+              %span.sr-only -> Toggle Navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            %a.navbar-brand href="/"
+              %i class="icon-bamboo"
+              =" Bamboo-App"
+          .collapse.navbar-collapse.nav-collapse-1
+            %ul.nav.navbar-nav
+              %li.active
+                %a href="/"
+                  %i.icon-home
+                  | Home
+              %li
+                %a href="/commands"
+                  %i.icon-terminal
+                  | Commands
+              %li
+                %a href="/folders"
+                  %i.icon-folder-close
+                  =" Folders"
+              -if g.user and g.user.getRole() == 'admin'
+                %li -> Menu Admin only
+              %li
+                %a href="/files"
+                  %i.icon-file
+                  =" Files"
+    #messages.col-md-12
+      -for category, msg in get_flashed_messages(with_categories=true)
+        %div class="alert alert-{{ category }} fade in"
+          %button.close aria-hidden="true" data-dismiss="alert" class="close" type="button" -> ×
+          =msg
+    #main-content
+      -block content
+        .loading
+
+    %footer.bb-footer role="contentinfo"
+      .container
+        .bb-social
+          Links - Copyright
+
+    -block js:
+      ;%script src="/static/all.js" type="text/javascript"
+      -assets "all_js"
+        %script src="{{ ASSET_URL }}" type="text/javascript"

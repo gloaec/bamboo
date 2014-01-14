@@ -1,0 +1,170 @@
+$navbar-default-color:             #FE008F;
+$navbar-default-bg:                #004455;
+$navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
+
+// Navbar links
+$navbar-default-link-color:                #D5F6FF;
+$navbar-default-link-hover-color:          darken($navbar-default-link-color, 10%);
+$navbar-default-link-hover-bg:             darken($navbar-default-bg, 1.5%);
+$navbar-default-link-active-color:         #FFF;
+$navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
+$navbar-default-link-disabled-color:       #ccc !default;
+$navbar-default-link-disabled-bg:          transparent !default;
+
+// Navbar brand label
+$navbar-default-brand-color:               #FFFFFF;
+$navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 10%) !default;
+$navbar-default-brand-hover-bg:            transparent !default;
+
+// Navbar toggle
+$navbar-default-toggle-hover-bg:           #ddd !default;
+$navbar-default-toggle-icon-bar-bg:        #ccc !default;
+$navbar-default-toggle-border-color:       #ddd !default;
+
+// Bamboo Header
+$bb-header-default-color:   #FFF;
+$bb-header-default-bg:      #006680;
+$bb-header-p-default-color: darken($bb-header-default-color, 10%);
+
+// Bambo Sidebar
+$bb-sidebar-default-link-color: $bb-header-default-bg;
+
+h1, h3 { position: relative; }
+
+html, body {
+    height: 100%;
+}
+
+body {
+    padding-top: 50px;
+    position: relative;
+    background: #FFF;
+}
+
+.alert {
+    margin-bottom: 0 !important;
+}
+
+#main-content:after {
+    clear: both;
+    content: " ";
+    display: table;
+}
+
+.bb-navbar .navbar-brand {
+    line-height: 16px;
+}
+
+.bb-header {
+    color: $bb-header-default-color;
+    font-size: 16px;
+    padding: 20px 15px 30px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+    background-color: $bb-header-default-bg;
+    //background-image: url('img/bb-header.svg'); 
+    background-position: top right;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 0 20px darken($bb-header-default-bg, 5%); // #005060
+}
+
+.bb-header.bb-home {
+   min-height: 100%;
+}
+
+.bb-header h1 {
+    font-family: "SansRegular";
+}
+
+.bb-header p {
+    font-family: "Mono";
+    color: $bb-header-p-default-color;
+}
+
+.bb-navbar {
+    border-color: #463265;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+//.bb-container {
+//    background-color: #FAFAFA;
+//    border-bottom: 1px solid #E5E5E5;
+//    border-top: 1px solid #FFFFFF;
+//}
+
+.bb-sidenav {
+    background-color: #F7F5FA;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.bb-sidebar {
+    position: relative;
+}
+
+.bb-sidebar.affix-bottom, 
+.bb-sidebar.affix {
+    width: 263px;
+}
+.bb-sidebar.affix {
+    position: fixed;
+    top: 50px;
+}
+
+.bb-sidebar.affix-bottom {
+    position: absolute;
+}
+
+.bb-sidebar .nav > li > a {
+    padding: 5px 20px;
+}
+
+.bb-sidebar .nav > .nav-header {
+    color: #888;
+    padding: 10px 10px 5px;
+}
+
+.bb-sidebar .nav > .active > a, 
+.bb-sidebar .nav > .active:hover > a, 
+.bb-sidebar .nav > .active:focus > a {
+    border-right: 1px solid $bb-sidebar-default-link-color;
+    color: $bb-sidebar-default-link-color;
+    font-weight: bold;
+}
+
+.bb-sidebar .nav .nav > li > a {
+    font-size: 90%;
+    padding-bottom: 3px;
+    padding-left: 30px;
+    padding-top: 3px;
+}
+
+.bb-sidebar .nav > .active > ul {
+    display: block;
+}
+.bb-sidebar .nav .nav {
+    display: none;
+    margin-bottom: 8px;
+}
+
+h1[id], h3[id] {
+    margin-top: -45px;
+    padding-top: 80px;
+}
+
+.bb-footer {
+    text-align: left;
+}
+.bb-footer {
+    border-top: 1px solid #E5E5E5;
+    color: #777777;
+    margin-top: 100px;
+    padding-bottom: 30px;
+    padding-top: 40px;
+    text-align: center;
+}

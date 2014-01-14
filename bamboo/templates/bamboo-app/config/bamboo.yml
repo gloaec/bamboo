@@ -1,0 +1,6 @@
+preferences:
+  config: yaml           # Config File Format [python, ini, conf, yaml]
+  templates: haml        # Templating technology [html, haml, haml_explicit]
+  stylesheets: sass      # Stylesheets Language [css, sass, scss]
+  scripts: coffeescript  # Scripts Language [javascript, coffeescript]
+  i18n: true             # Enable Internationalisation

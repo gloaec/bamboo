@@ -1,0 +1,16 @@
+{
+  "fonts": [
+    "/home/ghis/Workspace/bamboo-app/app/static/fonts/icons_e89e3b6f9a7dc2fe6b08500ea7779448.ttf",
+    "/home/ghis/Workspace/bamboo-app/app/static/fonts/icons_e89e3b6f9a7dc2fe6b08500ea7779448.woff",
+    "/home/ghis/Workspace/bamboo-app/app/static/fonts/icons_e89e3b6f9a7dc2fe6b08500ea7779448.eot",
+    "/home/ghis/Workspace/bamboo-app/app/static/fonts/icons_e89e3b6f9a7dc2fe6b08500ea7779448.svg"
+  ],
+  "templates": [
+    "/home/ghis/Workspace/bamboo-app/app/static/css/lib/_icons.scss"
+  ],
+  "glyphs": [
+    "pen-circle",
+    "bamboo",
+    "eole"
+  ]
+}

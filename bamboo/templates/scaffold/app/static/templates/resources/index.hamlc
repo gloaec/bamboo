@@ -1,0 +1,35 @@
+#content.bb-header
+  .container
+    %h1
+      %i.icon-list
+      Listing {{ resource.title() }}s
+    %p
+      This section lists {{ resource }}s
+
+#container.bb-container
+  .container
+    .row
+
+      .col-md-3
+        .bb-sidebar.hidden-print.affix-top{role:"complementary"}
+          %ul.nav.bb-sidenav
+            %li.active
+              %a{href:"/{{ resource }}s/new"} 
+                %i.icon-plus
+                New {{ resource.title() }}
+            %li.separator
+            %li
+              %a{href:"/back"}
+                %i.icon-reply
+                Back
+
+      .col-md-9{role:"main"}
+        .page-header
+        %table#{{ resource }}s-table.table.table-striped
+          %thead
+            %tr
+              {% for attribute in attributes.keys() %}
+              %th {{ attribute.title() }}
+              {% endfor %}
+          %tbody.{{ resource }}s 
+            /Item View Container

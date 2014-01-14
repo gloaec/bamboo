@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CHANGELOG
 
 Here you can see the full list of changes between each release.
@@ -11,3 +12,14 @@ Clean codes according to pep8.
 ## Version 0.1
 
 First public preview release.
+=======
+Flask-Bamboo Changelog
+======================
+
+Here you can see the full list of changes between each Flask-Script release.
+
+Version 0.0.1
+-------------
+
+Released on November 22, 2013.
+>>>>>>> c1fa362d9f2c75b47e47ebdc0e8b9e79958a15ff
