@@ -45,7 +45,7 @@ this.BambooApp.module("PostsModule.List", function(List, App, Backbone, Marionet
       ".updated_at": {
         observe: "updated_at",
         onGet: function(value) {
-          return "updated " + (moment(value).fromNow());
+          if (value) return "updated " + (moment(value).fromNow());
         }
       },
       ".created_at": {

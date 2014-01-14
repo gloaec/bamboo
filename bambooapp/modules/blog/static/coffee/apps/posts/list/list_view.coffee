@@ -8,6 +8,7 @@
       postsRegion:		  "#posts-region"
       paginationRegion:	"#pagination-region"
 
+
   class List.Post extends App.Views.ItemView
     template: "posts/list/_post"
 
@@ -22,7 +23,7 @@
       ".content"    : "content"
       ".updated_at" :
         observe: "updated_at"
-        onGet: (value) -> "updated #{moment(value).fromNow()}"
+        onGet: (value) -> "updated #{moment(value).fromNow()}" if value
       ".created_at" :
         observe: "created_at"
         onGet: (value) -> "created #{moment(value).fromNow()}"
@@ -38,16 +39,19 @@
     onClose: ->
       clearInterval(@timer)
 
+
   class List.Posts extends App.Views.CompositeView
     template: "posts/list/_posts"
     itemView: List.Post
     itemViewContainer: "#posts"
+
 
   class List.Results extends App.Views.ItemView
     template: "posts/list/_results"
 
     events:
       "click .new"   : -> @trigger "new:post:clicked", @collection
+
 
   class List.Pagination extends App.Views.ItemView
     template: "posts/list/_pagination"

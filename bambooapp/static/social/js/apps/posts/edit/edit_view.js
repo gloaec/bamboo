@@ -45,8 +45,7 @@ this.BambooApp.module("PostsModule.Edit", function(Edit, App, Backbone, Marionet
     };
 
     Post.prototype.onRender = function() {
-      this.stickit();
-      return this.validateit();
+      return this.stickit();
     };
 
     Post.prototype.formSubmitted = function(e) {

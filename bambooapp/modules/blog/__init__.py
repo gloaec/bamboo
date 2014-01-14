@@ -28,9 +28,8 @@ def configure_routes(app):
 
     # Marionette Routes
     @app.route('/posts')
-    @app.route('/posts/:id')
-    @app.route('/posts/:id/edit')
-    def app():
+    @app.route('/posts/<path:hashbang>')
+    def app(hashbang=None):
         return render_template('app.html')
     # facultative if using @app.route('/<path:hashbang>')
 

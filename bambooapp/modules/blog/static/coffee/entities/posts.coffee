@@ -1,18 +1,18 @@
 @BambooApp.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
-	
+
   class Entities.Post extends Entities.Model
 
     urlRoot: -> "/api/posts"
 
-    relations:
-      parent: @
-      author: Entities.User
-      #children: Entities.PostsCollection #PEUT PAS
+    relations: [
+      type: Backbone.One
+      key: 'author'
+      relatedModel: 'BambooApp.Entities.User'
+    ]
 
-    defaults: {}
-      # Defaults here ex:
-      # title: "Post title"
- 
+    defaults:
+      author: null
+
     validation:
       title: [
         required: true

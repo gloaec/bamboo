@@ -17,7 +17,7 @@ frontend = Blueprint('frontend', __name__)
 
 
 @frontend.route('/app')
-@frontend.route('/<path:hashbang>')
+#@frontend.route('/<path:hashbang>')
 @login_required
 def app(hashbang=None):
     if not current_user.is_authenticated():

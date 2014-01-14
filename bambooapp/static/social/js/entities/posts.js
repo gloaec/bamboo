@@ -15,12 +15,17 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
       return "/api/posts";
     };
 
-    Post.prototype.relations = {
-      parent: Post,
-      author: Entities.User
-    };
+    Post.prototype.relations = [
+      {
+        type: Backbone.One,
+        key: 'author',
+        relatedModel: 'BambooApp.Entities.User'
+      }
+    ];
 
-    Post.prototype.defaults = {};
+    Post.prototype.defaults = {
+      author: null
+    };
 
     Post.prototype.validation = {
       title: [

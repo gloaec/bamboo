@@ -17,7 +17,8 @@ def list_posts():
 @posts.route('',  methods=['POST'])
 def create_post():
     """ Create a new post """
-    post = Post(author=current_user, **request.json)
+    request.json['author'] = current_user
+    post = Post(**request.json)
     db.session.add(post)
     db.session.commit()
     return json.dumps(post.serialize)

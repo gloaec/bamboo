@@ -15,6 +15,18 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
       return "/api/users";
     };
 
+    User.prototype.relations = [
+      {
+        type: Backbone.Many,
+        key: 'posts',
+        relatedModel: 'BambooApp.Entities.Post'
+      }
+    ];
+
+    User.prototype.defaults = {
+      posts: []
+    };
+
     return User;
 
   })(Entities.Model);
@@ -37,7 +49,10 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
   })(Entities.Collection);
   API = {
     getUsers: function() {
-      return new Entities.UsersCollection;
+      var users;
+      users = new Entities.UsersCollection;
+      users.fetch();
+      return users;
     },
     getUser: function(id) {
       var user;

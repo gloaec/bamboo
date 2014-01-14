@@ -25,7 +25,7 @@
 
     onRender: ->
       @stickit()
-      @validateit()
+      #@validateit()
 
     formSubmitted: (e) ->
       e.preventDefault()

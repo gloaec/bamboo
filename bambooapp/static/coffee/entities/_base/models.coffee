@@ -1,22 +1,10 @@
-@BambooApp.module "Entities", (Entities, App, Backbone, Marionette, Module, $, _) ->
+@BambooApp.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
-  #_.extend Backbone.Model::, Backbone.Validation.mixin
-  #_.extend Backbone.Model::, Backbone.AssociatedModel::
+  class Entities.Model extends Backbone.Model
 
-  class Entities.Model extends Module
-
-    @extend Backbone.Model
-    @extend Backbone.Validation
-    @extend Backbone.AssociatedModel
-
-    @include Backbone.Model
-    @include Backbone.Validation
-    @include Backbone.AssociatedModel
-
-    initialize: ->
-      _.extend @, new Backbone.Memento @
-      @store()
-      super
+    @mixin 'selectable'
+    @mixin 'storable'
+    @mixin 'validable'
 
     save: (key, val, options) ->
       if not key? or _.isObject(key)
@@ -34,14 +22,14 @@
       if _.isObject data
         for key, val of data
           data[key] = new Date(val) if _(key).endsWith '_at'
-        for key, val of @relations
-          nested   = val.prototype instanceof Backbone.Collection and _.isArray(data[key])
-          nested or= val.prototype instanceof Backbone.Model and _.isObject(data[key])
-          data[key] = new val(data[key]) if nested
+          #for key, val of @relations
+          #  nested   = val.prototype instanceof Backbone.Collection and _.isArray(data[key])
+          #  nested or= val.prototype instanceof Backbone.Model and _.isObject(data[key])
+          #  data[key] = new val(data[key]) if nested
       super data
  
     toJSON: ->
       attributes = super
-      for key, val of attributes
-        attributes[key] = val.toJSON() if val instanceof Backbone.Model
+      #for key, val of attributes
+      #  attributes[key] = val.toJSON() if val instanceof Backbone.Model
       attributes

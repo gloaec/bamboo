@@ -10,6 +10,10 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
       Collection.__super__.constructor.apply(this, arguments);
     }
 
+    Collection.mixin('mutli_selectable');
+
+    Collection.mixin('single_selectable');
+
     return Collection;
 
   })(Backbone.Collection);
