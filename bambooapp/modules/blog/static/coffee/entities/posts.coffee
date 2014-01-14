@@ -1,5 +1,17 @@
 @BambooApp.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
+  class Entities.Author extends Entities.Model
+    @mixin Entities.User
+
+    relations: [
+      type: Backbone.Many
+      key: 'posts'
+      relatedModel: 'BambooApp.Entities.Post'
+    ]
+
+    defaults:
+      posts: []
+
   class Entities.Post extends Entities.Model
 
     urlRoot: -> "/api/posts"

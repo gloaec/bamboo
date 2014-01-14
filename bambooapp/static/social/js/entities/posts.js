@@ -3,6 +3,31 @@ var __hasProp = Object.prototype.hasOwnProperty,
 
 this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
   var API;
+  Entities.Author = (function(_super) {
+
+    __extends(Author, _super);
+
+    function Author() {
+      Author.__super__.constructor.apply(this, arguments);
+    }
+
+    Author.mixin(Entities.User);
+
+    Author.prototype.relations = [
+      {
+        type: Backbone.Many,
+        key: 'posts',
+        relatedModel: 'BambooApp.Entities.Post'
+      }
+    ];
+
+    Author.prototype.defaults = {
+      posts: []
+    };
+
+    return Author;
+
+  })(Entities.Model);
   Entities.Post = (function(_super) {
 
     __extends(Post, _super);

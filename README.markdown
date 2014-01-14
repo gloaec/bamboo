@@ -1,3 +1,31 @@
+Bamboo
+======
+
+## Dependencies Quick install
+
+    sudo apt-get install git fabric python-pip libmysqlclient-dev build-essential \
+      python-dev
+
+## Installation (using virtualenv)
+
+
+- `git clone https://github.com/gloaec/fbone.git && cd fbone`
+- `pip install virtualenv`
+- `fab setup`
+- `fab d`
+
+## Installation
+
+- `git clone https://github.com/gloaec/fbone.git && cd fbone`
+- `python setup.py install`
+- `python manage.py initdb`
+- `python manage.py run`
+
+
+
+
+
+
 # INTRODUCTION
 
 Fbone (Flask bone) is a [Flask](http://flask.pocoo.org) (Python microframework) template/bootstrap/boilerplate application, with best practices.

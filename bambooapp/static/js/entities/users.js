@@ -15,18 +15,6 @@ this.BambooApp.module("Entities", function(Entities, App, Backbone, Marionette, 
       return "/api/users";
     };
 
-    User.prototype.relations = [
-      {
-        type: Backbone.Many,
-        key: 'posts',
-        relatedModel: 'BambooApp.Entities.Post'
-      }
-    ];
-
-    User.prototype.defaults = {
-      posts: []
-    };
-
     return User;
 
   })(Entities.Model);

@@ -4,14 +4,14 @@
 
     urlRoot: -> "/api/users"
 
-    relations: [
-      type: Backbone.Many
-      key: 'posts'
-      relatedModel: 'BambooApp.Entities.Post'
-    ]
+    #relations: [
+    #  type: Backbone.Many
+    #  key: 'posts'
+    #  relatedModel: 'BambooApp.Entities.Post'
+    #]
 
-    defaults:
-      posts: []
+    #defaults:
+    #  posts: []
 
 
   class Entities.UsersCollection extends Entities.Collection
