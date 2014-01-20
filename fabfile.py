@@ -4,7 +4,7 @@
 
 from fabric.api import *
 
-project = "bambooapp"
+project = "bamboo"
 
 # the user to use for the remote commands
 env.user = ''
@@ -31,7 +31,7 @@ def setup():
     activate_this = "env/bin/activate_this.py"
     execfile(activate_this, dict(__file__=activate_this))
     local("python setup.py install")
-    reset()
+    #reset()
 
 
 def d():

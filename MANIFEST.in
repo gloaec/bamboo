@@ -1,18 +1,10 @@
-# http://docs.python.org/distutils/sourcedist.html#manifest-template
-# http://docs.python.org/distutils/sourcedist.html#specifying-the-files-to-distribute
-
 include LICENSE
+recursive-include docs *
+recursive-include bamboo/templates *
+recursive-include bamboo/alembic/templates *
 
-# Including
-# Python source files, test/*.py will be automatically included.
-recursive-include fbone *.py
-# Templates
-recursive-include fbone/templates *
-# Static files
-recursive-include fbone/static *
-# Translations
-recursive-include fbone/translations *
+recursive-exclude bamboo *.pyc
+recursive-exclude tests *.pyo
 
-# Excluding
-recursive-exclude fbone *.pyc
-recursive-exclude tests *.pyc
+prune docs/_build
+prune docs/_themes/.git

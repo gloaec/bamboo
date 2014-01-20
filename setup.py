@@ -2,16 +2,27 @@
 
 from setuptools import setup
 
-project = "bambooapp"
+project = "bamboo"
 
 setup(
     name=project,
-    version='0.1',
-    url='https://github.com/gloaec/bambooapp',
-    description='Bamboo (Backbone marionette Bootstrap) is a Flask (Python microframework) application boilerplate/framework',
+    version='0.0.1',
+    url='http://github.com/gloaec/bamboo',
+    license='GPLv3',
     author='Ghislain Loaec',
     author_email='gloaec@cadoles.com',
-    packages=["bambooapp"],
+    maintainer='Ghislain Loaec',
+    maintainer_email='gloaec@cadoles.com',
+    description='Flask Application Development Framework',
+    long_description=__doc__,
+    packages=[
+        'bamboo',
+        'bamboo.managers',
+        'bamboo.utils',
+        'bamboo.alembic',
+        'bamboo.alembic.ddl',
+        'bamboo.alembic.autogenerate'
+    ],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
@@ -28,7 +39,10 @@ setup(
         'Flask-Assets',
         'nose',
         'mysql-python',
-        'inflect'
+        'inflect',
+        'Mako',
+        'cssmin', 
+        'pyyaml'
     ],
     test_suite='tests',
     classifiers=[
@@ -39,5 +53,9 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries'
-    ]
+    ],
+    platforms='any',
+    entry_points = {
+      'console_scripts': [ 'bamboo = bamboo:main' ],
+    },
 )
