@@ -3,8 +3,8 @@ import os
 from .script import ScriptDirectory
 from .environment import EnvironmentContext
 from . import util, autogenerate as autogen
-from ..utils import basedir
-_basedir = basedir()
+from ..utils import appdir
+_appdir = appdir()
 
 def list_templates(config):
     """List available templates"""
@@ -40,12 +40,22 @@ def init(config, directory, template='generic'):
                 os.makedirs, versions)
 
     script = ScriptDirectory(directory)
+
     for file_ in os.listdir(template_dir):
         file_path = os.path.join(template_dir, file_)
-        #if file_ == 'alembic.ini.mako':
-        if file_ == 'database.yml.mako':
-            #config_file = os.path.abspath(config.config_file_name)
-            config_file = os.path.join(_basedir, 'config', 'database.yml')
+	# EDIT ----------------
+        if file_ == 'alembic.ini.mako':
+            config_file = os.path.abspath(config.config_file_name)
+            if os.access(config_file, os.F_OK):
+                util.msg("File %s already exists, skipping" % config_file)
+            else:
+                script._generate_template(
+                    file_path,
+                    config_file,
+                    script_location=directory
+                )
+        elif file_ == 'database.yml.mako':
+            config_file = os.path.join(_appdir, 'config', 'database.yml')
             if os.access(config_file, os.F_OK):
                 util.msg("File %s already exists, skipping" % config_file)
             else:
@@ -55,30 +65,62 @@ def init(config, directory, template='generic'):
                     script_location=directory
                 )
         elif file_ == 'seeds.py.mako':
-            #config_file = os.path.abspath(config.config_file_name)
-            seeds_file = os.path.join(_basedir, 'db', 'seeds.py')
+            seeds_file = os.path.join(_appdir, 'db', 'seeds.py')
             if os.access(seeds_file, os.F_OK):
                 util.msg("File %s already exists, skipping" % seeds_file)
             else:
                 script._generate_template(
                     file_path,
                     seeds_file,
-                    script_location=directory
+                    script_location=directory,
+		    appname=os.path.basename(_appdir)
                 )
+        elif file_ == 'env.py.mako':
+            env_file = os.path.join(_appdir, 'db', 'env.py')
+            if os.access(env_file, os.F_OK):
+                util.msg("File %s already exists, skipping" % env_file)
+            else:
+                script._generate_template(
+                    file_path,
+                    env_file,
+                    script_location=directory,
+		    appname=os.path.basename(_appdir)
+                )
+        elif file_ in ['env.py', '__init__.py']:
+            output_file = os.path.join(directory, file_)
+            script._copy_file(
+                file_path,
+                output_file
+            )
         elif any(file_.endswith(x) for x in ('.py','.pyc')): pass
-        elif file_ == 'script.py.mako': pass        
+        #elif file_ == 'script.py.mako': pass        
         elif os.path.isfile(file_path):
             output_file = os.path.join(directory, file_)
             script._copy_file(
                 file_path,
                 output_file
             )
+        #if file_ == 'alembic.ini.mako':
+        #    config_file = os.path.abspath(config.config_file_name)
+        #    if os.access(config_file, os.F_OK):
+        #        util.msg("File %s already exists, skipping" % config_file)
+        #    else:
+        #        script._generate_template(
+        #            file_path,
+        #            config_file,
+        #            script_location=directory
+        #        )
+        #elif os.path.isfile(file_path):
+        #    output_file = os.path.join(directory, file_)
+        #    script._copy_file(
+        #        file_path,
+        #        output_file
+        #    )
 
     util.msg("Please edit configuration/connection/logging "\
             "settings in %r before proceeding." % config_file)
 
-def revision(config, message=None, autogenerate=False, sql=False,
-                template_dir=None):
+def revision(config, message=None, autogenerate=False, sql=False):
     """Create a new revision file."""
 
     script = ScriptDirectory.from_config(config)

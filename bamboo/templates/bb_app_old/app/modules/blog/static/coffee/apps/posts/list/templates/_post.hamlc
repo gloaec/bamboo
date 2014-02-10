@@ -1,0 +1,20 @@
+.panel.panel-default
+  .panel-heading.clearfix
+    %a.title{href:"/posts/#{@id}"}
+    .pull-right
+      %small
+        by
+        %a{href:"/user/#{@author_id}/profile", data:{reload:true}}
+          = @author.name
+      - if @author_id == BambooApp.current_user.id
+        %a.btn.btn-xs.btn-default.edit{href:"/posts/#{@id}/edit"}
+          %i.icon-edit
+          Edit
+        %a.btn.btn-xs.btn-default.delete{href:"/posts/#{@id}/delete"}
+          %i.icon-remove
+          Delete
+  .panel-body
+    %p.content
+  .panel-footer.clearfix
+    %small.pull-left.created_at
+    %small.pull-right.updated_at 

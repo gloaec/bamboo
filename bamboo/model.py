@@ -5,14 +5,13 @@ import sys
 from datetime import datetime, date
 from flask import json
 from sqlalchemy.orm import class_mapper
-from sqlalchemy.ext.declarative import as_declarative, declared_attr
+from sqlalchemy.ext.declarative import as_declarative, declared_attr, declarative_base
 from bamboo.utils import basedir
-
-_basedir = basedir()
-sys.path.append(_basedir)
-
-from app.extensions import db
 #----------------------
+from flask.ext.sqlalchemy import SQLAlchemy, _QueryProperty, _BoundDeclarativeMeta, BaseQuery
+
+# TODO Change to class SQLAchemy(SQLAlchemy):
+db = SQLAlchemy()
 
 ___all___ = ['Base', 'Column', 'ForeignKey', 'now', 'utcnow',
             'Date', 'DateTime', 'Float', 'Integer', 'SmallInteger', 
@@ -39,6 +38,12 @@ dthandler = lambda obj: \
         if isinstance(obj, datetime) \
         or isinstance(obj, date) else None
 
+def integrate_models(cls, nbase):
+    new_bases = list(cls.__bases__) + [nbase]
+    new_dict = dict(cls.__dict__)
+    new_dict.update(dict(nbase.__dict__))
+    return type.__new__(cls.__class__, cls.__name__, tuple(new_bases), new_dict)
+
 def _class2tablename(classname):
     s1 = inflect.engine().plural_noun(classname)
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', s1)
@@ -56,14 +61,16 @@ class Collection(list):
         return json.dumps(self.to_dict())
 
 
-@as_declarative()
-class Base(object):
+#@as_declarative()
+class BaseModel(object):
     """ Define Base model with useful methods """
+    query_class = BaseQuery
+    query = None
 
     """ Default Attributes """
-    id          = Column(db.Integer, primary_key=True)
-    created_at  = Column(db.DateTime, default=datetime.utcnow)
-    updated_at  = Column(db.DateTime, onupdate=datetime.utcnow)
+    id = Column(db.Integer, primary_key=True)
+    created_at = Column(db.DateTime, default=datetime.utcnow)
+    updated_at = Column(db.DateTime, onupdate=datetime.utcnow)
 
     @declared_attr
     def __tablename__(cls):
@@ -76,7 +83,7 @@ class Base(object):
         return [c.name for c in self.__class__.__table__.columns]
 
     def __repr__(self):
-        return '<%s #%s>' % [self.__class__.__name__, self.id]
+        return '<%s #%s>' % (self.__class__.__name__, self.id)
 
     @property
     def serialize(self):
@@ -85,7 +92,7 @@ class Base(object):
         try:
             for public_key in self.__public__:
                 value = getattr(self, public_key)
-                if isinstance(value, db.Model):
+                if isinstance(value, self.__class__): # db.Model
                     obj[public_key] = value.serialize
                 elif value:
                     obj[public_key] = value
@@ -151,4 +158,10 @@ class Base(object):
         except Exception, e: print(e); db.session.rollback()
         return None
 
-#Base = declarative_base(cls=BaseModel)
+
+Base = db.Model = declarative_base(cls=BaseModel, name="Base",
+		metaclass=_BoundDeclarativeMeta)
+#Base = integrate_models(db.Model, Base)
+Base.query = _QueryProperty(db)
+
+

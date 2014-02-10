@@ -30,11 +30,10 @@ class AssetsBuild(Command):
         return []
 
     def handle(self, app, **kwargs):
-        from .application import all_css_min, all_js_min
         assets = Environment(app)
         assets.url = app.static_url_path# = os.path.join(_appdir, 'static')
-        assets.register('all_css', all_css_min)
-        assets.register('all_js', all_js_min)
+        assets.register('all_css', app.bundles['all_css_min'])
+        assets.register('all_js', app.bundles['all_js_min'])
         log = logging.getLogger('webassets')
         log.addHandler(logging.StreamHandler())
         log.setLevel(logging.DEBUG)

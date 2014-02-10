@@ -1,0 +1,9 @@
+%td
+  -if @posters
+    .thumbnail
+      %img{src: @posters.thumbnail}
+%td= @title
+%td= @year
+%td= @mpaa_rating
+%td= "#{@runtime} minutes"
+%td= @ratings.critics_score

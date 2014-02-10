@@ -1,0 +1,18 @@
+.col-md-12
+  .row
+    %section.lead
+      %h3 
+        %i.icon-plus
+        New Post
+    %form.form{role:'form'}
+      .form-group
+        %label{for:'title'} Title
+        %input#title.form-control{type:'text', placeholder:'Post Title...'}
+        %p.help-block
+      .form-group
+        %label{for:'content'} Content
+        %textarea#content.form-control{rows:10, placeholder:'Post Content...'}/
+        %p.help-block
+      %button.btn.btn-default{type:'submit'}
+        %i.icon-ok
+        Create Post

@@ -7,9 +7,8 @@ import sys
 from flask import Flask
 
 from .managers.manager import Manager
-from .utils import basedir, find_subclasses
+from .utils import basedir, appdir, find_subclasses
 # --------------------
-
 
 def main(argv=None, prog=None, **kwargs):
     _basedir = basedir()
@@ -21,48 +20,23 @@ def main(argv=None, prog=None, **kwargs):
         from .managers.commands import NewApplication
         manager = Manager(Flask(__name__), with_default_commands=False)
         manager.add_command("new", NewApplication)
-
     else:
         # Load Application context 
 
         if _basedir != os.getcwd():
             print "(in %s)" % _basedir
 
-        from .managers.databases import DBManager
-        from .managers.assets import AssetsManager
-        from .managers.generators import GenManager
-        from .managers.commands import Clean, ShowUrls, Group, Option, InvalidCommand, Command, \
-                              Server, Shell, NewApplication, NewModule
-
-        # Add Current Application to python path
-        _basedir = basedir()
+	_appdir = appdir()
+	_appname = os.path.dirname(_appdir)
+    
         sys.path.append(_basedir)
-
-        from app import create_app, db
-        from app.extensions import db, assets
-         
-        app = create_app()
-	app.template_folder = os.path.join(_basedir, 'app', 'templates')
-	app.static_folder   = os.path.join(_basedir, 'app', 'static')
-        manager = Manager(app, with_default_commands=False)
- 
-        def _make_context():
-            models_list = {}
-            #for model in find_subclasses(models):
-            #    models_list[model.__name__] = model
-            print "app = %s" % str(app)
-            print "db = %s" % str(db)
-            print "Available models: %s" % ', '.join(models_list.keys())
-            return dict(app=app, db=db, **models_list)
-
-        manager.add_command("db", DBManager(app, with_default_commands=True))
-        manager.add_command("generate", GenManager(app, with_default_commands=True))
-        manager.add_command("console", Shell(make_context=_make_context))
-        manager.add_command("server", Server())
-        manager.add_command("routes", ShowUrls())
-        manager.add_command("assets", AssetsManager(assets))
-        manager.add_command("clean", Clean())
-        manager.add_command("new", NewModule())
-
+	try:
+            bb_app_manager = __import__('manage')
+	    manager = bb_app_manager.manager
+	except Exception, e:
+	    print e
+        #execfile(os.path.abspath(os.path.join(_basedir, 'manage.py')), globals())
     manager.run()
+
+
 

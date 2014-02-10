@@ -6,7 +6,7 @@ from ..compat import string_types
 from .. import util
 from .impl import DefaultImpl
 from .base import ColumnNullable, ColumnName, ColumnDefault, \
-            ColumnType, AlterColumn
+            ColumnType, AlterColumn, format_column_name
 from .base import alter_table
 
 class MySQLImpl(DefaultImpl):
@@ -43,6 +43,16 @@ class MySQLImpl(DefaultImpl):
             )
         )
 
+    def correct_for_autogen_constraints(self, conn_unique_constraints, conn_indexes,
+                                        metadata_unique_constraints,
+                                        metadata_indexes):
+        for idx in list(conn_indexes):
+            # MySQL puts implicit indexes on FK columns, even if
+            # composite and even if MyISAM, so can't check this too easily
+            if idx.name == idx.columns.keys()[0]:
+                conn_indexes.remove(idx)
+
+
 class MySQLAlterColumn(AlterColumn):
     def __init__(self, name, column_name, schema=None,
                         newname=None,
@@ -78,7 +88,7 @@ def _mysql_doesnt_support_individual(element, compiler, **kw):
 def _mysql_alter_column(element, compiler, **kw):
     return "%s CHANGE %s %s" % (
         alter_table(compiler, element.table_name, element.schema),
-        element.column_name,
+        format_column_name(compiler, element.column_name),
         _mysql_colspec(
             compiler,
             name=element.newname,
@@ -98,7 +108,7 @@ def _render_value(compiler, expr):
 def _mysql_colspec(compiler, name, nullable, server_default, type_,
                                         autoincrement):
     spec = "%s %s %s" % (
-        name,
+        format_column_name(compiler, name),
         compiler.dialect.type_compiler.process(type_),
         "NULL" if nullable else "NOT NULL"
     )

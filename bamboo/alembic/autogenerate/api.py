@@ -187,7 +187,7 @@ def _produce_net_changes(connection, metadata, diffs, autogen_context,
 
     for s in schemas:
         tables = set(inspector.get_table_names(schema=s)).\
-                difference(['alembic_version','base'])
+                difference(['alembic_version'])
         conn_table_names.update(zip([s] * len(tables), tables))
 
     metadata_table_names = OrderedSet([(table.schema, table.name)

@@ -23,6 +23,7 @@ def _safe_int(value):
 _vers = tuple([_safe_int(x) for x in re.findall(r'(\d+|[abc]\d)', __version__)])
 sqla_07 = _vers > (0, 7, 2)
 sqla_08 = _vers >= (0, 8, 0, 'b2')
+sqla_09 = _vers >= (0, 9, 0)
 if not sqla_07:
     raise CommandError(
             "SQLAlchemy 0.7.3 or greater is required. ")
@@ -30,10 +31,17 @@ if not sqla_07:
 from sqlalchemy.util import format_argspec_plus, update_wrapper
 from sqlalchemy.util.compat import inspect_getfullargspec
 
+
 try:
-    width = int(os.environ['COLUMNS'])
-except (KeyError, ValueError):
-    width = 80
+    import fcntl
+    import termios
+    import struct
+    ioctl = fcntl.ioctl(0, termios.TIOCGWINSZ,
+                           struct.pack('HHHH', 0, 0, 0, 0))
+    _h, TERMWIDTH, _hp, _wp = struct.unpack('HHHH', ioctl)
+except (ImportError, IOError):
+    TERMWIDTH = None
+
 
 def template_to_file(template_file, dest, **kw):
     with open(dest, 'w') as f:
@@ -144,13 +152,13 @@ def coerce_resource_to_filename(fname):
     return fname
 
 def status(_statmsg, fn, *arg, **kw):
-    msg(_statmsg + "...", False)
+    msg(_statmsg + " ...", False)
     try:
         ret = fn(*arg, **kw)
-        write_outstream(sys.stdout, "done\n")
+        write_outstream(sys.stdout, " done\n")
         return ret
     except:
-        write_outstream(sys.stdout, "FAILED\n")
+        write_outstream(sys.stdout, " FAILED\n")
         raise
 
 def err(message):
@@ -171,11 +179,17 @@ def warn(msg):
     warnings.warn(msg)
 
 def msg(msg, newline=True):
-    lines = textwrap.wrap(msg, width)
-    if len(lines) > 1:
-        for line in lines[0:-1]:
-            write_outstream(sys.stdout, "  ", line, "\n")
-    write_outstream(sys.stdout, "  ", lines[-1], ("\n" if newline else ""))
+    if TERMWIDTH is None:
+        write_outstream(sys.stdout, msg)
+        if newline:
+            write_outstream(sys.stdout, "\n")
+    else:
+        # left indent output lines
+        lines = textwrap.wrap(msg, TERMWIDTH)
+        if len(lines) > 1:
+            for line in lines[0:-1]:
+                write_outstream(sys.stdout, "  ", line, "\n")
+        write_outstream(sys.stdout, "  ", lines[-1], ("\n" if newline else ""))
 
 def load_python_file(dir_, filename):
     """Load a file from the given path as a Python module."""

@@ -2,6 +2,7 @@
 import os
 import inspect
 import glob
+import types
 
 from flask import Flask, url_for, json, jsonify, g, request, Response, \
                   render_template, make_response, send_from_directory
@@ -13,9 +14,36 @@ def basedir():
     directories = cwd.split(os.sep)
     for index, directory in reversed(list(enumerate(directories))):
         path = os.path.join('/', *directories[:index+1])
-        if os.path.exists(os.path.join(path, 'app', '__init__.py')):
+        if os.path.exists(os.path.join(path, 'setup.py')):
             return path
     return None
+
+
+def appdir():
+    _basedir = basedir() 
+    if _basedir is None: return None
+    _basename = os.path.basename(_basedir)
+    _appdir = os.path.join(_basedir, _basename)
+    if os.path.exists(_appdir): 
+	return _appdir
+    for directory in os.walk(_basedir).next()[1]:
+        path = os.path.join(_basedir, directory)
+        if os.path.exists(os.path.join(path, 'config', '__init__.py')):
+            return path
+    return None
+
+
+def get_submodules(module_name):
+    modules = []
+    try:
+        module = __import__(module_name, globals(), locals(), [module_name.split('.')[-1]])
+    except ImportError:
+        return modules
+    for name in dir(module):
+        if type(getattr(module, name)) == types.ModuleType:
+            submodule = '.'.join([module_name, name])
+            modules.append(__import__(submodule, globals(), locals(), [submodule.split('.')[-1]]))
+    return modules
 
 
 def find_subclasses(module):
@@ -25,7 +53,7 @@ def find_subclasses(module):
                 if inspect.isclass(cls)
     ]))
 
-
+	    
 def import_mod(name):
     mod = __import__(name)
     components = name.split('.')

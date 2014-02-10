@@ -1,0 +1,39 @@
+@BambooApp.module "SearchApp.List", (List, App, Backbone, Marionette, $, _) ->
+
+	class List.Layout extends App.Views.Layout
+		template: "movies/search/list/list_layout"
+
+		regions:
+			panelRegion: 	"#panel-region"
+			moviesRegion:	"#movies-region"
+	
+	class List.Panel extends App.Views.ItemView
+		template: "movies/search/list/_panel"
+		
+		ui:
+			"input" : "input"
+
+		events:
+			"submit form" : "formSubmitted"
+		
+		formSubmitted: (e) ->
+			e.preventDefault()
+			val = $.trim @ui.input.val()
+			@trigger "search:submitted", val
+	
+	class List.Movie extends App.Views.ItemView
+		template: "movies/search/list/_movie"
+		tagName: "tr"
+	
+	class List.Empty extends App.Views.ItemView
+		template: "movies/search/list/_empty"
+		tagName: "tr"
+	
+	class List.Movies extends App.Views.CompositeView
+		template: "movies/search/list/_movies"
+		itemView: List.Movie
+		emptyView: List.Empty
+		itemViewContainer: "tbody"
+	
+	class List.Hero extends App.Views.ItemView
+		template: "movies/search/list/_hero"

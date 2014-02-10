@@ -64,10 +64,11 @@ class Manager(object):
     """
     help = description = usage = None
 
-    def __init__(self, app=None, with_default_commands=None, usage=None,
+    def __init__(self, app=None, db=None, with_default_commands=None, usage=None,
                  help=None, description=None, disable_argcomplete=False):
 
         self.app = app
+        self.db = db
 
         self._commands = dict()
         self._options = list()

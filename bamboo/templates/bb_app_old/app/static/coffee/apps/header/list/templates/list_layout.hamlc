@@ -1,0 +1,52 @@
+#header
+  .navbar-header
+    %button.navbar-toggle{type:"button",data:{toggle:"collapse",target:".nav-collapse-1"}}
+      %span.sr-only Toggle Navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    %a.navbar-brand{href:"/"}
+      %i.icon-bamboo
+      Bamboo-App
+  .collapse.navbar-collapse.nav-collapse-1
+    %ul.nav.navbar-nav
+      %li
+        %a{href:"/docs"}
+          %i.icon-book
+          Documentation
+
+      %li.dropdown
+        %a.dropdown-toggle{data:{toggle:"dropdown"}}
+          %i.icon-film
+          Movies
+          %b.caret
+        %ul.dropdown-menu
+          %li
+            %a{href:"/dashboard"}
+              %i.icon-home
+              Dashboard
+          %li
+            %a{href:"/search"}
+              %i.icon-search
+              Search
+          %li
+            %a{href:"/rentals"}
+              %i.icon-list-alt
+              Rentals
+      %li
+        %a{href:"/events"}
+          %i.icon-calendar
+          Events
+      %li
+        %a{href:"/posts"}
+          %i.icon-list
+          Blog
+    %ul.nav.navbar-nav.pull-right
+      %li
+        %a{href:"/settings/profile", data:{reload:true}}  
+          %i.icon-cogs
+          Settings
+      %li
+        %a{href:"/logout", data:{reload:true}} 
+          %i.icon-signout
+          Log out
