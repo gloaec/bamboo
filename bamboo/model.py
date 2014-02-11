@@ -92,7 +92,7 @@ class BaseModel(object):
         try:
             for public_key in self.__public__:
                 value = getattr(self, public_key)
-                if isinstance(value, self.__class__): # db.Model
+                if isinstance(value, BaseModel): # db.Model
                     obj[public_key] = value.serialize
                 elif value:
                     obj[public_key] = value
