@@ -123,7 +123,7 @@ class BaseModel(object):
         return db.session.query(cls).get(id)
 
     @classmethod
-    def count(cls, *attr):
+    def count(cls):
         return db.session.query(cls).count()
 
     @classmethod
