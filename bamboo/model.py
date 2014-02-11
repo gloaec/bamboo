@@ -5,6 +5,7 @@ import sys
 from datetime import datetime, date
 from flask import json
 from sqlalchemy.orm import class_mapper
+from sqlalchemy.orm.collections import InstrumentedList
 from sqlalchemy.ext.declarative import as_declarative, declared_attr, declarative_base
 from bamboo.utils import basedir
 #----------------------
@@ -92,8 +93,10 @@ class BaseModel(object):
         try:
             for public_key in self.__public__:
                 value = getattr(self, public_key)
-                if isinstance(value, self.__class__): # db.Model
+                if isinstance(value, BaseModel): # db.Model
                     obj[public_key] = value.serialize
+                elif isinstance(value, InstrumentedList):
+                    obj[public_key] = [v.serialize for v in value]
                 elif value:
                     obj[public_key] = value
         except AttributeError, e: print(e)
@@ -123,7 +126,7 @@ class BaseModel(object):
         return db.session.query(cls).get(id)
 
     @classmethod
-    def count(cls, *attr):
+    def count(cls):
         return db.session.query(cls).count()
 
     @classmethod
