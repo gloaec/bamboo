@@ -26,8 +26,8 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'Flask >= 0.10',
         'SQLAlchemy >= 0.9',
+        'Flask >= 0.10',
         'Flask-SQLAlchemy >= 0.9',
         'Flask-WTF >= 0.9',
         'Flask-Script',
