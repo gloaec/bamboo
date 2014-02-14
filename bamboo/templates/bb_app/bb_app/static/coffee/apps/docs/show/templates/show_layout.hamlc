@@ -1,4 +1,0 @@
-.row
-  #tabs-region
-  .tab-content
-    #contents-region.tab-pane.active
