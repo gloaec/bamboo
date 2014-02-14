@@ -1,8 +1,0 @@
-%td= @id
-%td= @date
-%td= @name
-%td= @description
-%td
-	%button.btn.btn-small{type:"button"}
-		%i.icon-edit
-		Edit

@@ -37,7 +37,7 @@ setup(
         'Flask-Cache',
         'Flask-Login',
         'Flask-OpenID',
-        'Flask-Assets >= 0.8',
+        'Flask-Assets == 0.8',
         'nose',
         'mysql-python',
         'inflect',

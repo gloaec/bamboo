@@ -1,7 +1,0 @@
-%td
-  -if @posters
-    .thumbnail
-      %img{src: @posters.thumbnail}
-%td= @title
-%td= @mpaa_rating
-%td= @release_dates?.theater
