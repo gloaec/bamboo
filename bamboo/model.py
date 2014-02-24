@@ -22,6 +22,7 @@ Column       = db.Column
 ForeignKey   = db.ForeignKey
 Date         = db.Date
 DateTime     = db.DateTime
+Boolean      = db.Boolean
 Float        = db.Float
 Integer      = db.Integer
 SmallInteger = db.SmallInteger
