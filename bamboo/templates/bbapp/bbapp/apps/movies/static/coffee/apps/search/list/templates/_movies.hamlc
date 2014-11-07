@@ -1,0 +1,10 @@
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th
+      %th Title
+      %th Released
+      %th Rating
+      %th Runtime
+      %th Score
+  %tbody

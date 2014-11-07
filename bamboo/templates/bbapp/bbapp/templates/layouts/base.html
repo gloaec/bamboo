@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title %}{{ page_title|default(_('Project')) }}{% endblock %} - Project</title>
+    <meta name="description" content="Fbone (Flask bone) is a Flask (Python microframework) template/bootstrap/boilerplate application.">
+    <meta name="author" content="Wilson Xu">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="Shortcut Icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+
+    {% block css %}
+        {% assets "css" %}
+            <link rel="stylesheet" href="{{ ASSET_URL }}">
+        {% endassets %}
+    {% endblock %}
+
+    {% block js_top %}
+    {% endblock %}
+</head>
+<body>
+    {% include "macros/_ask_user_to_update_ie.html" %}
+
+    <div class='bb-wrap'>
+        {% block topbar %}
+
+        <header id="header-region" class="navbar navbar-default navbar-fixed-top bb-navbar">
+            <div id="header">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button"
+                            data-toogle="collapse"
+                            data-target=".nav-collapse-1">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class='navbar-brand' href='{{ url_for('frontend.index') }}'>
+                      <span class="icon-bamboo"></span>
+                      Bamboo-App
+                    </a>
+                </div>
+                {% if current_user.is_authenticated() %}
+                <form class="navbar-form navbar-left" action="{{ url_for('frontend.search') }}" role="search">
+                    <div class="form-group">
+                        <input type='text' class="search-query form-control" name='keywords' value='{{ keywords|default('') }}' placeholder='Search' />
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <div class="collapse navbar-collapse nav-collapse-1 pull-right">
+                    <ul class="nav navbar-nav">
+                        {% if current_user.is_admin() %}
+                        <li>
+                        <a href="{{ url_for('admin.index') }}">
+                          <span class="icon-user"></span>
+                          {{ current_user.name }}
+                        </a>
+                        </li>
+                        {% else %}
+                        <li>
+                          <a href="{{ url_for('users.index') }}">
+                            <span class="icon-user"></span>
+                            {{ current_user.name }}
+                          </a>
+                        </li>
+                        {% endif %}
+                        <li>
+                          <a href="{{ url_for('settings.profile') }}">
+                            <span class="icon-cogs"></span>
+                            Settings
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ url_for('frontend.logout') }}">
+                            <span class="icon-signout"></span>
+                            Log out
+                          </a>
+                        </li>
+                    </ul>
+                </div>
+                {% else %}
+                <div class="collapse navbar-collapse nav-collapse-1 pull-right">
+                    <a class="btn btn-success navbar-btn" href="{{ url_for('frontend.signup') }}">
+                      <span class="icon-pencil"></span>
+                      Sign up
+                    </a>
+                    <ul class="nav navbar-nav">
+                      <li>
+                        <a href="{{ url_for('frontend.login') }}">
+                          <span class="icon-signin"></span>
+                          Sign in
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </header>
+        {% endblock %}
+
+        {% block flash_message %}
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                <div class="container">
+                    <div id='flash_message_container'>
+                        {% for category, msg in messages %}
+                            <div class="alert alert-{{ category }}">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                {{ msg }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endwith %}
+        {% endblock %}
+
+        <section id="main-region">
+        {% block container %}
+            <div class="container">
+
+            {% block top %}
+                {% if tabs %}
+                <div>
+                    <ul class="nav nav-tabs">
+                        {% for tab, link in tabs %}
+                        <li class="{% if active == tab %}active{% endif %}">
+                            <a href="{{ link }}">{{ tab|capitalize }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            {% endblock %}
+
+            {% block body %}
+            {% endblock %}
+
+            </div>
+        {% endblock %}
+        </section>
+        <div class="bb-push"></div>
+    </div>
+    <div id="dialog-region" class="modal fade"></div>
+    <footer id="footer-region" class="bb-footer">
+      <div class="container">
+        <p class="muted">Bamboo Application</p>
+      </div>
+    </footer>
+
+    {% block js_bottom %}
+    {% endblock %}
+
+    {% block ga %}
+      {% include "macros/_google_analytics.html" %}
+    {% endblock %}
+</body>
+</html>

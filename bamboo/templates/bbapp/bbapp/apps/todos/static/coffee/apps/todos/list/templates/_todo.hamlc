@@ -1,0 +1,6 @@
+.view
+  %input.toggle{type: "checkbox"}
+  %label
+    =@content
+  %button.destroy
+  %input.todo-edit{value: "#{@content}"}

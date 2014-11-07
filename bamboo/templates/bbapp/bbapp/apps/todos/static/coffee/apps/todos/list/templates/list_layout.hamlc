@@ -1,0 +1,10 @@
+.col-md-12
+  .row
+    .learn-bar
+      %section#todoapp.todo-app
+        %header#todos-header
+          #todos-header-region
+        %section#todo-main{style: "display: block;"}
+          #todos-main-region
+        %footer#todo-footer{style: "display: block;"}
+          #todos-footer-region

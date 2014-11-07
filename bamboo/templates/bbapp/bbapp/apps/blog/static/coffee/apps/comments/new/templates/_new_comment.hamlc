@@ -1,0 +1,16 @@
+%section.lead
+  %h3 
+    %i.icon-plus
+    New comment on this post
+%form.form{role:'form'}
+  .form-group
+    %label{for:'title'} Title
+    %input#title.form-control{type:'text', placeholder:'Comment title...'}
+    %p.help-block
+  .form-group
+    %label{for:'content'} Content
+    %textarea#content.form-control{rows:10, placeholder:'Comment content...'}/
+    %p.help-block
+  %button.btn.btn-default{type:'submit'}
+    %i.icon-ok
+    Create new comment on this post

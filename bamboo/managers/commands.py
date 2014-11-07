@@ -539,18 +539,18 @@ class NewApplication(Command):
     def run(self, appname, use_haml, use_coffeescript, use_sass, use_debugger):
         """ Generates an app skeletor from template """
         print "Supposed to generate application"
-        _pkgdir = os.path.abspath(os.path.dirname(__file__))
+        _pkgdir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         _appdir = os.path.abspath(os.path.join(os.getcwd(), appname))
-        try:
-            os.makedirs(_appdir)
-        except OSError as exc:
-            if exc.errno == errno.EEXIST and os.path.isdir(path):
-                pass
-            else: raise
-        pass
+        os.makedirs(_appdir)
+        #try:
+        #    os.makedirs(_appdir)
+        #except OSError as exc:
+        #    if exc.errno == errno.EEXIST and os.path.isdir(path):
+        #        pass
+        #    else: raise
         import distutils.core
         distutils.dir_util.copy_tree(
-                os.path.join(_pkgdir, 'templates', 'bamboo-app'),
+                os.path.join(_pkgdir, 'templates', 'bbapp'),
                 os.path.join(_appdir))
         
 

@@ -1,0 +1,17 @@
+%span#todo-count
+  %strong
+    =@itemsLeft
+  items left
+%ul#filters
+  %li
+    %a{href:"/todos", class: "selected" if /todos$/.test(document.location)}
+      All
+  %li
+    %a{href:"/todos/active", class: "selected" if /active$/.test(document.location)}
+      Active
+  %li
+    %a{href:"/todos/completed", class: "selected" if /completed$/.test(document.location)}
+      Completed
+-if @completedCount > 0
+  %button#clear-completed
+    ="Clear completed (#{@completedCount})"

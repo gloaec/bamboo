@@ -1,0 +1,14 @@
+*.pyc
+*.db
+*.swp
+*#*#
+*.#*
+*~
+bbapp/static/.cache/*
+!bbapp/static/.cache/.keep
+bbapp.egg-info/
+bbapp/db/versions/
+bbapp/static/blog/js/
+bbapp/static/movies/
+bbapp/static/todos_app/
+
